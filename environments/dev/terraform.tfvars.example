@@ -1,0 +1,59 @@
+region       = "ap-northeast-2"
+project_name = "pantry-mate"
+environment  = "dev"
+
+vpc_cidr = "10.0.0.0/16"
+
+availability_zones = [
+  "ap-northeast-2a",
+  "ap-northeast-2c",
+]
+
+public_subnet_cidrs = [
+  "10.0.1.0/24",
+  "10.0.2.0/24",
+]
+
+private_subnet_cidrs = [
+  "10.0.11.0/24",
+  "10.0.12.0/24",
+]
+
+nat_instance_type = "t3.nano"
+
+eks_cluster_name           = "pantry-mate-dev-eks"
+eks_kubernetes_version     = "1.35"
+eks_endpoint_public_access = false # true : 로컬 kubectl 접근을 위해 public endpoint 임시 허용 / 접근 cidr은 개발자 공인 ip로 제한
+eks_public_access_cidrs    = [""/32] # 로컬 개발 시 curl ifconfig.me해서 나온 "아이피" 입력하기
+
+manage_node_instance_type = "t3.large"
+manage_node_capacity_type = "ON_DEMAND"
+manage_node_min_size      = 1
+manage_node_max_size      = 1
+manage_node_desired_size  = 1
+manage_node_labels = {
+  role = "manage"
+}
+
+worker_node_instance_type = "t3.medium"
+worker_node_capacity_type = "SPOT"
+worker_node_min_size      = 3
+worker_node_max_size      = 3
+worker_node_desired_size  = 3
+worker_node_labels = {
+  role = "worker"
+}
+
+gpu_node_instance_type = "g4dn.xlarge"
+gpu_node_min_size      = 0
+gpu_node_max_size      = 1
+gpu_node_desired_size  = 0
+
+ecr_repository_names = [
+  "pantry-mate-dev-frontend",
+  "pantry-mate-dev-backend",
+  "pantry-mate-dev-ai",
+]
+
+s3_versioning_enabled         = true
+cloudwatch_log_retention_days = 14
