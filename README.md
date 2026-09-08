@@ -1,4 +1,16 @@
-# Welcome to your organization's demo respository
-This code repository (or "repo") is designed to demonstrate the best GitHub has to offer with the least amount of noise.
+### IaC
 
-The repo includes an `index.html` file (so it can render a web page), two GitHub Actions workflows, and a CSS stylesheet dependency.
+Pantry Mate 인프라는 AWS EKS와 VMware 기반의 Hybrid Cloud 구조로 구성합니다
+
+- AWS EKs
+- Vmware
+- Terraform
+- Kubernetes
+- Tailscale
+- Prometheus / Grafana / Loki / Tempo
+
+### Environments
+
+- dev
+- prod
+ 
