@@ -2,6 +2,15 @@
 *.tfstate
 *.tfstate.*
 *.tfplan
+tfplan
+backend.hcl
+bootstrap/terraform.tfvars
+environments/dev/foundation/terraform.tfvars
+environments/dev/runtime/terraform.tfvars
+environments/prod/foundation/terraform.tfvars
+environments/prod/runtime/terraform.tfvars
+
+# Legacy single-root files retained locally only until structure review is complete.
 environments/dev/terraform.tfvars
 environments/prod/terraform.tfvars
 crash.log

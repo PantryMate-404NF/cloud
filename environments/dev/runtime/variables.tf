@@ -1,5 +1,5 @@
 variable "region" {
-  description = "AWS region in which resources are managed."
+  description = "AWS region in which Runtime resources are managed."
   type        = string
   default     = "ap-northeast-2"
 }
@@ -21,29 +21,20 @@ variable "environment" {
   default     = "dev"
 
   validation {
-    condition     = can(regex("^[a-z0-9-]+$", var.environment))
-    error_message = "environment may contain only lowercase letters, numbers, and hyphens."
+    condition     = var.environment == "dev"
+    error_message = "This root module manages only the dev environment."
   }
 }
 
-variable "vpc_cidr" {
-  description = "IPv4 CIDR block for the DEV VPC."
+variable "terraform_state_bucket_name" {
+  description = "Bootstrap S3 bucket containing the Foundation State."
   type        = string
 }
 
-variable "availability_zones" {
-  description = "Availability zones used by the environment."
-  type        = list(string)
-}
-
-variable "public_subnet_cidrs" {
-  description = "Public subnet CIDRs ordered to match availability_zones."
-  type        = list(string)
-}
-
-variable "private_subnet_cidrs" {
-  description = "Private subnet CIDRs ordered to match availability_zones."
-  type        = list(string)
+variable "foundation_state_key" {
+  description = "S3 object key for the DEV Foundation State."
+  type        = string
+  default     = "dev/foundation/terraform.tfstate"
 }
 
 variable "nat_instance_type" {
@@ -219,7 +210,7 @@ variable "cloudwatch_log_retention_days" {
 }
 
 variable "extra_tags" {
-  description = "Additional common tags applied to resources."
+  description = "Additional common tags applied to Runtime resources."
   type        = map(string)
   default     = {}
 }

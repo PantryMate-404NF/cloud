@@ -1,0 +1,46 @@
+region       = "ap-northeast-2"
+project_name = "pantry-mate"
+environment  = "dev"
+
+vpc_cidr = "10.0.0.0/16"
+
+availability_zones = [
+  "ap-northeast-2a",
+  "ap-northeast-2c",
+]
+
+public_subnet_cidrs = [
+  "10.0.1.0/24",
+  "10.0.2.0/24",
+]
+
+private_subnet_cidrs = [
+  "10.0.11.0/24",
+  "10.0.12.0/24",
+]
+
+# k8s 서브넷 검색 태그를 유지하기 위해 network 모듈에서 사용됩니다
+eks_cluster_name = "pantry-mate-dev-eks"
+
+rds_identifier              = "pantry-mate-dev-postgres"
+rds_engine_version          = "17.11"
+rds_instance_class          = "db.t4g.medium"
+rds_allocated_storage       = 20
+rds_max_allocated_storage   = 100
+rds_storage_type            = "gp3"
+rds_database_name           = "pantry_mate"
+rds_master_username         = "pantryadmin"
+rds_multi_az                = false
+rds_availability_zone       = "ap-northeast-2a"
+rds_backup_retention_period = 1
+rds_deletion_protection     = false
+rds_skip_final_snapshot     = true
+
+# rds_skip_final_snapshot이 false인 경우에만 필요합니다
+rds_final_snapshot_identifier = null
+
+# RDS에서 생성된 비밀번호는 secrets manager에 저장되고 관리됩니다
+# 여기서 평문 비밀번호를 작성하지 않아요
+rds_master_user_secret_kms_key_id = null
+
+extra_tags = {}

@@ -1,0 +1,6 @@
+region       = "ap-northeast-2"
+project_name = "pantry-mate"
+environment  = "prod"
+extra_tags   = {}
+
+# TODO: Add approved PROD Network and RDS inputs before enabling resources.

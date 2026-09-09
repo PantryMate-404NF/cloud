@@ -1,0 +1,8 @@
+region = "ap-northeast-2"
+
+# Replace this with a globally unique lowercase bucket name.
+terraform_state_bucket_name = "pantry-mate-tstate-여러개의 숫자-apne2"
+
+extra_tags = {
+  Environment = "bootstrap"
+}
