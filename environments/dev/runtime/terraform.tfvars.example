@@ -2,29 +2,18 @@ region       = "ap-northeast-2"
 project_name = "pantry-mate"
 environment  = "dev"
 
-vpc_cidr = "10.0.0.0/16"
-
-availability_zones = [
-  "ap-northeast-2a",
-  "ap-northeast-2c",
-]
-
-public_subnet_cidrs = [
-  "10.0.1.0/24",
-  "10.0.2.0/24",
-]
-
-private_subnet_cidrs = [
-  "10.0.11.0/24",
-  "10.0.12.0/24",
-]
+terraform_state_bucket_name = "CHANGE_ME_TO_BOOTSTRAP_BUCKET_NAME"
+foundation_state_key        = "dev/foundation/terraform.tfstate"
 
 nat_instance_type = "t3.nano"
 
 eks_cluster_name           = "pantry-mate-dev-eks"
 eks_kubernetes_version     = "1.35"
-eks_endpoint_public_access = false # true : 로컬 kubectl 접근을 위해 public endpoint 임시 허용 / 접근 cidr은 개발자 공인 ip로 제한
-eks_public_access_cidrs    = [""/32] # 로컬 개발 시 curl ifconfig.me해서 나온 "아이피" 입력하기
+eks_endpoint_public_access = false
+# 위에 eks_endpoint_public_access true로 바꾸면 아래 cidr을 본인 아이피 입력해서 로컬로 진입 가능합니다
+# ifconfig.me
+# 0.0.0.0/0은 안됩니다
+eks_public_access_cidrs = ["203.0.113.10/32"]
 
 manage_node_instance_type = "t3.large"
 manage_node_capacity_type = "ON_DEMAND"
@@ -57,3 +46,4 @@ ecr_repository_names = [
 
 s3_versioning_enabled         = true
 cloudwatch_log_retention_days = 14
+extra_tags                    = {}

@@ -1,16 +1,16 @@
 output "vpc_id" {
-  description = "DEV VPC ID."
-  value       = module.network.vpc_id
+  description = "DEV VPC ID read from Foundation State."
+  value       = data.terraform_remote_state.foundation.outputs.vpc_id
 }
 
 output "public_subnet_ids" {
-  description = "DEV public subnet IDs."
-  value       = module.network.public_subnet_ids
+  description = "DEV public subnet IDs read from Foundation State."
+  value       = data.terraform_remote_state.foundation.outputs.public_subnet_ids
 }
 
 output "private_subnet_ids" {
-  description = "DEV private subnet IDs."
-  value       = module.network.private_subnet_ids
+  description = "DEV private subnet IDs read from Foundation State."
+  value       = data.terraform_remote_state.foundation.outputs.private_subnet_ids
 }
 
 output "nat_instance_ids" {
