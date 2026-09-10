@@ -43,6 +43,32 @@ variable "nat_instance_type" {
   default     = "t3.nano"
 }
 
+variable "ec2_key_name" {
+  description = "Name of an existing EC2 Key Pair used for SSH access to Runtime EC2 instances."
+  type        = string
+
+  validation {
+    condition     = length(trimspace(var.ec2_key_name)) > 0
+    error_message = "ec2_key_name must be the non-empty name of an existing EC2 Key Pair."
+  }
+}
+
+variable "ssh_allowed_cidrs" {
+  description = "Developer public IPv4 /32 CIDRs allowed to SSH to the NAT bastion instances."
+  type        = list(string)
+
+  validation {
+    condition = (
+      length(var.ssh_allowed_cidrs) > 0 &&
+      alltrue([
+        for cidr in var.ssh_allowed_cidrs :
+        can(cidrnetmask(cidr)) && endswith(cidr, "/32")
+      ])
+    )
+    error_message = "ssh_allowed_cidrs must contain at least one valid IPv4 /32 CIDR."
+  }
+}
+
 variable "eks_cluster_name" {
   description = "Name of the DEV EKS cluster."
   type        = string

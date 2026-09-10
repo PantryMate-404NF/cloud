@@ -37,10 +37,14 @@ check "gpu_node_scaling" {
 module "eks" {
   source = "../../../modules/eks"
 
-  cluster_name               = var.eks_cluster_name
-  kubernetes_version         = var.eks_kubernetes_version
-  cluster_role_arn           = module.iam.cluster_role_arn
-  node_role_arn              = module.iam.node_role_arn
+  cluster_name       = var.eks_cluster_name
+  kubernetes_version = var.eks_kubernetes_version
+  cluster_role_arn   = module.iam.cluster_role_arn
+  node_role_arn      = module.iam.node_role_arn
+  ssh_key_name       = var.ec2_key_name
+  ssh_source_security_group_ids = [
+    module.nat_instance.security_group_id,
+  ]
   private_subnet_ids         = data.terraform_remote_state.foundation.outputs.private_subnet_ids
   endpoint_public_access     = var.eks_endpoint_public_access
   public_access_cidrs        = var.eks_public_access_cidrs

@@ -255,3 +255,15 @@ Runtime apply
 EKS / Application 테스트
 순서로 실행합니다
 
+# 패치 1
+## 접속 방법
+boankey.pem을 들고 .ssh 폴더에 집어넣습니다
+
+terraform output에서 나온 nat ip와
+kubectl get nodes -o wide 에서 나온 internal ip로
+
+ssh -i ~/.ssh/boankey.pem \
+  -o "ProxyCommand=ssh -i ~/.ssh/boankey.pem -W %h:%p ec2-user@nat-ip 2a" \
+  ec2-user@node 2a
+
+여기에 기입해서 접속합니다

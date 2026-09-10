@@ -18,6 +18,16 @@ variable "node_role_arn" {
   type        = string
 }
 
+variable "ssh_key_name" {
+  description = "Name of the existing EC2 Key Pair used for managed node SSH access."
+  type        = string
+}
+
+variable "ssh_source_security_group_ids" {
+  description = "Security group IDs allowed to SSH to the managed nodes."
+  type        = set(string)
+}
+
 variable "private_subnet_ids" {
   description = "Private subnet IDs used by the control plane and node groups."
   type        = list(string)
@@ -100,4 +110,3 @@ variable "common_tags" {
   type        = map(string)
   default     = {}
 }
-

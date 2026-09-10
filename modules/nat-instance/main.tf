@@ -25,6 +25,17 @@ resource "aws_vpc_security_group_ingress_rule" "private_subnets" {
   ip_protocol       = "-1"
 }
 
+resource "aws_vpc_security_group_ingress_rule" "ssh" {
+  for_each = var.ssh_allowed_cidrs
+
+  security_group_id = aws_security_group.this.id
+  description       = "Allow SSH from developer CIDR ${each.value}"
+  cidr_ipv4         = each.value
+  from_port         = 22
+  ip_protocol       = "tcp"
+  to_port           = 22
+}
+
 resource "aws_vpc_security_group_egress_rule" "all_ipv4" {
   security_group_id = aws_security_group.this.id
   description       = "Allow forwarded traffic to the internet"
@@ -37,6 +48,7 @@ resource "aws_instance" "this" {
 
   ami                         = data.aws_ssm_parameter.al2023_ami.value
   instance_type               = var.instance_type
+  key_name                    = var.ssh_key_name
   subnet_id                   = each.value
   vpc_security_group_ids      = [aws_security_group.this.id]
   associate_public_ip_address = true
@@ -96,4 +108,3 @@ resource "aws_route" "private_internet" {
 
   depends_on = [aws_eip.this]
 }
-

@@ -26,7 +26,16 @@ variable "private_subnet_cidrs" {
 variable "instance_type" {
   description = "EC2 instance type for each NAT instance."
   type        = string
-  default     = "t3.nano"
+}
+
+variable "ssh_key_name" {
+  description = "Name of the existing EC2 Key Pair used for SSH access."
+  type        = string
+}
+
+variable "ssh_allowed_cidrs" {
+  description = "IPv4 /32 CIDRs allowed to SSH to the NAT instances."
+  type        = set(string)
 }
 
 variable "ami_ssm_parameter_name" {
@@ -46,4 +55,3 @@ variable "common_tags" {
   type        = map(string)
   default     = {}
 }
-
