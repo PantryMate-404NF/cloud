@@ -66,7 +66,7 @@ resource "aws_iam_role_policy" "lambda_ssm" {
 
 resource "aws_security_group" "lambda" {
   name        = "${var.name_prefix}-webhook-relay-sg"
-  description = "GitHub webhook relay Lambda — allows outbound to Jenkins NLB and SSM"
+  description = "GitHub webhook relay Lambda - allows outbound to Jenkins NLB and SSM"
   vpc_id      = var.vpc_id
 
   # Jenkins NLB (port 8080)

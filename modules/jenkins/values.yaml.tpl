@@ -1,6 +1,7 @@
 controller:
   # Jenkins LTS 최신 이미지
-  tag: "2.492.3-lts-jdk21"
+  image:
+    tag: "2.504.3-lts-jdk21"
 
   # ── 서비스: 내부 NLB ──────────────────────────────────────────────────────
   # Lambda webhook relay가 VPC 내부에서 이 NLB를 통해 Jenkins에 접근합니다.

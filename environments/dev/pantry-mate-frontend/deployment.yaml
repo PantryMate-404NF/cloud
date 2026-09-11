@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pantry-mate-frontend
+  namespace: app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: pantry-mate-frontend
+  template:
+    metadata:
+      labels:
+        app: pantry-mate-frontend
+    spec:
+      nodeSelector:
+        role: worker
+      containers:
+        - name: frontend
+          # Jenkins가 이 줄의 태그를 커밋SHA로 교체합니다
+          image: <AWS_ACCOUNT_ID>.dkr.ecr.ap-northeast-2.amazonaws.com/pantry-mate-dev-frontend:latest
+          ports:
+            - containerPort: 3000
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 30
+            periodSeconds: 10
