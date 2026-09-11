@@ -176,16 +176,16 @@ resource "helm_release" "jenkins" {
 
   values = [
     templatefile("${path.module}/values.yaml.tpl", {
-      jenkins_role_arn    = aws_iam_role.jenkins.arn
-      namespace           = var.namespace
-      eks_cluster_name    = var.eks_cluster_name
-      name_prefix         = var.name_prefix
-      manage_node_label   = var.manage_node_label
-      worker_node_label   = var.worker_node_label
-      github_org          = var.github_org
-      frontend_repo_name  = var.frontend_repo_name
-      backend_repo_name   = var.backend_repo_name
-      github_api_token    = var.github_api_token
+      jenkins_role_arn      = aws_iam_role.jenkins.arn
+      namespace             = var.namespace
+      eks_cluster_name      = var.eks_cluster_name
+      name_prefix           = var.name_prefix
+      manage_node_label     = var.manage_node_label
+      worker_node_label     = var.worker_node_label
+      github_org            = var.github_org
+      frontend_repo_name    = var.frontend_repo_name
+      backend_repo_name     = var.backend_repo_name
+      github_api_token      = var.github_api_token
       github_webhook_secret = var.github_webhook_secret
     })
   ]

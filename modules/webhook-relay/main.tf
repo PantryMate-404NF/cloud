@@ -125,8 +125,8 @@ resource "aws_lambda_function" "webhook_relay" {
 
   environment {
     variables = {
-      JENKINS_URL                  = var.jenkins_internal_url
-      GITHUB_WEBHOOK_SECRET_PARAM  = var.github_webhook_secret_ssm_name
+      JENKINS_URL                 = var.jenkins_internal_url
+      GITHUB_WEBHOOK_SECRET_PARAM = var.github_webhook_secret_ssm_name
     }
   }
 
