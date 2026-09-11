@@ -240,3 +240,38 @@ variable "extra_tags" {
   type        = map(string)
   default     = {}
 }
+
+# ── Jenkins CI/CD ─────────────────────────────────────────────────────────────
+
+variable "jenkins_admin_password" {
+  description = "Jenkins admin 계정 비밀번호."
+  type        = string
+  sensitive   = true
+}
+
+variable "github_webhook_secret" {
+  description = "GitHub webhook 페이로드 서명 검증에 사용할 공유 시크릿 (HMAC-SHA256)."
+  type        = string
+  sensitive   = true
+}
+
+variable "github_api_token" {
+  description = "Jenkins가 GitHub 레포지토리 클론 및 API 호출에 사용할 Personal Access Token."
+  type        = string
+  sensitive   = true
+}
+
+variable "github_org" {
+  description = "소스 레포지토리를 보유한 GitHub 조직명 또는 계정명."
+  type        = string
+}
+
+variable "frontend_repo_name" {
+  description = "프론트엔드 서비스의 GitHub 레포지토리 이름."
+  type        = string
+}
+
+variable "backend_repo_name" {
+  description = "백엔드 서비스의 GitHub 레포지토리 이름."
+  type        = string
+}
