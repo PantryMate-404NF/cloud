@@ -21,6 +21,9 @@ jobs:
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.15.0
+      
+      - name: Setup TFLint
+        uses: terraform-linters/setup-tflint@v4
 
       - name: Terraform Format Check
         run: terraform fmt -check -recursive
@@ -55,3 +58,13 @@ jobs:
 
             rm -f "$dir/ci_backend_override.tf"
           done
+
+      - name: TFLint Init
+        run: tflint --init
+
+      - name: TFLint
+        run: |
+          tflint \
+            --recursive \
+            --config "$(pwd)/.tflint.hcl"
+            
