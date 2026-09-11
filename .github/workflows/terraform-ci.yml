@@ -26,11 +26,11 @@ jobs:
           set -e
 
           for dir in \
-            cloud/bootstrap \
-            cloud/environments/dev/foundation \
-            cloud/environments/dev/runtime \
-            cloud/environmnets/prod/foundation \
-            cloud/environments/prod/runtime \
+            bootstrap \
+            environments/dev/foundation \
+            environments/dev/runtime \
+            environmnets/prod/foundation \
+            environments/prod/runtime \
           do
             echo "validation for $dir"
             terraform -chdir="$dir" init -backend=false
