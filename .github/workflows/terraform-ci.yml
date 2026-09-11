@@ -3,8 +3,8 @@ name: terraform ci
 on:
   pull_request:
     paths-ignore:
-      - 'gitops/'
-      - 'docs/'
+      - 'gitops/**'
+      - 'docs/**'
       
 permissions:
   contents: read
@@ -77,6 +77,23 @@ jobs:
           severity: HIGH,CRITICAL
           exit-code: '0'
 
+      - name: Debug OIDC Claims
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const token = await core.getIDToken('sts.amazonaws.com');
+            const payload = JSON.parse(
+              Buffer.from(token.split('.')[1], 'base64url').toString()
+            );
+
+            console.log(JSON.stringify({
+              sub: payload.sub,
+              aud: payload.aud,
+              repository: payload.repository,
+              ref: payload.ref,
+              event_name: payload.event_name
+            }, null, 2));
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -92,10 +109,10 @@ jobs:
             -backend-config="key=dev/foundation/terraform.tfstate" \
             -backend-config="region=ap-northeast-2"
 
-      - name: Terraform plan - dev foundation
+     - name: Terraform plan - dev foundation
         run: |
           terraform -chdir=environments/dev/foundation plan \
             -var-file=terraform.tfvars.example \
             -input=false \
-            -lock=false \ 
+            -lock=false \
             -no-color
