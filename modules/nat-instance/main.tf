@@ -1,5 +1,24 @@
-data "aws_ssm_parameter" "al2023_ami" {
+data "aws_ssm_parameter" "ubuntu_ami" {
   name = var.ami_ssm_parameter_name
+}
+
+data "aws_ami" "ubuntu" {
+  owners = [var.ami_owner_id]
+
+  filter {
+    name   = "image-id"
+    values = [data.aws_ssm_parameter.ubuntu_ami.value]
+  }
+
+  filter {
+    name   = "architecture"
+    values = ["x86_64"]
+  }
+
+  filter {
+    name   = "state"
+    values = ["available"]
+  }
 }
 
 resource "aws_security_group" "this" {
@@ -46,7 +65,7 @@ resource "aws_vpc_security_group_egress_rule" "all_ipv4" {
 resource "aws_instance" "this" {
   for_each = var.public_subnet_ids_by_az
 
-  ami                         = data.aws_ssm_parameter.al2023_ami.value
+  ami                         = data.aws_ami.ubuntu.id
   instance_type               = var.instance_type
   key_name                    = var.ssh_key_name
   subnet_id                   = each.value
@@ -70,16 +89,21 @@ resource "aws_instance" "this" {
     #!/bin/bash
     set -euxo pipefail
 
-    dnf install -y iptables-services
+    export DEBIAN_FRONTEND=noninteractive
+
+    apt-get update
+    apt-get install -y iptables iptables-persistent
 
     printf 'net.ipv4.ip_forward=1\n' > /etc/sysctl.d/99-nat-instance.conf
     sysctl --system
 
     PRIMARY_INTERFACE="$(ip route show default | awk '/default/ {print $5; exit}')"
-    iptables -t nat -A POSTROUTING -o "$PRIMARY_INTERFACE" -j MASQUERADE
+    iptables -t nat -C POSTROUTING -o "$PRIMARY_INTERFACE" -j MASQUERADE 2>/dev/null || \
+      iptables -t nat -A POSTROUTING -o "$PRIMARY_INTERFACE" -j MASQUERADE
     iptables -P FORWARD ACCEPT
-    service iptables save
-    systemctl enable --now iptables
+
+    netfilter-persistent save
+    systemctl enable --now netfilter-persistent
   EOT
 
   tags = merge(var.common_tags, {

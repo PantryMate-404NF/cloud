@@ -1,0 +1,105 @@
+#!/bin/bash
+set -euxo pipefail
+
+export DEBIAN_FRONTEND=noninteractive
+
+/etc/eks/bootstrap.sh "${cluster_name}" \
+  --container-runtime containerd
+
+cat >/usr/local/sbin/setup-nvidia.sh <<'EOF'
+#!/bin/bash
+set -euxo pipefail
+
+export DEBIAN_FRONTEND=noninteractive
+
+STATE_DIR="/var/lib/pantry-mate"
+DRIVER_MARKER="$STATE_DIR/nvidia-driver-installed"
+DONE_MARKER="$STATE_DIR/nvidia-setup.done"
+
+mkdir -p "$STATE_DIR"
+
+if [ -f "$DONE_MARKER" ]; then
+  echo "NVIDIA setup already completed. Exiting."
+  exit 0
+fi
+
+if ! nvidia-smi >/dev/null 2>&1; then
+  if [ -f "$DRIVER_MARKER" ]; then
+    echo "NVIDIA driver was installed, but nvidia-smi still fails after reboot."
+    exit 1
+  fi
+
+  echo "Installing NVIDIA driver..."
+
+  apt-get update
+  apt-get install -y --no-install-recommends \
+    ca-certificates \
+    curl \
+    gnupg2 \
+    ubuntu-drivers-common
+
+  ubuntu-drivers --gpgpu install
+
+  touch "$DRIVER_MARKER"
+
+  echo "NVIDIA driver installed. Rebooting node ..."
+
+  sync
+  systemctl reboot
+  exit 0
+fi
+
+echo "NVIDIA driver is working"
+
+if ! dpkg-query -W -f='$${Status}' nvidia-container-toolkit \
+    2>/dev/null | grep -q "install ok installed"; then
+
+  echo "Installing NVIDIA Container Toolkit..."
+
+  curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey \
+    | gpg --dearmor --yes \
+    -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
+
+  curl -fsSL \
+    https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list \
+    | sed \
+      's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' \
+    > /etc/apt/sources.list.d/nvidia-container-toolkit.list
+
+  apt-get update
+  apt-get install -y nvidia-container-toolkit
+fi
+
+nvidia-ctk runtime configure --runtime=containerd
+systemctl restart containerd
+
+nvidia-smi
+
+touch "$DONE_MARKER"
+
+echo "NVIDIA GPU setup completed successfully."
+
+systemctl disable setup-nvidia.service || true
+EOF
+
+chmod +x /usr/local/sbin/setup-nvidia.sh
+
+cat >/etc/systemd/system/setup-nvidia.service <<'EOF'
+[Unit]
+Description=Configure NVIDIA GPU driver and container runtime
+After=network-online.target kubelet.service
+Wants=network-online.target
+ConditionPathExists=!/var/lib/pantry-mate/nvidia-setup.done
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/setup-nvidia.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+systemctl daemon-reload
+systemctl enable setup-nvidia.service
+systemctl start --no-block setup-nvidia.service

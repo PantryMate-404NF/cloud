@@ -39,9 +39,15 @@ variable "ssh_allowed_cidrs" {
 }
 
 variable "ami_ssm_parameter_name" {
-  description = "Public SSM parameter that resolves to the current Amazon Linux 2023 AMI."
+  description = "Canonical public SSM parameter that resolves to the current Ubuntu 24.04 LTS amd64 AMI."
   type        = string
-  default     = "/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-x86_64"
+  default     = "/aws/service/canonical/ubuntu/server/noble/stable/current/amd64/hvm/ebs-gp3/ami-id"
+}
+
+variable "ami_owner_id" {
+  description = "AWS account ID that must own the resolved Ubuntu AMI."
+  type        = string
+  default     = "099720109477"
 }
 
 variable "root_volume_size" {

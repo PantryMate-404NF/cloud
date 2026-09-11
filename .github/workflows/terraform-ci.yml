@@ -1,0 +1,38 @@
+name: terraform ci
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        users: actions/checkout@v4
+
+      - name: Setup Terraform
+        users: hashicorp/setup-terraform@v3
+
+      - name: Terraform Format Check
+        working-directory: cloud
+        run: terraform fmt -check -recursive
+
+      - name: Terraform Vaildate
+        run: |
+          set -e
+
+          for dir in \
+            cloud/bootstrap \
+            cloud/environments/dev/foundation \
+            cloud/environments/dev/runtime \
+            cloud/environmnets/prod/foundation \
+            cloud/environments/prod/runtime \
+          do
+            echo "validation for $dir"
+            terraform -chdir="$dir" init -backend=false
+            terraform -chdir="$dir" validate
+          done

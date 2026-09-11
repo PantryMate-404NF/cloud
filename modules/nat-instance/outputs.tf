@@ -18,3 +18,7 @@ output "security_group_id" {
   value       = aws_security_group.this.id
 }
 
+output "ami_id" {
+  description = "Canonical Ubuntu AMI ID used by the NAT instances."
+  value       = data.aws_ami.ubuntu.id
+}

@@ -24,8 +24,24 @@ variable "ssh_key_name" {
 }
 
 variable "ssh_source_security_group_ids" {
-  description = "Security group IDs allowed to SSH to the managed nodes."
-  type        = set(string)
+  description = "Bastion security group IDs allowed to SSH to the managed nodes."
+  type        = list(string)
+}
+
+variable "node_ami_id" {
+  description = "Canonical Ubuntu EKS AMI ID used by all managed node groups."
+  type        = string
+
+  validation {
+    condition     = can(regex("^ami-[0-9a-f]+$", var.node_ami_id))
+    error_message = "node_ami_id must be a valid AMI ID."
+  }
+}
+
+variable "node_ami_root_device_name" {
+  description = "Root device name reported by the selected Ubuntu EKS AMI."
+  type        = string
+  default     = "/dev/sda1"
 }
 
 variable "private_subnet_ids" {
@@ -76,8 +92,8 @@ variable "node_groups" {
     max_size       = number
     desired_size   = number
     capacity_type  = optional(string, "ON_DEMAND")
-    ami_type       = optional(string, "AL2023_x86_64_STANDARD")
     disk_size      = optional(number, 30)
+    enable_nvidia  = optional(bool, false)
     labels         = optional(map(string), {})
     taints = optional(list(object({
       key    = string
