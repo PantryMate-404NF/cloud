@@ -36,7 +36,7 @@ data "aws_iam_policy_document" "github_actions_assume_role" {
       variable = "token.actions.githubusercontent.com:sub"
 
       values = [
-        "repo:${var.github_repository}:*"
+        "repo:PantryMate-404FN@315666654/cloud@1330611642:pull_request"
       ]
     }
   }
