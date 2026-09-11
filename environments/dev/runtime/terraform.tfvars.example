@@ -47,3 +47,15 @@ ecr_repository_names = [
 s3_versioning_enabled         = true
 cloudwatch_log_retention_days = 14
 extra_tags                    = {}
+
+# ── Jenkins CI/CD ─────────────────────────────────────────────────────────────
+# 민감한 값(jenkins_admin_password, github_webhook_secret, github_api_token)은
+# terraform.tfvars 파일에 직접 입력하지 말고 환경변수 또는 AWS Secrets Manager를 사용하세요.
+#
+#   export TF_VAR_jenkins_admin_password="강력한비밀번호"
+#   export TF_VAR_github_webhook_secret="랜덤32자이상문자열"   # openssl rand -hex 32
+#   export TF_VAR_github_api_token="ghp_xxxxxxxxxxxxxxxxxxxx"
+
+github_org         = "your-github-org"       # GitHub 조직명 또는 계정명
+frontend_repo_name = "pantry-mate-frontend"  # 프론트엔드 레포지토리 이름
+backend_repo_name  = "pantry-mate-backend"   # 백엔드 레포지토리 이름

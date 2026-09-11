@@ -82,3 +82,25 @@ output "kubeconfig_update_command" {
   description = "Command for configuring kubectl after network access and AWS permissions are available."
   value       = "aws eks update-kubeconfig --region ${var.region} --name ${module.eks.cluster_name}"
 }
+
+# ── Jenkins CI/CD ─────────────────────────────────────────────────────────────
+
+output "webhook_url" {
+  description = "GitHub 레포지토리 Settings > Webhooks에 등록할 URL. Content type: application/json."
+  value       = module.webhook_relay.webhook_url
+}
+
+output "jenkins_internal_url" {
+  description = "Jenkins 내부 NLB URL (VPN/배스천에서 직접 접근 가능)."
+  value       = module.jenkins.jenkins_internal_url
+}
+
+output "jenkins_port_forward_command" {
+  description = "배스천에서 Jenkins UI에 접근하기 위한 kubectl port-forward 명령어."
+  value       = module.jenkins.port_forward_command
+}
+
+output "jenkins_role_arn" {
+  description = "Jenkins 파드의 IAM Role ARN."
+  value       = module.jenkins.jenkins_role_arn
+}
