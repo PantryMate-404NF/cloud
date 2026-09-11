@@ -201,11 +201,11 @@ aws rds describe-db-instances \
   --query 'DBInstances[].DBInstanceIdentifier' \
   --output table
 여기서 나온 
--------------------------
-|  DescribeDBInstances |
-+-----------------------+
-|  pantry-dev-postgres |
-+-----------------------+
+-----------------------------
+|     DescribeDBInstances   |
++---------------------------+
+|  pantry-mate-dev-postgres |
++---------------------------+
 의 값을 아래에 넣고 stop
 aws rds stop-db-instance \
   --region ap-northeast-2 \
@@ -255,3 +255,23 @@ Runtime apply
 EKS / Application 테스트
 순서로 실행합니다
 
+# 패치 1 9/8
+## 접속 방법
+boankey.pem을 들고 .ssh 폴더에 집어넣습니다
+
+terraform output에서 나온 nat ip와
+kubectl get nodes -o wide 에서 나온 internal ip로
+
+ssh -i ~/.ssh/boankey.pem \
+  -o "ProxyCommand=ssh -i ~/.ssh/boankey.pem -W %h:%p ubuntu@<NAT_PUBLIC_IP>" \
+  ubuntu@<NODE_PRIVATE_IP>
+
+여기에 기입해서 접속합니다
+
+ssh -i ~/.ssh/boankey.pem \
+  ubuntu@<NAT_PUBLIC_IP>
+
+# 패치 2 9/10
+## ubuntu
+원래 ubuntu로 진행했어야했는데 amazon linux로 생성되어있었습니다
+ubuntu로 생성되도록 수정했습니다

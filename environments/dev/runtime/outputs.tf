@@ -23,6 +23,11 @@ output "nat_public_ips_by_az" {
   value       = module.nat_instance.public_ips_by_az
 }
 
+output "nat_ubuntu_ami_id" {
+  description = "Canonical Ubuntu 24.04 LTS AMI used by the NAT instances."
+  value       = module.nat_instance.ami_id
+}
+
 output "eks_cluster_name" {
   description = "EKS cluster name."
   value       = module.eks.cluster_name
@@ -56,6 +61,16 @@ output "worker_node_group_name" {
 output "gpu_node_group_name" {
   description = "GPU managed node group name."
   value       = module.eks.node_group_names["gpu"]
+}
+
+output "eks_ubuntu_ami_id" {
+  description = "Canonical Ubuntu 24.04 EKS AMI used by all managed node groups."
+  value       = module.eks.node_ami_id
+}
+
+output "eks_node_launch_template_ids" {
+  description = "Ubuntu EKS launch template IDs keyed by managed node group role."
+  value       = module.eks.node_launch_template_ids
 }
 
 output "ecr_repository_urls" {

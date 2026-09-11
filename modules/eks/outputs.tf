@@ -38,3 +38,12 @@ output "cluster_log_group_name" {
   value       = aws_cloudwatch_log_group.cluster.name
 }
 
+output "node_ami_id" {
+  description = "Canonical Ubuntu EKS AMI ID used by the managed node groups."
+  value       = var.node_ami_id
+}
+
+output "node_launch_template_ids" {
+  description = "EC2 launch template IDs keyed by managed node group role."
+  value       = { for role, template in aws_launch_template.node : role => template.id }
+}

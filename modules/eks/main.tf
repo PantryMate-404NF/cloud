@@ -32,6 +32,76 @@ resource "aws_eks_cluster" "this" {
   depends_on = [aws_cloudwatch_log_group.cluster]
 }
 
+resource "aws_vpc_security_group_ingress_rule" "node_ssh" {
+  count = length(var.ssh_source_security_group_ids)
+
+  security_group_id            = aws_eks_cluster.this.vpc_config[0].cluster_security_group_id
+  description                  = "Allow SSH to managed nodes from bastion security group ${var.ssh_source_security_group_ids[count.index]}"
+  referenced_security_group_id = var.ssh_source_security_group_ids[count.index]
+  from_port                    = 22
+  ip_protocol                  = "tcp"
+  to_port                      = 22
+}
+
+resource "aws_launch_template" "node" {
+  for_each = var.node_groups
+
+  name_prefix            = "${var.cluster_name}-${each.key}-"
+  description            = "Ubuntu EKS managed node launch template for ${each.key}"
+  image_id               = var.node_ami_id
+  key_name               = var.ssh_key_name
+  update_default_version = true
+  vpc_security_group_ids = [aws_eks_cluster.this.vpc_config[0].cluster_security_group_id]
+  user_data = base64encode(templatefile(
+    each.value.enable_nvidia ? "${path.module}/templates/ubuntu-eks-gpu-user-data.sh.tftpl" : "${path.module}/templates/ubuntu-eks-user-data.sh.tftpl",
+    { cluster_name = aws_eks_cluster.this.name }
+  ))
+
+  block_device_mappings {
+    device_name = var.node_ami_root_device_name
+
+    ebs {
+      delete_on_termination = true
+      encrypted             = true
+      volume_size           = each.value.disk_size
+      volume_type           = "gp3"
+    }
+  }
+
+  metadata_options {
+    http_endpoint               = "enabled"
+    http_put_response_hop_limit = 2
+    http_tokens                 = "required"
+  }
+
+  tag_specifications {
+    resource_type = "instance"
+
+    tags = merge(var.common_tags, {
+      Name     = "${var.cluster_name}-${each.key}"
+      NodeRole = each.key
+    })
+  }
+
+  tag_specifications {
+    resource_type = "volume"
+
+    tags = merge(var.common_tags, {
+      Name     = "${var.cluster_name}-${each.key}"
+      NodeRole = each.key
+    })
+  }
+
+  tags = merge(var.common_tags, {
+    Name     = "${var.cluster_name}-${each.key}-launch-template"
+    NodeRole = each.key
+  })
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
 resource "aws_eks_node_group" "this" {
   for_each = var.node_groups
 
@@ -39,12 +109,14 @@ resource "aws_eks_node_group" "this" {
   node_group_name = "${var.cluster_name}-${each.key}"
   node_role_arn   = var.node_role_arn
   subnet_ids      = var.private_subnet_ids
-  version         = var.kubernetes_version
   instance_types  = each.value.instance_types
   capacity_type   = each.value.capacity_type
-  ami_type        = each.value.ami_type
-  disk_size       = each.value.disk_size
   labels          = merge({ role = each.key }, each.value.labels)
+
+  launch_template {
+    id      = aws_launch_template.node[each.key].id
+    version = tostring(aws_launch_template.node[each.key].latest_version)
+  }
 
   scaling_config {
     min_size     = each.value.min_size
@@ -71,4 +143,3 @@ resource "aws_eks_node_group" "this" {
     NodeRole = each.key
   })
 }
-

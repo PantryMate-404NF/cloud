@@ -21,19 +21,6 @@ variable "environment" {
   }
 }
 
-variable "terraform_state_bucket_name" {
-  description = "Bootstrap S3 bucket that will contain the PROD Foundation State."
-  type        = string
-  default     = null
-  nullable    = true
-}
-
-variable "foundation_state_key" {
-  description = "S3 object key reserved for the PROD Foundation State."
-  type        = string
-  default     = "prod/foundation/terraform.tfstate"
-}
-
 variable "extra_tags" {
   description = "Additional common tags for future PROD Runtime resources."
   type        = map(string)

@@ -2,9 +2,3 @@ region       = "ap-northeast-2"
 project_name = "pantry-mate"
 environment  = "prod"
 extra_tags   = {}
-
-# Reserved for the future Foundation remote-state connection.
-terraform_state_bucket_name = null
-foundation_state_key        = "prod/foundation/terraform.tfstate"
-
-# TODO: Add approved PROD Runtime inputs before enabling resources.

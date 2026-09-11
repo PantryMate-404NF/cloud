@@ -26,13 +26,28 @@ variable "private_subnet_cidrs" {
 variable "instance_type" {
   description = "EC2 instance type for each NAT instance."
   type        = string
-  default     = "t3.nano"
+}
+
+variable "ssh_key_name" {
+  description = "Name of the existing EC2 Key Pair used for SSH access."
+  type        = string
+}
+
+variable "ssh_allowed_cidrs" {
+  description = "IPv4 /32 CIDRs allowed to SSH to the NAT instances."
+  type        = set(string)
 }
 
 variable "ami_ssm_parameter_name" {
-  description = "Public SSM parameter that resolves to the current Amazon Linux 2023 AMI."
+  description = "Canonical public SSM parameter that resolves to the current Ubuntu 24.04 LTS amd64 AMI."
   type        = string
-  default     = "/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-x86_64"
+  default     = "/aws/service/canonical/ubuntu/server/noble/stable/current/amd64/hvm/ebs-gp3/ami-id"
+}
+
+variable "ami_owner_id" {
+  description = "AWS account ID that must own the resolved Ubuntu AMI."
+  type        = string
+  default     = "099720109477"
 }
 
 variable "root_volume_size" {
@@ -46,4 +61,3 @@ variable "common_tags" {
   type        = map(string)
   default     = {}
 }
-

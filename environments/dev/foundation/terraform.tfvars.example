@@ -39,8 +39,8 @@ rds_skip_final_snapshot     = true
 # rds_skip_final_snapshot이 false인 경우에만 필요합니다
 rds_final_snapshot_identifier = null
 
-# RDS에서 생성된 비밀번호는 secrets manager에 저장되고 관리됩니다
-# 여기서 평문 비밀번호를 작성하지 않아요
+# RDS Master pwd는 Secrets Manager에서 자동 생성 및 관리한데요
+# 별도 KMS CMK를 사용하지않는 경우 null로 유지
 rds_master_user_secret_kms_key_id = null
 
 extra_tags = {}
