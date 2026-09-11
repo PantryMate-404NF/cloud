@@ -1,8 +1,3 @@
-variable "name_prefix" {
-  description = "Resource name prefix (project-environment)."
-  type        = string
-}
-
 variable "manage_node_label" {
   description = "Kubernetes node label value for the manage node group."
   type        = string
@@ -45,10 +40,4 @@ variable "app_namespace" {
   description = "frontend/backend Pod가 배포될 Kubernetes 네임스페이스."
   type        = string
   default     = "app"
-}
-
-variable "common_tags" {
-  description = "모든 리소스에 공통으로 적용할 태그."
-  type        = map(string)
-  default     = {}
 }
