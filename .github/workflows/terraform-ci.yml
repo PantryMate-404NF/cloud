@@ -18,7 +18,6 @@ jobs:
         uses: hashicorp/setup-terraform@v3
 
       - name: Terraform Format Check
-        working-directory: cloud
         run: terraform fmt -check -recursive
 
       - name: Terraform Vaildate
