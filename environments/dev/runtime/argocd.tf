@@ -8,7 +8,6 @@
 module "argocd" {
   source = "../../../modules/argocd"
 
-  name_prefix        = local.name_prefix
   manage_node_label  = var.manage_node_labels["role"]
   gitops_repo_url    = var.gitops_repo_url
   gitops_repo_token  = var.gitops_repo_token
@@ -17,7 +16,6 @@ module "argocd" {
   backend_repo_name  = var.backend_repo_name
   environment        = var.environment
   app_namespace      = var.app_namespace
-  common_tags        = local.common_tags
 
   depends_on = [module.eks]
 }
