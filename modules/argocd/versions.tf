@@ -1,0 +1,15 @@
+terraform {
+  required_version = ">= 1.15.0"
+
+  required_providers {
+    helm = {
+      source  = "hashicorp/helm"
+      version = "..."
+    }
+
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "..."
+    }
+  }
+}
