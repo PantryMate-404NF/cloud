@@ -1,0 +1,128 @@
+// ────────────────────────────────────────────────────────────────────────────
+// pantry-mate frontend Jenkinsfile
+// 위치: pantry-mate-frontend 레포 루트에 "Jenkinsfile" 이름으로 저장
+//
+// 파이프라인 흐름:
+//   GitHub push → webhook → Jenkins → 테스트 → ECR push → GitOps 레포 tag 업데이트
+//   → Argo CD 감지 → EKS 자동 배포
+// ────────────────────────────────────────────────────────────────────────────
+
+pipeline {
+  agent { label 'jenkins-agent' }
+
+  environment {
+    AWS_REGION      = 'ap-northeast-2'
+    ECR_REGISTRY    = '<AWS_ACCOUNT_ID>.dkr.ecr.ap-northeast-2.amazonaws.com'
+    ECR_REPO        = 'pantry-mate-dev-frontend'
+    IMAGE_NAME      = "${ECR_REGISTRY}/${ECR_REPO}"
+    IMAGE_TAG       = "${GIT_COMMIT[0..7]}"
+
+    // GitOps 레포 설정
+    GITOPS_REPO     = 'https://github.com/<ORG>/pantry-mate-gitops.git'
+    GITOPS_APP_PATH = 'environments/dev/pantry-mate-frontend'
+  }
+
+  options {
+    timeout(time: 30, unit: 'MINUTES')
+    disableConcurrentBuilds()
+    buildDiscarder(logRotator(numToKeepStr: '10'))
+  }
+
+  stages {
+
+    stage('Checkout') {
+      steps {
+        checkout scm
+        sh 'git log --oneline -3'
+      }
+    }
+
+    stage('Test') {
+      steps {
+        sh '''
+          # 의존성 설치 및 테스트 실행
+          npm ci
+          npm run test -- --passWithNoTests
+        '''
+      }
+      post {
+        always {
+          // 테스트 결과 보관 (JUnit XML 포맷이 있는 경우)
+          // junit 'test-results/**/*.xml'
+          echo 'Test stage complete'
+        }
+      }
+    }
+
+    stage('Build & Push ECR') {
+      steps {
+        sh '''
+          # IRSA를 통해 ECR 로그인 (별도 AWS 자격증명 불필요)
+          aws ecr get-login-password --region $AWS_REGION \
+            | docker login --username AWS --password-stdin $ECR_REGISTRY
+
+          # 이미지 빌드
+          docker build \
+            --build-arg BUILD_ENV=production \
+            -t $IMAGE_NAME:$IMAGE_TAG \
+            -t $IMAGE_NAME:latest \
+            .
+
+          # ECR push
+          docker push $IMAGE_NAME:$IMAGE_TAG
+          docker push $IMAGE_NAME:latest
+        '''
+      }
+    }
+
+    stage('Update GitOps') {
+      when {
+        branch 'main'
+      }
+      steps {
+        withCredentials([usernamePassword(
+          credentialsId: 'github-credentials',
+          usernameVariable: 'GIT_USER',
+          passwordVariable: 'GIT_TOKEN'
+        )]) {
+          sh '''
+            # GitOps 레포 clone
+            git clone https://$GIT_USER:$GIT_TOKEN@$(echo $GITOPS_REPO | sed 's|https://||') gitops-repo
+            cd gitops-repo
+
+            git config user.email "jenkins@pantry-mate.internal"
+            git config user.name "Jenkins CI"
+
+            # deployment.yaml의 이미지 태그 업데이트
+            sed -i "s|image: $ECR_REGISTRY/$ECR_REPO:.*|image: $ECR_REGISTRY/$ECR_REPO:$IMAGE_TAG|g" \
+              $GITOPS_APP_PATH/deployment.yaml
+
+            # 변경사항 커밋 & 푸시
+            git add $GITOPS_APP_PATH/deployment.yaml
+            git diff --cached --quiet || git commit -m "ci: update frontend image to $IMAGE_TAG [skip ci]"
+            git push origin main
+          '''
+        }
+      }
+      post {
+        always {
+          sh 'rm -rf gitops-repo'
+        }
+      }
+    }
+  }
+
+  post {
+    success {
+      echo "✅ frontend 배포 완료: ${IMAGE_NAME}:${IMAGE_TAG}"
+    }
+    failure {
+      echo "❌ 파이프라인 실패 — 로그를 확인하세요."
+    }
+    cleanup {
+      // 빌드한 이미지 정리
+      sh "docker rmi ${IMAGE_NAME}:${IMAGE_TAG} ${IMAGE_NAME}:latest || true"
+      cleanWs()
+    }
+  }
+}

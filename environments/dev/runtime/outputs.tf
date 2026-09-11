@@ -104,3 +104,10 @@ output "jenkins_role_arn" {
   description = "Jenkins 파드의 IAM Role ARN."
   value       = module.jenkins.jenkins_role_arn
 }
+
+# ── Argo CD ───────────────────────────────────────────────────────────────────
+
+output "argocd_port_forward_command" {
+  description = "로컬에서 Argo CD UI에 접근하기 위한 kubectl port-forward 명령어."
+  value       = module.argocd.argocd_port_forward_command
+}
