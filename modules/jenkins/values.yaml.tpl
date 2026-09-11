@@ -54,6 +54,7 @@ controller:
     - timestamper:latest
     - ws-cleanup:latest
     - plain-credentials:latest
+    - configuration-as-code:latest
 
   # ── JCasC (Jenkins Configuration as Code) ────────────────────────────────
   JCasC:
@@ -73,6 +74,7 @@ controller:
                 jenkinsUrl: "http://jenkins.${namespace}.svc.cluster.local:8080"
                 jenkinsTunnel: "jenkins-agent.${namespace}.svc.cluster.local:50000"
                 maxRequestsPerHost: 32
+                podRetention: "never"
                 templates:
                   - name: "jenkins-agent"
                     namespace: "${namespace}"
@@ -83,12 +85,16 @@ controller:
                       - name: jnlp
                         image: "jenkins/inbound-agent:latest-jdk21"
                         alwaysPullImage: true
+                        command: ""
+                        args: ""
                         resourceRequestCpu: "500m"
                         resourceRequestMemory: "512Mi"
                         resourceLimitCpu: "1"
                         resourceLimitMemory: "1Gi"
+                        workingDir: "/home/jenkins/agent"
                     idleMinutes: 5
                     activeDeadlineSeconds: 1800
+                    showRawYaml: false
 
       # GitHub 자격증명 및 웹훅 시크릿 설정
       credentials-casc: |
