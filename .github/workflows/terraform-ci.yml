@@ -8,6 +8,7 @@ on:
       
 permissions:
   contents: read
+  id-token: write
 
 jobs:
   terraform:
@@ -67,4 +68,34 @@ jobs:
           tflint \
             --recursive \
             --config "$(pwd)/.tflint.hcl"
-            
+
+      - name: Trivy IaC Scan
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: config
+          scan-ref: .
+          severity: HIGH,CRITICAL
+          exit-code: '0'
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::542119828072:role/pantry-mate-github-actions-plan
+          aws-region: ap-northeast-2
+
+      - name: Terraform init - dev foundation
+        run: |
+          terraform -chdir=environments/dev/foundation init \
+            -reconfigure \
+            -input=false \
+            -backend-config="bucket=pantry-mate-tstate-542119828072-apne2" \
+            -backend-config="key=dev/foundation/terraform.tfstate" \
+            -backend-config="region=ap-northeast-2"
+
+      - name: Terraform plan - dev foundation
+        run: |
+          terraform -chdir=environments/dev/foundation plan \
+            -var-file=terraform.tfvars.example \
+            -input=false \
+            -lock=false \ 
+            -no-color
