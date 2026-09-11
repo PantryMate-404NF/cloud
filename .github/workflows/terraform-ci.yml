@@ -18,7 +18,7 @@ jobs:
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.15.0
-          
+
       - name: Terraform Format Check
         run: terraform fmt -check -recursive
 
@@ -34,6 +34,21 @@ jobs:
             environments/prod/runtime
           do
             echo "validation for $dir"
+
+            if grep -q 'backend "s3"' "$dir/backend.tf" 2>/dev/null; then
+              cat > "$dir/ci_backend_override.tf" <<'EOF'
+          terraform {
+            backend "s3" {
+              bucket = "ci-validation-placeholder"
+              key    = "ci-validation-placeholder.tfstate"
+              region = "ap-northeast-2"
+            }
+          }
+          EOF
+            fi
+
             terraform -chdir="$dir" init -backend=false
             terraform -chdir="$dir" validate
+
+            rm -f "$dir/ci_backend_override.tf"
           done
