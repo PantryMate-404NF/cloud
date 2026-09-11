@@ -68,3 +68,10 @@ extra_tags                    = {}
 github_org         = "your-github-org"       # GitHub 조직명 또는 계정명
 frontend_repo_name = "pantry-mate-frontend"  # 프론트엔드 레포지토리 이름
 backend_repo_name  = "pantry-mate-backend"   # 백엔드 레포지토리 이름
+
+# ── Argo CD (GitOps CD) ───────────────────────────────────────────────────────
+# gitops_repo_token은 환경변수로 주입하세요.
+#   export TF_VAR_gitops_repo_token="ghp_xxxxxxxxxxxxxxxxxxxx"
+
+gitops_repo_url = "https://github.com/your-github-org/pantry-mate-gitops"
+app_namespace   = "app"

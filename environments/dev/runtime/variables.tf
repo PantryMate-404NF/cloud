@@ -275,3 +275,22 @@ variable "backend_repo_name" {
   description = "백엔드 서비스의 GitHub 레포지토리 이름."
   type        = string
 }
+
+# ── Argo CD (GitOps CD) ───────────────────────────────────────────────────────
+
+variable "gitops_repo_url" {
+  description = "Argo CD가 매니페스트를 읽어올 GitOps 레포지토리 HTTPS URL."
+  type        = string
+}
+
+variable "gitops_repo_token" {
+  description = "GitOps 레포지토리 접근에 사용할 GitHub Personal Access Token."
+  type        = string
+  sensitive   = true
+}
+
+variable "app_namespace" {
+  description = "frontend/backend Pod가 배포될 Kubernetes 네임스페이스."
+  type        = string
+  default     = "app"
+}
