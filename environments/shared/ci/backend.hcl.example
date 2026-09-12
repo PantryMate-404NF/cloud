@@ -1,0 +1,3 @@
+bucket = "s3 bucket name"
+key    = "shared/ci/terraform.tfstate"
+region = "ap-northeast-2"

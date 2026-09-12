@@ -3,11 +3,12 @@ name: terraform ci
 on:
   pull_request:
     paths-ignore:
-      - 'gitops/'
-      - 'docs/'
+      - 'gitops/**'
+      - 'docs/**'
       
 permissions:
   contents: read
+  id-token: write
 
 jobs:
   terraform:
@@ -28,7 +29,7 @@ jobs:
       - name: Terraform Format Check
         run: terraform fmt -check -recursive
 
-      - name: Terraform Vaildate
+      - name: Terraform Validate
         run: |
           set -e
 
@@ -67,4 +68,51 @@ jobs:
           tflint \
             --recursive \
             --config "$(pwd)/.tflint.hcl"
-            
+
+      - name: Trivy IaC Scan
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: config
+          scan-ref: .
+          severity: HIGH,CRITICAL
+          exit-code: '0'
+
+      - name: Debug OIDC Claims
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const token = await core.getIDToken('sts.amazonaws.com');
+            const payload = JSON.parse(
+              Buffer.from(token.split('.')[1], 'base64url').toString()
+            );
+
+            console.log(JSON.stringify({
+              sub: payload.sub,
+              aud: payload.aud,
+              repository: payload.repository,
+              ref: payload.ref,
+              event_name: payload.event_name
+            }, null, 2));
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::542119828072:role/pantry-mate-github-actions-plan
+          aws-region: ap-northeast-2
+
+      - name: Terraform init - dev foundation
+        run: |
+          terraform -chdir=environments/dev/foundation init \
+            -reconfigure \
+            -input=false \
+            -backend-config="bucket=pantry-mate-tstate-542119828072-apne2" \
+            -backend-config="key=dev/foundation/terraform.tfstate" \
+            -backend-config="region=ap-northeast-2"
+
+      - name: Terraform plan - dev foundation
+        run: |
+          terraform -chdir=environments/dev/foundation plan \
+            -var-file=terraform.tfvars.example \
+            -input=false \
+            -lock=false \
+            -no-color
