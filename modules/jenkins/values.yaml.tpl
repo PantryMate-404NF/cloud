@@ -58,7 +58,7 @@ controller:
 
   # ── JCasC (Jenkins Configuration as Code) ────────────────────────────────
   JCasC:
-    defaultConfig: true
+    defaultConfig: false
     configScripts:
 
       # Jenkins 시스템 및 Kubernetes 클라우드 설정
@@ -81,6 +81,7 @@ controller:
                     label: "jenkins-agent"
                     nodeUsageMode: NORMAL
                     nodeSelector: "role=${worker_node_label}"
+                    serviceAccount: "jenkins"
                     containers:
                       - name: jnlp
                         image: "jenkins/inbound-agent:latest-jdk21"
@@ -92,6 +93,22 @@ controller:
                         resourceLimitCpu: "1"
                         resourceLimitMemory: "1Gi"
                         workingDir: "/home/jenkins/agent"
+                        envVars:
+                          - envVar:
+                              key: "DOCKER_HOST"
+                              value: "tcp://localhost:2375"
+                      - name: dind
+                        image: "docker:27-dind"
+                        privileged: true
+                        alwaysPullImage: false
+                        resourceRequestCpu: "500m"
+                        resourceRequestMemory: "512Mi"
+                        resourceLimitCpu: "1"
+                        resourceLimitMemory: "1Gi"
+                        envVars:
+                          - envVar:
+                              key: "DOCKER_TLS_CERTDIR"
+                              value: ""
                     idleMinutes: 5
                     activeDeadlineSeconds: 1800
                     showRawYaml: false
@@ -124,75 +141,44 @@ controller:
                 credentialsId: "github-credentials"
                 manageHooks: false
 
-      # 파이프라인 잡 자동 생성 (frontend, backend 각각 Multibranch Pipeline)
+      # Jenkins 파이프라인 잡 자동 생성
       jobs-casc: |
         jobs:
           - script: |
               multibranchPipelineJob('${frontend_repo_name}') {
-                description('Frontend service — ${github_org}/${frontend_repo_name}')
                 branchSources {
-                  branchSource {
-                    source {
-                      github {
-                        id('${frontend_repo_name}-source')
-                        credentialsId('github-credentials')
-                        repoOwner('${github_org}')
-                        repository('${frontend_repo_name}')
-                        traits {
-                          gitHubBranchDiscovery { strategyId(1) }
-                          gitHubPullRequestDiscovery { strategyId(1) }
-                        }
-                      }
+                  github {
+                    id('${frontend_repo_name}')
+                    repoOwner('${github_org}')
+                    repository('${frontend_repo_name}')
+                    credentialsId('github-credentials')
+                    traits {
+                      gitHubBranchDiscovery { strategyId(1) }
                     }
                   }
                 }
-                factory {
-                  workflowBranchProjectFactory {
-                    scriptPath('Jenkinsfile')
-                  }
-                }
                 triggers {
-                  periodic(1)
-                }
-                orphanedItemStrategy {
-                  discardOldItems {
-                    numToKeep(5)
-                  }
+                  periodic(1440)
                 }
               }
           - script: |
               multibranchPipelineJob('${backend_repo_name}') {
-                description('Backend service — ${github_org}/${backend_repo_name}')
                 branchSources {
-                  branchSource {
-                    source {
-                      github {
-                        id('${backend_repo_name}-source')
-                        credentialsId('github-credentials')
-                        repoOwner('${github_org}')
-                        repository('${backend_repo_name}')
-                        traits {
-                          gitHubBranchDiscovery { strategyId(1) }
-                          gitHubPullRequestDiscovery { strategyId(1) }
-                        }
-                      }
+                  github {
+                    id('${backend_repo_name}')
+                    repoOwner('${github_org}')
+                    repository('${backend_repo_name}')
+                    credentialsId('github-credentials')
+                    traits {
+                      gitHubBranchDiscovery { strategyId(1) }
                     }
                   }
                 }
-                factory {
-                  workflowBranchProjectFactory {
-                    scriptPath('Jenkinsfile')
-                  }
-                }
                 triggers {
-                  periodic(1)
-                }
-                orphanedItemStrategy {
-                  discardOldItems {
-                    numToKeep(5)
-                  }
+                  periodic(1440)
                 }
               }
+
 
 # ── 빌드 에이전트: worker 노드에 스케줄링 ────────────────────────────────────
 agent:

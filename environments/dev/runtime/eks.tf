@@ -182,3 +182,27 @@ module "webhook_relay" {
 
   depends_on = [module.jenkins]
 }
+
+# ── GitHub Webhook 자동 등록 ──────────────────────────────────────────────────
+# terraform apply 시 API Gateway URL을 각 레포에 자동 등록합니다.
+# destroy 후 재apply 시에도 새 URL로 자동 교체됩니다.
+
+resource "github_repository_webhook" "frontend" {
+  repository = var.frontend_repo_name
+  configuration {
+    url          = module.webhook_relay.webhook_url
+    content_type = "json"
+    secret       = var.github_webhook_secret
+  }
+  events = ["push"]
+}
+
+resource "github_repository_webhook" "backend" {
+  repository = var.backend_repo_name
+  configuration {
+    url          = module.webhook_relay.webhook_url
+    content_type = "json"
+    secret       = var.github_webhook_secret
+  }
+  events = ["push"]
+}

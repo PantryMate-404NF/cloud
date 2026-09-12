@@ -25,3 +25,8 @@ provider "kubernetes" {
   cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
   token                  = data.aws_eks_cluster_auth.this.token
 }
+
+provider "github" {
+  token = var.github_api_token
+  owner = var.github_org
+}
