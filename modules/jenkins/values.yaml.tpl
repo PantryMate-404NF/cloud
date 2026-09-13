@@ -151,14 +151,8 @@ controller:
                     id('${frontend_repo_name}')
                     repoOwner('${github_org}')
                     repository('${frontend_repo_name}')
-                    credentialsId('github-credentials')
-                    traits {
-                      gitHubBranchDiscovery { strategyId(1) }
-                    }
+                    scanCredentialsId('github-credentials')
                   }
-                }
-                triggers {
-                  periodic(1440)
                 }
               }
           - script: |
@@ -168,14 +162,8 @@ controller:
                     id('${backend_repo_name}')
                     repoOwner('${github_org}')
                     repository('${backend_repo_name}')
-                    credentialsId('github-credentials')
-                    traits {
-                      gitHubBranchDiscovery { strategyId(1) }
-                    }
+                    scanCredentialsId('github-credentials')
                   }
-                }
-                triggers {
-                  periodic(1440)
                 }
               }
 

@@ -67,8 +67,8 @@ resource "kubernetes_namespace" "app" {
 # ── Argo CD Application: frontend ────────────────────────────────────────────
 # GitOps 레포의 environments/<env>/frontend 경로를 바라봅니다.
 
-resource "kubernetes_manifest" "frontend_app" {
-  manifest = {
+resource "kubectl_manifest" "frontend_app" {
+  yaml_body = yamlencode({
     apiVersion = "argoproj.io/v1alpha1"
     kind       = "Application"
     metadata = {
@@ -109,7 +109,7 @@ resource "kubernetes_manifest" "frontend_app" {
         }
       }
     }
-  }
+  })
 
   depends_on = [helm_release.argocd, kubernetes_secret.gitops_repo]
 }
@@ -117,8 +117,8 @@ resource "kubernetes_manifest" "frontend_app" {
 # ── Argo CD Application: backend ─────────────────────────────────────────────
 # GitOps 레포의 environments/<env>/backend 경로를 바라봅니다.
 
-resource "kubernetes_manifest" "backend_app" {
-  manifest = {
+resource "kubectl_manifest" "backend_app" {
+  yaml_body = yamlencode({
     apiVersion = "argoproj.io/v1alpha1"
     kind       = "Application"
     metadata = {
@@ -159,7 +159,7 @@ resource "kubernetes_manifest" "backend_app" {
         }
       }
     }
-  }
+  })
 
   depends_on = [helm_release.argocd, kubernetes_secret.gitops_repo]
 }

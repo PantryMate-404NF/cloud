@@ -164,6 +164,23 @@ module "jenkins" {
   depends_on = [aws_iam_openid_connect_provider.eks, module.eks]
 }
 
+# ── gp2 StorageClass default 설정 ────────────────────────────────────────────
+# EKS 기본 StorageClass인 gp2를 default로 설정합니다.
+# Jenkins PVC 등 storageClassName 미지정 시 자동으로 gp2가 사용됩니다.
+
+resource "kubernetes_annotations" "gp2_default" {
+  api_version = "storage.k8s.io/v1"
+  kind        = "StorageClass"
+  metadata {
+    name = "gp2"
+  }
+  annotations = {
+    "storageclass.kubernetes.io/is-default-class" = "true"
+  }
+
+  depends_on = [module.eks]
+}
+
 # ── GitHub Webhook Relay ──────────────────────────────────────────────────────
 # GitHub → API Gateway(공개) → Lambda(VPC) → Jenkins 내부 NLB 흐름입니다.
 # terraform output webhook_url 값을 각 레포지토리의 GitHub Webhook URL에 등록하세요.
