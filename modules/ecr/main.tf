@@ -3,7 +3,7 @@ resource "aws_ecr_repository" "this" {
 
   name                 = each.value
   image_tag_mutability = var.image_tag_mutability
-  force_delete         = false
+  force_delete         = true
 
   encryption_configuration {
     encryption_type = "AES256"
