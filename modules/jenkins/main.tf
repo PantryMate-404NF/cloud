@@ -201,6 +201,44 @@ resource "helm_release" "jenkins" {
   ]
 }
 
+# ── IRSA 어노테이션 강제 적용 ─────────────────────────────────────────────────
+# Helm 설치 후 Jenkins SA에 IRSA 어노테이션을 force=true로 덮어씁니다.
+# Helm이 SA를 재생성하거나 어노테이션을 누락해도 항상 올바르게 유지됩니다.
+
+resource "kubernetes_annotations" "jenkins_sa_irsa" {
+  api_version = "v1"
+  kind        = "ServiceAccount"
+  metadata {
+    name      = "jenkins"
+    namespace = kubernetes_namespace.jenkins.metadata[0].name
+  }
+  annotations = {
+    "eks.amazonaws.com/role-arn" = aws_iam_role.jenkins.arn
+  }
+  force      = true
+  depends_on = [helm_release.jenkins]
+}
+
+# ── Jenkins 재시작 (IRSA 토큰 주입) ──────────────────────────────────────────
+# SA 어노테이션 적용 후 Jenkins를 재시작하여 새 파드가 IRSA 토큰을 주입받게 합니다.
+# triggers로 role ARN이 바뀔 때마다 자동 재실행됩니다.
+
+resource "null_resource" "jenkins_irsa_restart" {
+  triggers = {
+    role_arn    = aws_iam_role.jenkins.arn
+    helm_rev    = helm_release.jenkins.metadata[0].revision
+  }
+
+  provisioner "local-exec" {
+    command = <<-EOT
+      kubectl rollout restart statefulset/jenkins -n ${kubernetes_namespace.jenkins.metadata[0].name}
+      kubectl rollout status statefulset/jenkins -n ${kubernetes_namespace.jenkins.metadata[0].name} --timeout=180s
+    EOT
+  }
+
+  depends_on = [kubernetes_annotations.jenkins_sa_irsa]
+}
+
 # ── Jenkins 내부 NLB 주소 조회 ────────────────────────────────────────────────
 # helm_release 완료 후 Kubernetes가 프로비저닝한 내부 NLB 호스트네임을 읽습니다.
 # Lambda webhook relay가 이 URL로 요청을 전달합니다.
@@ -210,5 +248,5 @@ data "kubernetes_service" "jenkins" {
     name      = "jenkins"
     namespace = var.namespace
   }
-  depends_on = [helm_release.jenkins]
+  depends_on = [null_resource.jenkins_irsa_restart]
 }
