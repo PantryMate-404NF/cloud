@@ -116,7 +116,7 @@ jobs:
             -input=false \
             -lock=false \
             -no-color
-            
+
       - name: Terraform init - dev runtime
         run: |
           terraform -chdir=environments/dev/runtime init \
