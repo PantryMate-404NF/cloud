@@ -1,0 +1,5 @@
+bucket       = "CHANGE_ME_TO_BOOTSTRAP_BUCKET_NAME"
+key          = "dev/autoscaling/terraform.tfstate"
+region       = "ap-northeast-2"
+encrypt      = true
+use_lockfile = true
