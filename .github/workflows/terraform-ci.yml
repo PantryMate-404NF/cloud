@@ -117,9 +117,7 @@ jobs:
             -lock=false \
             -no-color
 
-      # DEV Runtime Plan - 추후 활성화
       - name: Terraform init - dev runtime
-        if: ${{ false }}
         run: |
           terraform -chdir=environments/dev/runtime init \
             -reconfigure \
@@ -129,7 +127,6 @@ jobs:
             -backend-config="region=ap-northeast-2"
 
       - name: Terraform plan - dev runtime
-        if: ${{ false }}
         env:
           TF_VAR_github_api_token: ${{ secrets.GH_API_TOKEN }}
           TF_VAR_github_webhook_secret: ${{ secrets.GH_WEBHOOK_SECRET }}
@@ -141,3 +138,4 @@ jobs:
             -input=false \
             -lock=false \
             -no-color
+# test

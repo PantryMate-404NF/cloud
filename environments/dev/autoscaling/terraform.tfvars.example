@@ -1,0 +1,10 @@
+region       = "ap-northeast-2"
+cluster_name = "pantry-mate-dev-eks"
+
+manage_pod_identity_agent = true
+
+common_tags = {
+  Project     = "pantry-mate"
+  Environment = "dev"
+  ManagedBy   = "Terraform"
+}

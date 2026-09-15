@@ -164,6 +164,23 @@ module "jenkins" {
   depends_on = [aws_iam_openid_connect_provider.eks, module.eks]
 }
 
+# ── gp2 StorageClass default 설정 ────────────────────────────────────────────
+# EKS 기본 StorageClass인 gp2를 default로 설정합니다.
+# Jenkins PVC 등 storageClassName 미지정 시 자동으로 gp2가 사용됩니다.
+
+resource "kubernetes_annotations" "gp2_default" {
+  api_version = "storage.k8s.io/v1"
+  kind        = "StorageClass"
+  metadata {
+    name = "gp2"
+  }
+  annotations = {
+    "storageclass.kubernetes.io/is-default-class" = "true"
+  }
+
+  depends_on = [module.eks]
+}
+
 # ── GitHub Webhook Relay ──────────────────────────────────────────────────────
 # GitHub → API Gateway(공개) → Lambda(VPC) → Jenkins 내부 NLB 흐름입니다.
 # terraform output webhook_url 값을 각 레포지토리의 GitHub Webhook URL에 등록하세요.
@@ -181,4 +198,28 @@ module "webhook_relay" {
   common_tags                    = local.common_tags
 
   depends_on = [module.jenkins]
+}
+
+# ── GitHub Webhook 자동 등록 ──────────────────────────────────────────────────
+# terraform apply 시 API Gateway URL을 각 레포에 자동 등록합니다.
+# destroy 후 재apply 시에도 새 URL로 자동 교체됩니다.
+
+resource "github_repository_webhook" "frontend" {
+  repository = var.frontend_repo_name
+  configuration {
+    url          = module.webhook_relay.webhook_url
+    content_type = "json"
+    secret       = var.github_webhook_secret
+  }
+  events = ["push"]
+}
+
+resource "github_repository_webhook" "backend" {
+  repository = var.backend_repo_name
+  configuration {
+    url          = module.webhook_relay.webhook_url
+    content_type = "json"
+    secret       = var.github_webhook_secret
+  }
+  events = ["push"]
 }
