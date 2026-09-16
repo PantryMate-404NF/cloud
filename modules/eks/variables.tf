@@ -87,6 +87,7 @@ variable "cluster_log_retention_days" {
 variable "node_groups" {
   description = "Managed node group definitions keyed by logical role."
   type = map(object({
+    subnet_ids     = optional(list(string))
     instance_types = list(string)
     min_size       = number
     max_size       = number
