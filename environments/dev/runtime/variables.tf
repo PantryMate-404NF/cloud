@@ -294,3 +294,11 @@ variable "app_namespace" {
   type        = string
   default     = "app"
 }
+
+# ── Cloudflare Tunnel ─────────────────────────────────────────────────────────
+
+variable "cloudflared_tunnel_token" {
+  description = "Cloudflare Zero Trust 터널 토큰 (cloudflared 인증용)."
+  type        = string
+  sensitive   = true
+}
