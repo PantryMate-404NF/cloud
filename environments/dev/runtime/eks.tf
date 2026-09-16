@@ -86,15 +86,50 @@ module "eks" {
       disk_size      = 30
       labels         = var.manage_node_labels
     }
-    worker = {
-      instance_types = [var.worker_node_instance_type]
-      min_size       = var.worker_node_min_size
-      max_size       = var.worker_node_max_size
-      desired_size   = var.worker_node_desired_size
-      capacity_type  = var.worker_node_capacity_type
-      disk_size      = 30
-      labels         = var.worker_node_labels
+
+    worker-2a = {
+      subnet_ids = [
+        data.terraform_remote_state.foundation.outputs.private_subnet_ids[0]
+      ]
+
+      instance_types = ["t3.medium"]
+      capacity_type  = "SPOT"
+
+      min_size     = 1
+      desired_size = 1
+      max_size     = 3
+
+      disk_size     = 30
+      enable_nvidia = false
+
+      labels = {
+        role = "worker"
+      }
+
+      taints = []
     }
+
+    "worker-2c" = {
+      subnet_ids = [
+        data.terraform_remote_state.foundation.outputs.private_subnet_ids[1]
+      ]
+      instance_types = ["t3.medium"]
+      capacity_type  = "SPOT"
+
+      min_size     = 1
+      desired_size = 1
+      max_size     = 3
+
+      disk_size     = 30
+      enable_nvidia = false
+
+      labels = {
+        role = "worker"
+      }
+
+      taints = []
+    }
+
     gpu = {
       instance_types = [var.gpu_node_instance_type]
       min_size       = var.gpu_node_min_size

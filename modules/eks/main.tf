@@ -108,7 +108,7 @@ resource "aws_eks_node_group" "this" {
   cluster_name    = aws_eks_cluster.this.name
   node_group_name = "${var.cluster_name}-${each.key}"
   node_role_arn   = var.node_role_arn
-  subnet_ids      = var.private_subnet_ids
+  subnet_ids      = each.value.subnet_ids != null ? each.value.subnet_ids : var.private_subnet_ids
   instance_types  = each.value.instance_types
   capacity_type   = each.value.capacity_type
   labels          = merge({ role = each.key }, each.value.labels)

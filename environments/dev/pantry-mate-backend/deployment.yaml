@@ -15,6 +15,15 @@ spec:
     spec:
       nodeSelector:
         role: worker
+
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: topology.kubernetes.io/zone
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              app: pantry-mate-backend
+              
       containers:
         - name: backend
           # Jenkins가 이 줄의 태그를 커밋SHA로 교체합니다
