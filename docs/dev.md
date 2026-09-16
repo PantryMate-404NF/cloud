@@ -1,18 +1,28 @@
 ## Dev
 Terraform으로 AWS 인프라를 모듈화해서 구성했습니다.
 
-DEV는 lifecycle에 따라 두 Root Module로 나뉩니다.
+ubuntu입니다.
+
+DEV는 lifecycle에 따라 세 Root Module로 나뉩니다.
 
 - `environments/dev/foundation`: Network, RDS
 - `environments/dev/runtime`: NAT Instance, IAM, EKS, ECR, Application S3, Logs
+- `environments/dev/autoscaling`: Metrics Server, KEDA, Karpenter
+
+`environments/dev/cloudflared`는 terraform root module이 아니라
+Cloudflare Tunnel을 구성하기 위한 별도 Kubernetes Manifest입니다.
+
+runtime은 foundation Remote State의 Network Output을 참조하며,
+autoscaling은 runtime에서 생성된 EKS Cluster를 기준으로 구성됩니다.
 
 S3 remote backend key는 각각 `dev/foundation/terraform.tfstate`와
 `dev/runtime/terraform.tfstate`입니다. Runtime은 Foundation remote state의
 Network Output을 참조합니다.
 
+기본 runtime 구성에는 EKS Private Endpointㄹ르 사용합니다.
 
-로컬에서 테스트하기 전 Runtime의 `terraform.tfvars`에서 다음 두 값을 제한적으로
-설정합니다.
+로컬 pc에서 `kubectl`로 EKS API에 직접 접근해야 하는 경우에만 runtime의 `terraform.tfvars`에서
+public endpoint를 임시 활성화합니다.
 
 ```hcl
 eks_endpoint_public_access = true   # true : 로컬 kubectl 접근을 위해 public endpoint 임시 허용 / 접근 cidr은 개발자 공인 ip로 제한
@@ -37,13 +47,17 @@ cloud/
 │   │   │   ├── Network
 │   │   │   └── RDS
 │   │   │
-│   │   └── runtime/
-│   │       ├── NAT Instance
-│   │       ├── IAM
-│   │       ├── EKS
-│   │       ├── ECR
-│   │       ├── Application S3
-│   │       └── CloudWatch
+│   │   ├── runtime/
+│   │   │   ├── NAT Instance
+│   │   │   ├── IAM
+│   │   │   ├── EKS
+│   │   │   ├── ECR
+│   │   │   ├── Application S3
+│   │   │   └── CloudWatch
+│   │   │
+│   │   ├── autoscaling/
+│   │   │
+│   │   └── cloudflared/
 │   │
 │   └── prod/
 │       ├── foundation/
@@ -57,7 +71,12 @@ cloud/
     ├── ecr/
     ├── storage/
     ├── observability/
-    └── rds/
+    ├── rds/
+    ├── jenkins/
+    ├── webhook-relay/
+    ├── argocd/
+    ├── karpenter/
+    └── keda/
 ```
 
 ## bootstrap
@@ -103,6 +122,10 @@ Runtime
 ├── EKS Cluster
 ├── EKS Managed Node Group
 ├── IAM
+├── Jenkins
+├── Jenkins Internal NLB
+├── Github webhook relay
+├── ArgoCD
 ├── ECR
 ├── Application S3
 └── CloudWatch
@@ -114,8 +137,33 @@ terraform remote state를 통해 참조합니다
 
 runtime에서 vpc를 중복 생성하지 않아요
 
+## dev autoscaling
+runtime에서 생성된 EKS Cluster를 기준으로 Cluster Autoscaling 관련 구성을 관리합니다.
+```bash
+Autoscaling
+├── Metrics Server
+├── KEDA
+└── Karpenter
+```
+runtime이 먼저 구성되어 있어야 Autoscaling구성을 적용할 수 있습니다.
+
+## Cloudflare Tunnel
+`environmnets/dev/cloudflared`는 terraform에서 직접 관리하지않는
+별도 Kubernetes Manifest입니다.
+
+현재 application service는 `ClusterIP`이며,
+외부 공개가 필요한 경우 Cloudflare Tunnel를 통해 접근합니다.
+
+runtime과 autoscaling 구성이 완료된 이후 별도로 manifest를 적용합니다.
+
 # 최초 구성
-bootstrap apply -> foundation apply -> runtime apply
+bootstrap apply
+-> foundation apply
+-> runtime apply
+-> EKS 접속 및 상태 확인
+-> autoscaling apply
+-> cloudflared manifest 적용
+-> 잘 적용되어있는지 확인
 
 ## bootstrap
 
@@ -147,7 +195,10 @@ bucket       = "CHANGE_ME_TO_BOOTSTRAP_BUCKET_NAME"
 이 부분에 bootstrap의 bucket name을 집어 넣으면 됩니다 -> "pantry-mate-tstate-여러개의 숫자-apne2"
 
 그리고 foundation폴더 내에서 terraform.tfvars 만들어줍니다 << example 있어요
-기본은 db.t4g.medium, Single-AZ, 100기가 입니다
+기본 RDS구성은 db.t4g.medium, Single-AZ, 100GiB 입니다
+기본 AZ는 `ap-northeast-2a`입니다.
+
+배치 AZ는 `rds_availability_zone` 변수로 변경 가능합니다.
 
 다음으로
 terraform init \
@@ -189,11 +240,27 @@ terraform plan
 
 terraform apply
 
+적용 완료 후 EKS 접속 정보를 갱신해줍시다.
+```bash
+aws eks update-kubeconfig \
+  --region ap-northeast-2 \
+  --name pantry-mate-dev-eks
+```
+
 ## Destroy
 
 foundation 부수면 RDS가 사라집니다 = 데이터 삭제됨
 
-runtime만 일단 destroy하고
+환경 종료 시 autoscaling부터 제거합니다.
+
+cloudflare도 제거해줍니다
+```bash
+kubectl delete -f environments/dev/cloudflared
+```
+
+이후 runtime destroy합니다.
+runtime에는 ECR 및 application S3가 포함되있기에
+destroy하기전에 보존해야하는 이미지나 데이터가 있는지 확인해야합니다.
 
 RDS stop하기
 aws rds describe-db-instances \
@@ -216,6 +283,7 @@ aws rds start-db-instance \
   --region ap-northeast-2 \
   --db-instance-identifier <DEV_RDS_IDENTIFIER>
 하시면 됩니다
+
 
 ## 요약하자면
 Repository Clone
@@ -252,11 +320,24 @@ Runtime plan 확인
       ↓
 Runtime apply
       ↓
-EKS / Application 테스트
-순서로 실행합니다
+EKS 접속 확인
+      ↓
+node/pod 상태 확인
+      ↓
+autoscaling init/plan/apply
+      ↓
+Metrics Server/KEDA/Karpenter 확인
+      ↓
+Cloudflared manifest 적용
+      ↓
+application 외부 접근 확인
 
-# 패치 1 9/8
-## 접속 방법
+
+## EKS node ssh 접속
+Developer
+-> NAT instance
+-> EKS node private ip
+
 boankey.pem을 들고 .ssh 폴더에 집어넣습니다
 
 terraform output에서 나온 nat ip와
@@ -271,7 +352,3 @@ ssh -i ~/.ssh/boankey.pem \
 ssh -i ~/.ssh/boankey.pem \
   ubuntu@<NAT_PUBLIC_IP>
 
-# 패치 2 9/10
-## ubuntu
-원래 ubuntu로 진행했어야했는데 amazon linux로 생성되어있었습니다
-ubuntu로 생성되도록 수정했습니다
