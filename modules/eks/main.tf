@@ -143,3 +143,15 @@ resource "aws_eks_node_group" "this" {
     NodeRole = each.key
   })
 }
+
+resource "aws_vpc_security_group_ingress_rule" "tailscale_direct" {
+  for_each = var.tailscale_direct_enabled ? toset(var.tailscale_direct_source_cidrs) : toset([])
+
+  security_group_id = aws_eks_cluster.this.vpc_config[0].cluster_security_group_id
+  description = "allow tailscale direct udp traffic"
+
+  cidr_ipv4 = each.value
+  from_port = 41641
+  to_port = 41641
+  ip_protocol = "udp"
+}

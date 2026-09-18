@@ -76,6 +76,12 @@ module "eks" {
   cluster_log_retention_days = var.cloudwatch_log_retention_days
   common_tags                = local.common_tags
 
+  tailscale_direct_enabled = true
+
+  tailscale_direct_source_cidrs = [
+    "58.227.70.31/32",
+  ]
+
   node_groups = {
     manage = {
       instance_types = [var.manage_node_instance_type]
@@ -141,6 +147,34 @@ module "eks" {
       taints = [{
         key    = "nvidia.com/gpu"
         value  = "true"
+        effect = "NO_SCHEDULE"
+      }]
+    }
+
+    tailscale = {
+      subnet_ids = data.terraform_remote_state.foundation.outputs.public_subnet_ids
+
+      instance_types = [
+        "t3a.small",
+        "t3.small",
+      ]
+
+      capacity_type = "SPOT"
+
+      min_size     = 1
+      desired_size = 1
+      max_size     = 1
+
+      disk_size     = 20
+      enable_nvidia = false
+
+      labels = {
+        role = "tailscale"
+      }
+
+      taints = [{
+        key    = "dedicated"
+        value  = "tailscale"
         effect = "NO_SCHEDULE"
       }]
     }
