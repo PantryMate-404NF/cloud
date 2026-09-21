@@ -12,6 +12,7 @@ resource "kubectl_manifest" "node_pool" {
         metadata = {
           labels = {
             "provisioned-by" = "karpenter"
+            "role" = "worker"
           }
         }
 
@@ -55,7 +56,7 @@ resource "kubectl_manifest" "node_pool" {
 
       disruption = {
         consolidationPolicy = "WhenEmptyOrUnderutilized"
-        consolidateAfter    = "1m"
+        consolidateAfter    = "5m"
       }
     }
   })
