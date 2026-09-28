@@ -166,6 +166,17 @@ controller:
                   }
                 }
               }
+          - script: |
+              multibranchPipelineJob('${ai_repo_name}') {
+                branchSources {
+                  github {
+                    id('${ai_repo_name}')
+                    repoOwner('${github_org}')
+                    repository('${ai_repo_name}')
+                    scanCredentialsId('github-credentials')
+                  }
+                }
+              }
 
 
 # ── 빌드 에이전트: worker 노드에 스케줄링 ────────────────────────────────────

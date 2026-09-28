@@ -236,6 +236,7 @@ module "jenkins" {
   github_org         = var.github_org
   frontend_repo_name = var.frontend_repo_name
   backend_repo_name  = var.backend_repo_name
+  ai_repo_name       = var.ai_repo_name
 
   artifact_bucket_name = module.storage.bucket_name
   common_tags          = local.common_tags
@@ -295,6 +296,16 @@ resource "github_repository_webhook" "frontend" {
 
 resource "github_repository_webhook" "backend" {
   repository = var.backend_repo_name
+  configuration {
+    url          = module.webhook_relay.webhook_url
+    content_type = "json"
+    secret       = var.github_webhook_secret
+  }
+  events = ["push"]
+}
+
+resource "github_repository_webhook" "ai" {
+  repository = var.ai_repo_name
   configuration {
     url          = module.webhook_relay.webhook_url
     content_type = "json"

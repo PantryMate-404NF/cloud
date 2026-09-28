@@ -114,6 +114,56 @@ resource "kubectl_manifest" "frontend_app" {
   depends_on = [helm_release.argocd, kubernetes_secret.gitops_repo]
 }
 
+# ── Argo CD Application: ai ──────────────────────────────────────────────────
+# GitOps 레포의 environments/<env>/<ai_gitops_path> 경로를 바라봅니다.
+
+resource "kubectl_manifest" "ai_app" {
+  yaml_body = yamlencode({
+    apiVersion = "argoproj.io/v1alpha1"
+    kind       = "Application"
+    metadata = {
+      name      = lower(var.ai_repo_name)
+      namespace = "argocd"
+      labels = {
+        "app.kubernetes.io/managed-by" = "terraform"
+      }
+      finalizers = ["resources-finalizer.argocd.argoproj.io"]
+    }
+    spec = {
+      project = "default"
+      source = {
+        repoURL        = var.gitops_repo_url
+        targetRevision = "HEAD"
+        path           = "environments/${var.environment}/${coalesce(var.ai_gitops_path, var.ai_repo_name)}"
+      }
+      destination = {
+        server    = "https://kubernetes.default.svc"
+        namespace = var.app_namespace
+      }
+      syncPolicy = {
+        automated = {
+          prune    = true
+          selfHeal = true
+        }
+        syncOptions = [
+          "CreateNamespace=false",
+          "PrunePropagationPolicy=foreground",
+        ]
+        retry = {
+          limit = 5
+          backoff = {
+            duration    = "5s"
+            factor      = 2
+            maxDuration = "3m"
+          }
+        }
+      }
+    }
+  })
+
+  depends_on = [helm_release.argocd, kubernetes_secret.gitops_repo]
+}
+
 # ── Argo CD Application: backend ─────────────────────────────────────────────
 # GitOps 레포의 environments/<env>/backend 경로를 바라봅니다.
 

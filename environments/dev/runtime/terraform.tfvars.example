@@ -46,7 +46,7 @@ worker_node_labels = {
 gpu_node_instance_type = "g4dn.xlarge"
 gpu_node_min_size      = 0
 gpu_node_max_size      = 1
-gpu_node_desired_size  = 0
+gpu_node_desired_size  = 1   # AI 서버(aiServer)가 GPU 노드(role=gpu)에 뜸
 
 ecr_repository_names = [
   "pantry-mate-dev-frontend",
@@ -69,6 +69,7 @@ extra_tags                    = {}
 github_org         = "your-github-org"       # GitHub 조직명 또는 계정명
 frontend_repo_name = "pantry-mate-frontend"  # 프론트엔드 레포지토리 이름
 backend_repo_name  = "pantry-mate-backend"   # 백엔드 레포지토리 이름
+ai_repo_name       = "aiServer"              # AI 레포지토리 이름
 
 # ── Argo CD (GitOps CD) ───────────────────────────────────────────────────────
 # gitops_repo_token은 환경변수로 주입하세요.

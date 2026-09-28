@@ -14,10 +14,12 @@ module "argocd" {
   github_org         = var.github_org
   frontend_repo_name = var.frontend_repo_name
   backend_repo_name  = var.backend_repo_name
+  ai_repo_name       = var.ai_repo_name
   environment        = var.environment
 
   frontend_gitops_path = var.frontend_gitops_path
   backend_gitops_path  = var.backend_gitops_path
+  ai_gitops_path       = var.ai_gitops_path
   app_namespace        = var.app_namespace
 
   depends_on = [module.eks]

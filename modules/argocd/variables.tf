@@ -30,6 +30,11 @@ variable "backend_repo_name" {
   type        = string
 }
 
+variable "ai_repo_name" {
+  description = "AI 앱 이름 (Argo CD Application 이름 및 GitOps 경로에 사용)."
+  type        = string
+}
+
 variable "frontend_gitops_path" {
   description = "GitOps 레포 environments/<env>/ 아래 프론트엔드 매니페스트 디렉토리. null이면 frontend_repo_name 사용."
   type        = string
@@ -38,6 +43,12 @@ variable "frontend_gitops_path" {
 
 variable "backend_gitops_path" {
   description = "GitOps 레포 environments/<env>/ 아래 백엔드 매니페스트 디렉토리. null이면 backend_repo_name 사용."
+  type        = string
+  default     = null
+}
+
+variable "ai_gitops_path" {
+  description = "GitOps 레포 environments/<env>/ 아래 AI 매니페스트 디렉토리. null이면 ai_repo_name 사용."
   type        = string
   default     = null
 }

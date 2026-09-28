@@ -57,6 +57,11 @@ variable "backend_repo_name" {
   type        = string
 }
 
+variable "ai_repo_name" {
+  description = "GitHub repository name for the AI service."
+  type        = string
+}
+
 variable "manage_node_label" {
   description = "Value of the 'role' node label used to schedule the Jenkins controller."
   type        = string

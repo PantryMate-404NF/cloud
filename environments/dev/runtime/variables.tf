@@ -276,6 +276,12 @@ variable "backend_repo_name" {
   type        = string
 }
 
+variable "ai_repo_name" {
+  description = "AI 서비스의 GitHub 레포지토리 이름."
+  type        = string
+  default     = "aiServer"
+}
+
 # 각 앱 레포 Jenkinsfile의 GITOPS_APP_PATH / GITOPS_PATH와 일치해야 합니다.
 variable "frontend_gitops_path" {
   description = "Argo CD가 동기화할 GitOps 레포 environments/<env>/ 아래 프론트엔드 디렉토리."
@@ -287,6 +293,12 @@ variable "backend_gitops_path" {
   description = "Argo CD가 동기화할 GitOps 레포 environments/<env>/ 아래 백엔드 디렉토리."
   type        = string
   default     = "cloud-test-back"
+}
+
+variable "ai_gitops_path" {
+  description = "Argo CD가 동기화할 GitOps 레포 environments/<env>/ 아래 AI 디렉토리."
+  type        = string
+  default     = "cloud-test-ai"
 }
 
 # ── Argo CD (GitOps CD) ───────────────────────────────────────────────────────

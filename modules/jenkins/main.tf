@@ -185,6 +185,7 @@ resource "helm_release" "jenkins" {
       github_org            = var.github_org
       frontend_repo_name    = var.frontend_repo_name
       backend_repo_name     = var.backend_repo_name
+      ai_repo_name          = var.ai_repo_name
       github_api_token      = var.github_api_token
       github_webhook_secret = var.github_webhook_secret
     })
@@ -225,8 +226,8 @@ resource "kubernetes_annotations" "jenkins_sa_irsa" {
 
 resource "null_resource" "jenkins_irsa_restart" {
   triggers = {
-    role_arn    = aws_iam_role.jenkins.arn
-    helm_rev    = helm_release.jenkins.metadata[0].revision
+    role_arn = aws_iam_role.jenkins.arn
+    helm_rev = helm_release.jenkins.metadata[0].revision
   }
 
   provisioner "local-exec" {
