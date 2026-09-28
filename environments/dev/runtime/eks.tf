@@ -93,6 +93,19 @@ module "eks" {
       labels         = var.manage_node_labels
     }
 
+    # 스팟 회수와 무관하게 항상 떠 있는 기본 worker
+    worker-ondemand = {
+      instance_types = [var.worker_node_instance_type]
+      min_size       = var.worker_node_min_size
+      max_size       = var.worker_node_max_size
+      desired_size   = var.worker_node_desired_size
+      capacity_type  = var.worker_node_capacity_type
+      disk_size      = 30
+      enable_nvidia  = false
+      labels         = var.worker_node_labels
+      taints         = []
+    }
+
     worker-2a = {
       subnet_ids = [
         data.terraform_remote_state.foundation.outputs.private_subnet_ids[0]
@@ -154,10 +167,7 @@ module "eks" {
     tailscale = {
       subnet_ids = data.terraform_remote_state.foundation.outputs.public_subnet_ids
 
-      instance_types = [
-        "t3a.small",
-        "t3.small",
-      ]
+      instance_types = ["t3.small"]
 
       capacity_type = "SPOT"
 
