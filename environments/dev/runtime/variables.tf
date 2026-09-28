@@ -276,6 +276,19 @@ variable "backend_repo_name" {
   type        = string
 }
 
+# 각 앱 레포 Jenkinsfile의 GITOPS_APP_PATH / GITOPS_PATH와 일치해야 합니다.
+variable "frontend_gitops_path" {
+  description = "Argo CD가 동기화할 GitOps 레포 environments/<env>/ 아래 프론트엔드 디렉토리."
+  type        = string
+  default     = "cloud-test-front"
+}
+
+variable "backend_gitops_path" {
+  description = "Argo CD가 동기화할 GitOps 레포 environments/<env>/ 아래 백엔드 디렉토리."
+  type        = string
+  default     = "cloud-test-back"
+}
+
 # ── Argo CD (GitOps CD) ───────────────────────────────────────────────────────
 
 variable "gitops_repo_url" {

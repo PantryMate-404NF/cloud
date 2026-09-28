@@ -56,8 +56,9 @@ output "manage_node_group_name" {
 output "worker_node_group_name" {
   description = "Worker managed node group name."
   value = {
-    "2a" = module.eks.node_group_names["worker-2a"]
-    "2c" = module.eks.node_group_names["worker-2c"]
+    "ondemand" = module.eks.node_group_names["worker-ondemand"]
+    "2a"       = module.eks.node_group_names["worker-2a"]
+    "2c"       = module.eks.node_group_names["worker-2c"]
   }
 }
 

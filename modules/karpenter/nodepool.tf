@@ -12,7 +12,7 @@ resource "kubectl_manifest" "node_pool" {
         metadata = {
           labels = {
             "provisioned-by" = "karpenter"
-            "role" = "worker"
+            "role"           = "worker"
           }
         }
 
