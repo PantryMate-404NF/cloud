@@ -101,7 +101,8 @@ fi
 echo
 echo "===== METRICS API ====="
 
-if kubectl get --raw /apis/metrics.k8s.io/v1beta1/nodes >/dev/null 2>&1; then
+# Windows Git Bash는 /로 시작하는 인자를 파일 경로로 바꾸므로 변환을 끈다 (Linux/macOS에는 영향 없음)
+if MSYS_NO_PATHCONV=1 kubectl get --raw /apis/metrics.k8s.io/v1beta1/nodes >/dev/null 2>&1; then
   echo "OK"
 else
   echo "FAIL"
