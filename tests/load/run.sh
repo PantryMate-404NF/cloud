@@ -63,12 +63,24 @@ if [[ "${#args[@]}" -eq 0 ]]; then
   exit 1
 fi
 
-log "K6 START"
+MAX_VUS="${MAX_VUS:-20}"
+[[ "$MAX_VUS" =~ ^[0-9]+$ ]] && ((MAX_VUS >= 1 && MAX_VUS <= 100)) || {
+  echo "ERROR: MAX_VUS must be 1..100" >&2
+  exit 2
+}
+
+# Windows의 k6.exe는 /c/... 형태 경로를 못 읽으므로 C:/... 로 바꿔 넘긴다
+winpath() {
+  if command -v cygpath >/dev/null 2>&1; then cygpath -m "$1"; else echo "$1"; fi
+}
+
+log "K6 START max_vus_per_service=$MAX_VUS"
 
 k6 run \
   "${args[@]}" \
-  -e RESULT_DIR="$OUT" \
-  "$ROOT/load/all-services.js" \
+  -e MAX_VUS="$MAX_VUS" \
+  -e RESULT_DIR="$(winpath "$OUT")" \
+  "$(winpath "$ROOT/load/all-services.js")" \
   2>&1 | tee "$OUT/k6.log"
 
 RC=${PIPESTATUS[0]}

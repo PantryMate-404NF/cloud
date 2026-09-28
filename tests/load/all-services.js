@@ -13,6 +13,15 @@ const names = [
 
 const scenarios = {};
 
+// 서비스당 최대 VU (기본 20). 단계별 목표는 기본 곡선(5→10→15→20)을 이 값에 맞춰 비율로 줄인다
+const MAX_VUS = Number(__ENV.MAX_VUS || 20);
+
+if (!Number.isInteger(MAX_VUS) || MAX_VUS < 1 || MAX_VUS > 100) {
+  throw new Error('MAX_VUS must be an integer 1..100');
+}
+
+const vus = (base) => Math.max(1, Math.round((base * MAX_VUS) / 20));
+
 for (const name of names) {
 
   const url = __ENV[`${name}_URL`];
@@ -26,11 +35,11 @@ for (const name of names) {
     exec: 'request',
 
     stages: [
-      { duration: '1m', target: 5  },
-      { duration: '2m', target: 10 },
-      { duration: '2m', target: 15 },
-      { duration: '2m', target: 20 },
-      { duration: '2m', target: 20 },
+      { duration: '1m', target: vus(5)  },
+      { duration: '2m', target: vus(10) },
+      { duration: '2m', target: vus(15) },
+      { duration: '2m', target: vus(20) },
+      { duration: '2m', target: vus(20) },
       { duration: '1m', target: 0  },
     ],
 
