@@ -118,6 +118,9 @@ echo "$HPA_OUT"
 if echo "$HPA_OUT" | grep -q '<unknown>'; then
   echo
   echo "FAIL: HPA contains <unknown> metrics"
+  # KEDA 트리거가 VM1 Prometheus(onprem-gateway:9090, Tailscale 경유)를 조회하므로 VM 연결 끊김이 흔한 원인
+  echo "HINT: check VM1 Prometheus reachability via Tailscale (onprem-gateway.monitoring.svc:9090)"
+  echo "      kubectl logs -n monitoring deploy/tailscale-proxy -c tailscale --since=5m | grep -E 'open-conn-track|new contact'"
   FAILED=1
 else
   echo
