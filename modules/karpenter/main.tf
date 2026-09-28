@@ -24,8 +24,9 @@ module "karpenter_aws" {
 }
 
 resource "helm_release" "karpenter" {
-  name      = "karpenter"
-  namespace = var.namespace
+  name             = "karpenter"
+  namespace        = var.namespace
+  create_namespace = true
 
   repository = "oci://public.ecr.aws/karpenter"
   chart      = "karpenter"

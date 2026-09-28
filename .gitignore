@@ -23,3 +23,7 @@ override.tf.json
 *_override.tf.json
 .tflint
 tflint
+
+# Local secret inputs (never commit)
+*.auto.tfvars
+secrets.tfvars
