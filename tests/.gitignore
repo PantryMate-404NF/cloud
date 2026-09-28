@@ -1,0 +1,3 @@
+config.local.env
+results/*
+!results/.gitkeep

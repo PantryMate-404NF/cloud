@@ -1,0 +1,5 @@
+[
+  {"name":"baseline EC2","count":1,"hours_per_month":730,"hourly_usd":0},
+  {"name":"spot EC2","count":3,"hours_per_month":730,"hourly_usd":0},
+  {"name":"NAT instance","count":1,"hours_per_month":730,"hourly_usd":0}
+]
