@@ -101,7 +101,8 @@ fi
 echo
 echo "===== METRICS API ====="
 
-if kubectl get --raw /apis/metrics.k8s.io/v1beta1/nodes >/dev/null 2>&1; then
+# Windows Git Bash는 /로 시작하는 인자를 파일 경로로 바꾸므로 변환을 끈다 (Linux/macOS에는 영향 없음)
+if MSYS_NO_PATHCONV=1 kubectl get --raw /apis/metrics.k8s.io/v1beta1/nodes >/dev/null 2>&1; then
   echo "OK"
 else
   echo "FAIL"
@@ -118,6 +119,9 @@ echo "$HPA_OUT"
 if echo "$HPA_OUT" | grep -q '<unknown>'; then
   echo
   echo "FAIL: HPA contains <unknown> metrics"
+  # KEDA 트리거가 VM1 Prometheus(onprem-gateway:9090, Tailscale 경유)를 조회하므로 VM 연결 끊김이 흔한 원인
+  echo "HINT: check VM1 Prometheus reachability via Tailscale (onprem-gateway.monitoring.svc:9090)"
+  echo "      kubectl logs -n monitoring deploy/tailscale-proxy -c tailscale --since=5m | grep -E 'open-conn-track|new contact'"
   FAILED=1
 else
   echo

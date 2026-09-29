@@ -139,9 +139,13 @@ tests/
 kubectl
 jq
 k6
-python3
+python3   # 3.9 이상. Windows Git Bash에서는 python3가 스토어 연결 파일이라 python을 자동으로 사용
 aws
 ```
+
+`k6`와 `jq`는 기본 설치되어 있지 않은 경우가 많습니다. Windows 예: `winget install k6.k6 jqlang.jq`
+
+CNPG 관련 스크립트(`ha/collect-cnpg-status.sh`, `backup/check-cnpg-backup.sh`)는 **온프레미스 쿠버네티스 kubeconfig**가 추가로 필요합니다(4.1 참고).
 
 Kubernetes 접근 확인:
 
@@ -188,22 +192,30 @@ config.env
 config.local.env
 ```
 
-`config.local.env`는 테스트 환경마다 달라질 수 있는 URL 및 설정을 저장하기 위한 파일입니다.
-
-예:
+`config.local.env`는 테스트 환경마다 달라질 수 있는 URL 및 설정을 저장하기 위한 파일입니다. 예시 파일을 복사해서 사용합니다.
 
 ```bash
-NAMESPACE=app
-KEDA_NAMESPACE=keda
-NODEPOOL=general
+cp config.local.env.example config.local.env
+```
 
-FRONTEND_URL=
-GATEWAY_URL=
-USER_URL=
-PRODUCT_URL=
-ORDER_PAYMENT_URL=
-PANTRY_RECIPE_URL=
-NOTIFICATION_URL=
+## 4.1 온프레미스 클러스터(CNPG) 접근
+
+DB는 EKS가 아니라 온프레미스에 있습니다.
+
+```text
+EKS 앱 → tailscale-proxy(EKS, monitoring) → Tailscale → VM1(k8s: 모니터링, CNPG) → VM2(PostgreSQL)
+```
+
+그래서 기본 kubectl context(EKS)로는 CNPG가 조회되지 않습니다. CNPG 스크립트는 `ONPREM_KUBE_CONTEXT`에 지정한 context로만 실행됩니다.
+
+1. VM1의 kubeconfig(`/etc/kubernetes/admin.conf` 등)를 받아 `server:` 주소를 VM1의 Tailscale IP로 바꿉니다.
+2. 로컬 kubeconfig에 병합한 뒤 context 이름을 확인합니다: `kubectl config get-contexts`
+3. `config.local.env`에 설정합니다.
+
+```bash
+ONPREM_KUBE_CONTEXT=<온프레미스 context 이름>
+DB_NAMESPACE=<VM1에서 kubectl get cluster -A 로 확인한 네임스페이스>
+CNPG_CLUSTER=<같은 명령의 NAME>
 ```
 
 ---
@@ -446,6 +458,55 @@ stages: [
 
 따라서 최초 테스트는 낮은 부하에서 시작한 후 단계적으로 증가시키는 것을 권장합니다.
 
+## 9.1 부하 조절 옵션
+
+| 변수 | 기본값 | 범위 | 뜻 |
+| --- | --- | --- | --- |
+| `MAX_VUS` | 20 | 1..500 | 서비스당 최대 VU |
+| `SLEEP` | 1 | 0..10 (초) | 요청 사이 대기. `0`이면 쉬지 않고 연속 요청 |
+| `HOLD` | 2m | `30s`, `5m`, `1h` 형식 | 최대 VU 유지 시간 |
+| `PROFILE` | ramp | ramp / spike / soak | 부하 곡선 |
+
+`PROFILE`:
+
+```text
+ramp  : 1m→25% · 2m→50% · 2m→75% · 2m→100% · HOLD 유지 · 1m→0
+spike : 30초 만에 100% · HOLD 유지 · 30s→0
+soak  : 2m→50% · HOLD 유지 · 1m→0
+```
+
+기본값(`SLEEP=1`)은 VU 80개가 약 36 req/s 밖에 만들지 못해 스케일아웃이 일어나지 않습니다.
+오토스케일링을 보려면 `SLEEP` 을 줄이고 `HOLD` 를 늘립니다 (KEDA 폴링 + 파드 기동 + Karpenter 노드 추가에 수 분이 걸림).
+
+```bash
+# 중간 강도: 스케일아웃 관찰
+SLEEP=0.2 MAX_VUS=50 HOLD=5m bash load/run.sh
+
+# 극단: 쉬지 않고 요청, 서비스당 200 VU
+SLEEP=0 MAX_VUS=200 HOLD=5m bash load/run.sh
+
+# 스파이크: 30초 만에 서비스당 300 VU
+PROFILE=spike SLEEP=0 MAX_VUS=300 HOLD=3m bash load/run.sh
+```
+
+종료 시 화면에 `LOAD SUMMARY` 가 출력됩니다 (서비스별 p95·실패율, 응답 코드 분류).
+
+`load/run.sh` 는 단독 실행해도 결과를 모두 `results/<TEST_ID>/` 에 남깁니다.
+부하가 끝난 뒤 `POST_OBSERVE`(기본 8m, `0`이면 생략) 동안 스케일인·노드 회수를 더 기록하고, Ctrl+C 로 중단해도 저장합니다.
+
+| 파일 | 내용 |
+| --- | --- |
+| `summary.txt` | **먼저 볼 파일.** k6 요약 + 항목별 레플리카·노드 수 시작/최대(도달 시각)/끝 |
+| `scaling.log` | 15초마다 노드 수와 HPA별 레플리카 한 줄 |
+| `timeline.log` | 10초마다 HPA·Deployment·Pod·Node·NodeClaim 상세 (`observe/watch.sh`) |
+| `hpa-events.txt` | HPA 레플리카 변경 이벤트와 사유 (UTC) |
+| `karpenter-events.txt` | Karpenter 노드 추가·회수 이벤트 (UTC) |
+| `k6.log` · `k6-summary.json` | k6 전체 출력과 지표 원본 |
+
+- `5xx` · `timeout` 증가 → 서버/DB 한계
+- `429` · `403` 증가 → Cloudflare 차단 가능성 (서버 한계 아님)
+- 로컬 PC CPU 가 100% 에 닿으면 k6 자체가 병목이므로 결과를 신뢰하기 어렵습니다
+
 ---
 
 # 10. AutoScaling 관찰
@@ -580,14 +641,10 @@ DURATION=60 \
 ./failure/cpu-stress.sh
 ```
 
-컨테이너 내부에 다음 도구 중 하나가 존재해야 합니다.
+애플리케이션 이미지에는 stress 도구가 없으므로, 같은 Pod에 **임시(ephemeral) 디버그 컨테이너**(`STRESS_IMAGE`, 기본 `alexeiled/stress-ng`)를 붙여 부하를 겁니다. `WORKERS`(1~4)로 CPU 워커 수, `CONTAINER`로 대상 컨테이너를 지정할 수 있습니다.
 
-```text
-stress-ng
-stress
-```
-
-해당 도구가 Application Image에 없을 경우 별도의 Stress 방식이 필요합니다.
+- 임시 컨테이너는 Pod가 재생성될 때까지 종료 상태로 기록이 남습니다(서비스 영향 없음).
+- 임시 컨테이너에는 resources.requests가 없으므로, HPA의 CPU 사용률(요청량 대비)에 반영되는 방식은 클러스터 버전에 따라 다를 수 있습니다. KEDA/HPA 반응은 `kubectl get hpa -w`로 함께 확인합니다.
 
 ---
 
@@ -609,6 +666,14 @@ drain
 방식입니다.
 
 따라서 이는 실제 EC2 Instance Power-Off 테스트가 아닙니다.
+
+**`role=worker` 노드만 허용됩니다.** 아래 노드는 drain하면 테스트가 아니라 실제 장애가 되므로 스크립트가 거부합니다.
+
+| role | 영향 |
+|---|---|
+| `tailscale` | 모든 백엔드의 DB 경로 차단 |
+| `manage` | Jenkins, ArgoCD 중단 |
+| `gpu` | AI 서버 중단 |
 
 검증 항목:
 
@@ -641,6 +706,8 @@ Recovery Time Objective
 즉 장애 발생 후 실제 서비스가 정상적으로 다시 제공되기까지 걸린 시간입니다.
 
 단순히 Pod가 `Running`이 되었다고 서비스가 복구된 것은 아닙니다.
+
+DB(CNPG) 장애의 경우 온프레미스에서 CNPG가 failover를 끝냈더라도, EKS 앱이 `tailscale-proxy → VM1`을 거쳐 새 primary에 실제로 쿼리하기 전까지는 복구된 것이 아닙니다. VM1이 멈추면 VM2의 DB가 살아 있어도 EKS에서는 접근할 수 없습니다(VM1 단일 장애점).
 
 가능하면 다음 기준을 사용합니다.
 
@@ -1023,3 +1090,9 @@ CPU Stress
 ```
 
 이 전체 흐름이 확인되어야 AutoScaling 검증 완료로 판단합니다.
+
+## 20.1 결과 해석 시 주의
+
+- **DB 경로 병목**: 모든 백엔드가 tailscale-proxy Pod 1개(스팟 t3.small) → Tailscale(중계 DERP일 수 있음) → VM1 → CNPG → VM2 를 거칩니다. Pod가 많이 늘어나는 구간에서 `watch-db.sh`에 `Read timed out`, `connection attempt failed`가 나오면 DB 자체보다 이 경로의 한계일 가능성이 큽니다. VM에서 `tailscale ping <tailscale-proxy IP>`로 direct/DERP 여부를 먼저 확인합니다.
+- **HPA `<unknown>`**: KEDA 트리거가 VM1 Prometheus를 조회하므로, VM 연결이 끊기면 `health-check.sh`가 실패합니다. 앱이 아니라 VM 연결 문제입니다.
+- **Cloudflare 경유 부하**: k6가 Cloudflare를 거치면 봇 차단·요청 제한으로 403/429가 나올 수 있습니다. 실패율은 상태 코드별로 나눠 확인하고, Cloudflare 응답을 앱 장애로 집계하지 않습니다.
