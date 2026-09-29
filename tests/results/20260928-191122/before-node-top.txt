@@ -1,0 +1,8 @@
+===== 2026-09-28T19:11:43+09:00 =====
+NAME                                             CPU(cores)   CPU(%)   MEMORY(bytes)   MEMORY(%)   
+ip-10-0-1-150.ap-northeast-2.compute.internal    39m          2%       567Mi           39%         
+ip-10-0-11-212.ap-northeast-2.compute.internal   33m          0%       1547Mi          10%         
+ip-10-0-11-70.ap-northeast-2.compute.internal    114m         5%       2208Mi          67%         
+ip-10-0-12-106.ap-northeast-2.compute.internal   69m          3%       1937Mi          58%         
+ip-10-0-12-107.ap-northeast-2.compute.internal   133m         6%       1795Mi          25%         
+ip-10-0-12-226.ap-northeast-2.compute.internal   81m          4%       1418Mi          43%         

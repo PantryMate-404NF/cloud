@@ -1,0 +1,463 @@
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+
+     execution: local
+        script: C:/Users/Foryoucom/Desktop/404/cloud/tests/load/all-services.js
+        output: -
+
+     scenarios: (100.00%) 4 scenarios, 4 max VUs, 1m40s max duration (incl. graceful stop):
+              * frontend: Up to 1 looping VUs for 1m10s over 3 stages (gracefulRampDown: 30s, exec: request, gracefulStop: 30s)
+              * gateway: Up to 1 looping VUs for 1m10s over 3 stages (gracefulRampDown: 30s, exec: request, gracefulStop: 30s)
+              * pantry_recipe: Up to 1 looping VUs for 1m10s over 3 stages (gracefulRampDown: 30s, exec: request, gracefulStop: 30s)
+              * product: Up to 1 looping VUs for 1m10s over 3 stages (gracefulRampDown: 30s, exec: request, gracefulStop: 30s)
+
+
+running (0m01.0s), 4/4 VUs, 0 complete and 0 interrupted iterations
+frontend        [   1% ] 1/1 VUs  0m01.0s/1m10.0s
+gateway         [   1% ] 1/1 VUs  0m01.0s/1m10.0s
+pantry_recipe   [   1% ] 1/1 VUs  0m01.0s/1m10.0s
+product         [   1% ] 1/1 VUs  0m01.0s/1m10.0s
+
+running (0m02.0s), 4/4 VUs, 0 complete and 0 interrupted iterations
+frontend        [   3% ] 1/1 VUs  0m02.0s/1m10.0s
+gateway         [   3% ] 1/1 VUs  0m02.0s/1m10.0s
+pantry_recipe   [   3% ] 1/1 VUs  0m02.0s/1m10.0s
+product         [   3% ] 1/1 VUs  0m02.0s/1m10.0s
+
+running (0m03.0s), 4/4 VUs, 4 complete and 0 interrupted iterations
+frontend        [   4% ] 1/1 VUs  0m03.0s/1m10.0s
+gateway         [   4% ] 1/1 VUs  0m03.0s/1m10.0s
+pantry_recipe   [   4% ] 1/1 VUs  0m03.0s/1m10.0s
+product         [   4% ] 1/1 VUs  0m03.0s/1m10.0s
+
+running (0m04.0s), 4/4 VUs, 7 complete and 0 interrupted iterations
+frontend        [   6% ] 1/1 VUs  0m04.0s/1m10.0s
+gateway         [   6% ] 1/1 VUs  0m04.0s/1m10.0s
+pantry_recipe   [   6% ] 1/1 VUs  0m04.0s/1m10.0s
+product         [   6% ] 1/1 VUs  0m04.0s/1m10.0s
+
+running (0m05.0s), 4/4 VUs, 10 complete and 0 interrupted iterations
+frontend        [   7% ] 1/1 VUs  0m05.0s/1m10.0s
+gateway         [   7% ] 1/1 VUs  0m05.0s/1m10.0s
+pantry_recipe   [   7% ] 1/1 VUs  0m05.0s/1m10.0s
+product         [   7% ] 1/1 VUs  0m05.0s/1m10.0s
+
+running (0m06.0s), 4/4 VUs, 12 complete and 0 interrupted iterations
+frontend        [   9% ] 1/1 VUs  0m06.0s/1m10.0s
+gateway         [   9% ] 1/1 VUs  0m06.0s/1m10.0s
+pantry_recipe   [   9% ] 1/1 VUs  0m06.0s/1m10.0s
+product         [   9% ] 1/1 VUs  0m06.0s/1m10.0s
+
+running (0m07.0s), 4/4 VUs, 16 complete and 0 interrupted iterations
+frontend        [  10% ] 1/1 VUs  0m07.0s/1m10.0s
+gateway         [  10% ] 1/1 VUs  0m07.0s/1m10.0s
+pantry_recipe   [  10% ] 1/1 VUs  0m07.0s/1m10.0s
+product         [  10% ] 1/1 VUs  0m07.0s/1m10.0s
+
+running (0m08.0s), 4/4 VUs, 19 complete and 0 interrupted iterations
+frontend        [  11% ] 1/1 VUs  0m08.0s/1m10.0s
+gateway         [  11% ] 1/1 VUs  0m08.0s/1m10.0s
+pantry_recipe   [  11% ] 1/1 VUs  0m08.0s/1m10.0s
+product         [  11% ] 1/1 VUs  0m08.0s/1m10.0s
+
+running (0m09.0s), 4/4 VUs, 22 complete and 0 interrupted iterations
+frontend        [  13% ] 1/1 VUs  0m09.0s/1m10.0s
+gateway         [  13% ] 1/1 VUs  0m09.0s/1m10.0s
+pantry_recipe   [  13% ] 1/1 VUs  0m09.0s/1m10.0s
+product         [  13% ] 1/1 VUs  0m09.0s/1m10.0s
+
+running (0m10.0s), 4/4 VUs, 24 complete and 0 interrupted iterations
+frontend        [  14% ] 1/1 VUs  0m10.0s/1m10.0s
+gateway         [  14% ] 1/1 VUs  0m10.0s/1m10.0s
+pantry_recipe   [  14% ] 1/1 VUs  0m10.0s/1m10.0s
+product         [  14% ] 1/1 VUs  0m10.0s/1m10.0s
+
+running (0m11.0s), 4/4 VUs, 27 complete and 0 interrupted iterations
+frontend        [  16% ] 1/1 VUs  0m11.0s/1m10.0s
+gateway         [  16% ] 1/1 VUs  0m11.0s/1m10.0s
+pantry_recipe   [  16% ] 1/1 VUs  0m11.0s/1m10.0s
+product         [  16% ] 1/1 VUs  0m11.0s/1m10.0s
+
+running (0m12.0s), 4/4 VUs, 30 complete and 0 interrupted iterations
+frontend        [  17% ] 1/1 VUs  0m12.0s/1m10.0s
+gateway         [  17% ] 1/1 VUs  0m12.0s/1m10.0s
+pantry_recipe   [  17% ] 1/1 VUs  0m12.0s/1m10.0s
+product         [  17% ] 1/1 VUs  0m12.0s/1m10.0s
+
+running (0m13.0s), 4/4 VUs, 33 complete and 0 interrupted iterations
+frontend        [  19% ] 1/1 VUs  0m13.0s/1m10.0s
+gateway         [  19% ] 1/1 VUs  0m13.0s/1m10.0s
+pantry_recipe   [  19% ] 1/1 VUs  0m13.0s/1m10.0s
+product         [  19% ] 1/1 VUs  0m13.0s/1m10.0s
+
+running (0m14.0s), 4/4 VUs, 35 complete and 0 interrupted iterations
+frontend        [  20% ] 1/1 VUs  0m14.0s/1m10.0s
+gateway         [  20% ] 1/1 VUs  0m14.0s/1m10.0s
+pantry_recipe   [  20% ] 1/1 VUs  0m14.0s/1m10.0s
+product         [  20% ] 1/1 VUs  0m14.0s/1m10.0s
+
+running (0m15.0s), 4/4 VUs, 38 complete and 0 interrupted iterations
+frontend        [  21% ] 1/1 VUs  0m15.0s/1m10.0s
+gateway         [  21% ] 1/1 VUs  0m15.0s/1m10.0s
+pantry_recipe   [  21% ] 1/1 VUs  0m15.0s/1m10.0s
+product         [  21% ] 1/1 VUs  0m15.0s/1m10.0s
+
+running (0m16.0s), 4/4 VUs, 42 complete and 0 interrupted iterations
+frontend        [  23% ] 1/1 VUs  0m16.0s/1m10.0s
+gateway         [  23% ] 1/1 VUs  0m16.0s/1m10.0s
+pantry_recipe   [  23% ] 1/1 VUs  0m16.0s/1m10.0s
+product         [  23% ] 1/1 VUs  0m16.0s/1m10.0s
+
+running (0m17.0s), 4/4 VUs, 44 complete and 0 interrupted iterations
+frontend        [  24% ] 1/1 VUs  0m17.0s/1m10.0s
+gateway         [  24% ] 1/1 VUs  0m17.0s/1m10.0s
+pantry_recipe   [  24% ] 1/1 VUs  0m17.0s/1m10.0s
+product         [  24% ] 1/1 VUs  0m17.0s/1m10.0s
+
+running (0m18.0s), 4/4 VUs, 47 complete and 0 interrupted iterations
+frontend        [  26% ] 1/1 VUs  0m18.0s/1m10.0s
+gateway         [  26% ] 1/1 VUs  0m18.0s/1m10.0s
+pantry_recipe   [  26% ] 1/1 VUs  0m18.0s/1m10.0s
+product         [  26% ] 1/1 VUs  0m18.0s/1m10.0s
+
+running (0m19.0s), 4/4 VUs, 50 complete and 0 interrupted iterations
+frontend        [  27% ] 1/1 VUs  0m19.0s/1m10.0s
+gateway         [  27% ] 1/1 VUs  0m19.0s/1m10.0s
+pantry_recipe   [  27% ] 1/1 VUs  0m19.0s/1m10.0s
+product         [  27% ] 1/1 VUs  0m19.0s/1m10.0s
+
+running (0m20.0s), 4/4 VUs, 54 complete and 0 interrupted iterations
+frontend        [  29% ] 1/1 VUs  0m20.0s/1m10.0s
+gateway         [  29% ] 1/1 VUs  0m20.0s/1m10.0s
+pantry_recipe   [  29% ] 1/1 VUs  0m20.0s/1m10.0s
+product         [  29% ] 1/1 VUs  0m20.0s/1m10.0s
+
+running (0m21.0s), 4/4 VUs, 54 complete and 0 interrupted iterations
+frontend        [  30% ] 1/1 VUs  0m21.0s/1m10.0s
+gateway         [  30% ] 1/1 VUs  0m21.0s/1m10.0s
+pantry_recipe   [  30% ] 1/1 VUs  0m21.0s/1m10.0s
+product         [  30% ] 1/1 VUs  0m21.0s/1m10.0s
+
+running (0m22.0s), 4/4 VUs, 58 complete and 0 interrupted iterations
+frontend        [  31% ] 1/1 VUs  0m22.0s/1m10.0s
+gateway         [  31% ] 1/1 VUs  0m22.0s/1m10.0s
+pantry_recipe   [  31% ] 1/1 VUs  0m22.0s/1m10.0s
+product         [  31% ] 1/1 VUs  0m22.0s/1m10.0s
+
+running (0m23.0s), 4/4 VUs, 62 complete and 0 interrupted iterations
+frontend        [  33% ] 1/1 VUs  0m23.0s/1m10.0s
+gateway         [  33% ] 1/1 VUs  0m23.0s/1m10.0s
+pantry_recipe   [  33% ] 1/1 VUs  0m23.0s/1m10.0s
+product         [  33% ] 1/1 VUs  0m23.0s/1m10.0s
+
+running (0m24.0s), 4/4 VUs, 63 complete and 0 interrupted iterations
+frontend        [  34% ] 1/1 VUs  0m24.0s/1m10.0s
+gateway         [  34% ] 1/1 VUs  0m24.0s/1m10.0s
+pantry_recipe   [  34% ] 1/1 VUs  0m24.0s/1m10.0s
+product         [  34% ] 1/1 VUs  0m24.0s/1m10.0s
+
+running (0m25.0s), 4/4 VUs, 66 complete and 0 interrupted iterations
+frontend        [  36% ] 1/1 VUs  0m25.0s/1m10.0s
+gateway         [  36% ] 1/1 VUs  0m25.0s/1m10.0s
+pantry_recipe   [  36% ] 1/1 VUs  0m25.0s/1m10.0s
+product         [  36% ] 1/1 VUs  0m25.0s/1m10.0s
+
+running (0m26.0s), 4/4 VUs, 70 complete and 0 interrupted iterations
+frontend        [  37% ] 1/1 VUs  0m26.0s/1m10.0s
+gateway         [  37% ] 1/1 VUs  0m26.0s/1m10.0s
+pantry_recipe   [  37% ] 1/1 VUs  0m26.0s/1m10.0s
+product         [  37% ] 1/1 VUs  0m26.0s/1m10.0s
+
+running (0m27.0s), 4/4 VUs, 72 complete and 0 interrupted iterations
+frontend        [  39% ] 1/1 VUs  0m27.0s/1m10.0s
+gateway         [  39% ] 1/1 VUs  0m27.0s/1m10.0s
+pantry_recipe   [  39% ] 1/1 VUs  0m27.0s/1m10.0s
+product         [  39% ] 1/1 VUs  0m27.0s/1m10.0s
+
+running (0m28.0s), 4/4 VUs, 75 complete and 0 interrupted iterations
+frontend        [  40% ] 1/1 VUs  0m28.0s/1m10.0s
+gateway         [  40% ] 1/1 VUs  0m28.0s/1m10.0s
+pantry_recipe   [  40% ] 1/1 VUs  0m28.0s/1m10.0s
+product         [  40% ] 1/1 VUs  0m28.0s/1m10.0s
+
+running (0m29.0s), 4/4 VUs, 78 complete and 0 interrupted iterations
+frontend        [  41% ] 1/1 VUs  0m29.0s/1m10.0s
+gateway         [  41% ] 1/1 VUs  0m29.0s/1m10.0s
+pantry_recipe   [  41% ] 1/1 VUs  0m29.0s/1m10.0s
+product         [  41% ] 1/1 VUs  0m29.0s/1m10.0s
+
+running (0m30.0s), 4/4 VUs, 80 complete and 0 interrupted iterations
+frontend        [  43% ] 1/1 VUs  0m30.0s/1m10.0s
+gateway         [  43% ] 1/1 VUs  0m30.0s/1m10.0s
+pantry_recipe   [  43% ] 1/1 VUs  0m30.0s/1m10.0s
+product         [  43% ] 1/1 VUs  0m30.0s/1m10.0s
+
+running (0m31.0s), 4/4 VUs, 84 complete and 0 interrupted iterations
+frontend        [  44% ] 1/1 VUs  0m31.0s/1m10.0s
+gateway         [  44% ] 1/1 VUs  0m31.0s/1m10.0s
+pantry_recipe   [  44% ] 1/1 VUs  0m31.0s/1m10.0s
+product         [  44% ] 1/1 VUs  0m31.0s/1m10.0s
+
+running (0m32.0s), 4/4 VUs, 85 complete and 0 interrupted iterations
+frontend        [  46% ] 1/1 VUs  0m32.0s/1m10.0s
+gateway         [  46% ] 1/1 VUs  0m32.0s/1m10.0s
+pantry_recipe   [  46% ] 1/1 VUs  0m32.0s/1m10.0s
+product         [  46% ] 1/1 VUs  0m32.0s/1m10.0s
+
+running (0m33.0s), 4/4 VUs, 88 complete and 0 interrupted iterations
+frontend        [  47% ] 1/1 VUs  0m33.0s/1m10.0s
+gateway         [  47% ] 1/1 VUs  0m33.0s/1m10.0s
+pantry_recipe   [  47% ] 1/1 VUs  0m33.0s/1m10.0s
+product         [  47% ] 1/1 VUs  0m33.0s/1m10.0s
+
+running (0m34.0s), 4/4 VUs, 91 complete and 0 interrupted iterations
+frontend        [  49% ] 1/1 VUs  0m34.0s/1m10.0s
+gateway         [  49% ] 1/1 VUs  0m34.0s/1m10.0s
+pantry_recipe   [  49% ] 1/1 VUs  0m34.0s/1m10.0s
+product         [  49% ] 1/1 VUs  0m34.0s/1m10.0s
+
+running (0m35.0s), 4/4 VUs, 93 complete and 0 interrupted iterations
+frontend        [  50% ] 1/1 VUs  0m35.0s/1m10.0s
+gateway         [  50% ] 1/1 VUs  0m35.0s/1m10.0s
+pantry_recipe   [  50% ] 1/1 VUs  0m35.0s/1m10.0s
+product         [  50% ] 1/1 VUs  0m35.0s/1m10.0s
+
+running (0m36.0s), 4/4 VUs, 96 complete and 0 interrupted iterations
+frontend        [  51% ] 1/1 VUs  0m36.0s/1m10.0s
+gateway         [  51% ] 1/1 VUs  0m36.0s/1m10.0s
+pantry_recipe   [  51% ] 1/1 VUs  0m36.0s/1m10.0s
+product         [  51% ] 1/1 VUs  0m36.0s/1m10.0s
+
+running (0m37.0s), 4/4 VUs, 100 complete and 0 interrupted iterations
+frontend        [  53% ] 1/1 VUs  0m37.0s/1m10.0s
+gateway         [  53% ] 1/1 VUs  0m37.0s/1m10.0s
+pantry_recipe   [  53% ] 1/1 VUs  0m37.0s/1m10.0s
+product         [  53% ] 1/1 VUs  0m37.0s/1m10.0s
+
+running (0m38.0s), 4/4 VUs, 103 complete and 0 interrupted iterations
+frontend        [  54% ] 1/1 VUs  0m38.0s/1m10.0s
+gateway         [  54% ] 1/1 VUs  0m38.0s/1m10.0s
+pantry_recipe   [  54% ] 1/1 VUs  0m38.0s/1m10.0s
+product         [  54% ] 1/1 VUs  0m38.0s/1m10.0s
+
+running (0m39.0s), 4/4 VUs, 105 complete and 0 interrupted iterations
+frontend        [  56% ] 1/1 VUs  0m39.0s/1m10.0s
+gateway         [  56% ] 1/1 VUs  0m39.0s/1m10.0s
+pantry_recipe   [  56% ] 1/1 VUs  0m39.0s/1m10.0s
+product         [  56% ] 1/1 VUs  0m39.0s/1m10.0s
+
+running (0m40.0s), 4/4 VUs, 108 complete and 0 interrupted iterations
+frontend        [  57% ] 1/1 VUs  0m40.0s/1m10.0s
+gateway         [  57% ] 1/1 VUs  0m40.0s/1m10.0s
+pantry_recipe   [  57% ] 1/1 VUs  0m40.0s/1m10.0s
+product         [  57% ] 1/1 VUs  0m40.0s/1m10.0s
+
+running (0m41.0s), 4/4 VUs, 112 complete and 0 interrupted iterations
+frontend        [  59% ] 1/1 VUs  0m41.0s/1m10.0s
+gateway         [  59% ] 1/1 VUs  0m41.0s/1m10.0s
+pantry_recipe   [  59% ] 1/1 VUs  0m41.0s/1m10.0s
+product         [  59% ] 1/1 VUs  0m41.0s/1m10.0s
+
+running (0m42.0s), 4/4 VUs, 115 complete and 0 interrupted iterations
+frontend        [  60% ] 1/1 VUs  0m42.0s/1m10.0s
+gateway         [  60% ] 1/1 VUs  0m42.0s/1m10.0s
+pantry_recipe   [  60% ] 1/1 VUs  0m42.0s/1m10.0s
+product         [  60% ] 1/1 VUs  0m42.0s/1m10.0s
+
+running (0m43.0s), 4/4 VUs, 117 complete and 0 interrupted iterations
+frontend        [  61% ] 1/1 VUs  0m43.0s/1m10.0s
+gateway         [  61% ] 1/1 VUs  0m43.0s/1m10.0s
+pantry_recipe   [  61% ] 1/1 VUs  0m43.0s/1m10.0s
+product         [  61% ] 1/1 VUs  0m43.0s/1m10.0s
+
+running (0m44.0s), 4/4 VUs, 120 complete and 0 interrupted iterations
+frontend        [  63% ] 1/1 VUs  0m44.0s/1m10.0s
+gateway         [  63% ] 1/1 VUs  0m44.0s/1m10.0s
+pantry_recipe   [  63% ] 1/1 VUs  0m44.0s/1m10.0s
+product         [  63% ] 1/1 VUs  0m44.0s/1m10.0s
+
+running (0m45.0s), 4/4 VUs, 122 complete and 0 interrupted iterations
+frontend        [  64% ] 1/1 VUs  0m45.0s/1m10.0s
+gateway         [  64% ] 1/1 VUs  0m45.0s/1m10.0s
+pantry_recipe   [  64% ] 1/1 VUs  0m45.0s/1m10.0s
+product         [  64% ] 1/1 VUs  0m45.0s/1m10.0s
+
+running (0m46.0s), 4/4 VUs, 125 complete and 0 interrupted iterations
+frontend        [  66% ] 1/1 VUs  0m46.0s/1m10.0s
+gateway         [  66% ] 1/1 VUs  0m46.0s/1m10.0s
+pantry_recipe   [  66% ] 1/1 VUs  0m46.0s/1m10.0s
+product         [  66% ] 1/1 VUs  0m46.0s/1m10.0s
+
+running (0m47.0s), 4/4 VUs, 127 complete and 0 interrupted iterations
+frontend        [  67% ] 1/1 VUs  0m47.0s/1m10.0s
+gateway         [  67% ] 1/1 VUs  0m47.0s/1m10.0s
+pantry_recipe   [  67% ] 1/1 VUs  0m47.0s/1m10.0s
+product         [  67% ] 1/1 VUs  0m47.0s/1m10.0s
+
+running (0m48.0s), 4/4 VUs, 130 complete and 0 interrupted iterations
+frontend        [  69% ] 1/1 VUs  0m48.0s/1m10.0s
+gateway         [  69% ] 1/1 VUs  0m48.0s/1m10.0s
+pantry_recipe   [  69% ] 1/1 VUs  0m48.0s/1m10.0s
+product         [  69% ] 1/1 VUs  0m48.0s/1m10.0s
+
+running (0m49.0s), 4/4 VUs, 134 complete and 0 interrupted iterations
+frontend        [  70% ] 1/1 VUs  0m49.0s/1m10.0s
+gateway         [  70% ] 1/1 VUs  0m49.0s/1m10.0s
+pantry_recipe   [  70% ] 1/1 VUs  0m49.0s/1m10.0s
+product         [  70% ] 1/1 VUs  0m49.0s/1m10.0s
+
+running (0m50.0s), 4/4 VUs, 137 complete and 0 interrupted iterations
+frontend        [  71% ] 1/1 VUs  0m50.0s/1m10.0s
+gateway         [  71% ] 1/1 VUs  0m50.0s/1m10.0s
+pantry_recipe   [  71% ] 1/1 VUs  0m50.0s/1m10.0s
+product         [  71% ] 1/1 VUs  0m50.0s/1m10.0s
+
+running (0m51.0s), 4/4 VUs, 139 complete and 0 interrupted iterations
+frontend        [  73% ] 1/1 VUs  0m51.0s/1m10.0s
+gateway         [  73% ] 1/1 VUs  0m51.0s/1m10.0s
+pantry_recipe   [  73% ] 1/1 VUs  0m51.0s/1m10.0s
+product         [  73% ] 1/1 VUs  0m51.0s/1m10.0s
+
+running (0m52.0s), 4/4 VUs, 142 complete and 0 interrupted iterations
+frontend        [  74% ] 1/1 VUs  0m52.0s/1m10.0s
+gateway         [  74% ] 1/1 VUs  0m52.0s/1m10.0s
+pantry_recipe   [  74% ] 1/1 VUs  0m52.0s/1m10.0s
+product         [  74% ] 1/1 VUs  0m52.0s/1m10.0s
+
+running (0m53.0s), 4/4 VUs, 145 complete and 0 interrupted iterations
+frontend        [  76% ] 1/1 VUs  0m53.0s/1m10.0s
+gateway         [  76% ] 1/1 VUs  0m53.0s/1m10.0s
+pantry_recipe   [  76% ] 1/1 VUs  0m53.0s/1m10.0s
+product         [  76% ] 1/1 VUs  0m53.0s/1m10.0s
+
+running (0m54.0s), 4/4 VUs, 147 complete and 0 interrupted iterations
+frontend        [  77% ] 1/1 VUs  0m54.0s/1m10.0s
+gateway         [  77% ] 1/1 VUs  0m54.0s/1m10.0s
+pantry_recipe   [  77% ] 1/1 VUs  0m54.0s/1m10.0s
+product         [  77% ] 1/1 VUs  0m54.0s/1m10.0s
+
+running (0m55.0s), 4/4 VUs, 150 complete and 0 interrupted iterations
+frontend        [  79% ] 1/1 VUs  0m55.0s/1m10.0s
+gateway         [  79% ] 1/1 VUs  0m55.0s/1m10.0s
+pantry_recipe   [  79% ] 1/1 VUs  0m55.0s/1m10.0s
+product         [  79% ] 1/1 VUs  0m55.0s/1m10.0s
+
+running (0m56.0s), 4/4 VUs, 154 complete and 0 interrupted iterations
+frontend        [  80% ] 1/1 VUs  0m56.0s/1m10.0s
+gateway         [  80% ] 1/1 VUs  0m56.0s/1m10.0s
+pantry_recipe   [  80% ] 1/1 VUs  0m56.0s/1m10.0s
+product         [  80% ] 1/1 VUs  0m56.0s/1m10.0s
+
+running (0m57.0s), 4/4 VUs, 156 complete and 0 interrupted iterations
+frontend        [  81% ] 1/1 VUs  0m57.0s/1m10.0s
+gateway         [  81% ] 1/1 VUs  0m57.0s/1m10.0s
+pantry_recipe   [  81% ] 1/1 VUs  0m57.0s/1m10.0s
+product         [  81% ] 1/1 VUs  0m57.0s/1m10.0s
+
+running (0m58.0s), 4/4 VUs, 159 complete and 0 interrupted iterations
+frontend        [  83% ] 1/1 VUs  0m58.0s/1m10.0s
+gateway         [  83% ] 1/1 VUs  0m58.0s/1m10.0s
+pantry_recipe   [  83% ] 1/1 VUs  0m58.0s/1m10.0s
+product         [  83% ] 1/1 VUs  0m58.0s/1m10.0s
+
+running (0m59.0s), 4/4 VUs, 162 complete and 0 interrupted iterations
+frontend        [  84% ] 1/1 VUs  0m59.0s/1m10.0s
+gateway         [  84% ] 1/1 VUs  0m59.0s/1m10.0s
+pantry_recipe   [  84% ] 1/1 VUs  0m59.0s/1m10.0s
+product         [  84% ] 1/1 VUs  0m59.0s/1m10.0s
+
+running (1m00.0s), 4/4 VUs, 165 complete and 0 interrupted iterations
+frontend        [  86% ] 1/1 VUs  1m00.0s/1m10.0s
+gateway         [  86% ] 1/1 VUs  1m00.0s/1m10.0s
+pantry_recipe   [  86% ] 1/1 VUs  1m00.0s/1m10.0s
+product         [  86% ] 1/1 VUs  1m00.0s/1m10.0s
+
+running (1m01.0s), 4/4 VUs, 167 complete and 0 interrupted iterations
+frontend        [  87% ] 1/1 VUs  1m01.0s/1m10.0s
+gateway         [  87% ] 1/1 VUs  1m01.0s/1m10.0s
+pantry_recipe   [  87% ] 1/1 VUs  1m01.0s/1m10.0s
+product         [  87% ] 1/1 VUs  1m01.0s/1m10.0s
+
+running (1m02.0s), 4/4 VUs, 170 complete and 0 interrupted iterations
+frontend        [  89% ] 1/1 VUs  1m02.0s/1m10.0s
+gateway         [  89% ] 1/1 VUs  1m02.0s/1m10.0s
+pantry_recipe   [  89% ] 1/1 VUs  1m02.0s/1m10.0s
+product         [  89% ] 1/1 VUs  1m02.0s/1m10.0s
+
+running (1m03.0s), 4/4 VUs, 172 complete and 0 interrupted iterations
+frontend        [  90% ] 1/1 VUs  1m03.0s/1m10.0s
+gateway         [  90% ] 1/1 VUs  1m03.0s/1m10.0s
+pantry_recipe   [  90% ] 1/1 VUs  1m03.0s/1m10.0s
+product         [  90% ] 1/1 VUs  1m03.0s/1m10.0s
+
+running (1m04.0s), 4/4 VUs, 175 complete and 0 interrupted iterations
+frontend        [  91% ] 1/1 VUs  1m04.0s/1m10.0s
+gateway         [  91% ] 1/1 VUs  1m04.0s/1m10.0s
+pantry_recipe   [  91% ] 1/1 VUs  1m04.0s/1m10.0s
+product         [  91% ] 1/1 VUs  1m04.0s/1m10.0s
+
+running (1m05.0s), 4/4 VUs, 179 complete and 0 interrupted iterations
+frontend        [  93% ] 1/1 VUs  1m05.0s/1m10.0s
+gateway         [  93% ] 1/1 VUs  1m05.0s/1m10.0s
+pantry_recipe   [  93% ] 1/1 VUs  1m05.0s/1m10.0s
+product         [  93% ] 1/1 VUs  1m05.0s/1m10.0s
+
+running (1m06.0s), 4/4 VUs, 181 complete and 0 interrupted iterations
+frontend        [  94% ] 1/1 VUs  1m06.0s/1m10.0s
+gateway         [  94% ] 1/1 VUs  1m06.0s/1m10.0s
+pantry_recipe   [  94% ] 1/1 VUs  1m06.0s/1m10.0s
+product         [  94% ] 1/1 VUs  1m06.0s/1m10.0s
+
+running (1m07.0s), 4/4 VUs, 184 complete and 0 interrupted iterations
+frontend        [  96% ] 1/1 VUs  1m07.0s/1m10.0s
+gateway         [  96% ] 1/1 VUs  1m07.0s/1m10.0s
+pantry_recipe   [  96% ] 1/1 VUs  1m07.0s/1m10.0s
+product         [  96% ] 1/1 VUs  1m07.0s/1m10.0s
+
+running (1m08.0s), 4/4 VUs, 186 complete and 0 interrupted iterations
+frontend        [  97% ] 1/1 VUs  1m08.0s/1m10.0s
+gateway         [  97% ] 1/1 VUs  1m08.0s/1m10.0s
+pantry_recipe   [  97% ] 1/1 VUs  1m08.0s/1m10.0s
+product         [  97% ] 1/1 VUs  1m08.0s/1m10.0s
+
+running (1m09.0s), 4/4 VUs, 190 complete and 0 interrupted iterations
+frontend        [  99% ] 1/1 VUs  1m09.0s/1m10.0s
+gateway         [  99% ] 1/1 VUs  1m09.0s/1m10.0s
+pantry_recipe   [  99% ] 1/1 VUs  1m09.0s/1m10.0s
+product         [  99% ] 1/1 VUs  1m09.0s/1m10.0s
+
+running (1m10.0s), 4/4 VUs, 192 complete and 0 interrupted iterations
+frontend        [ 100% ] 1/1 VUs  1m10.0s/1m10.0s
+gateway         [ 100% ] 1/1 VUs  1m10.0s/1m10.0s
+pantry_recipe   [ 100% ] 1/1 VUs  1m10.0s/1m10.0s
+product         [ 100% ] 1/1 VUs  1m10.0s/1m10.0s
+
+running (1m11.0s), 2/4 VUs, 194 complete and 0 interrupted iterations
+frontend      ✓ [ 100% ] 0/1 VUs  1m10s
+gateway       ↓ [ 100% ] 1/1 VUs  1m10s
+pantry_recipe ↓ [ 100% ] 1/1 VUs  1m10s
+product       ✓ [ 100% ] 0/1 VUs  1m10s
+
+===== LOAD SUMMARY =====
+profile=spike max_vus_per_service=1 sleep=1s hold=10s
+requests=196 rps=2.7
+failed=0.00% p95=968ms p99=1196ms max=1362ms
+5xx=0 timeout=0 429=0 403=0 other4xx=0
+
+per service:
+  gateway        p95=1118ms failed=0.00%
+  pantry_recipe  p95=1000ms failed=0.00%
+  frontend       p95=375ms failed=0.00%
+  product        p95=384ms failed=0.00%
+
+running (1m11.8s), 0/4 VUs, 196 complete and 0 interrupted iterations
+frontend      ✓ [ 100% ] 0/1 VUs  1m10s
+gateway       ✓ [ 100% ] 0/1 VUs  1m10s
+pantry_recipe ✓ [ 100% ] 0/1 VUs  1m10s
+product       ✓ [ 100% ] 0/1 VUs  1m10s
+time="2026-09-28T22:57:39+09:00" level=error msg="thresholds on metrics 'http_req_duration{service:gateway}, http_req_duration{service:pantry_recipe}' have been crossed"

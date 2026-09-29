@@ -1,0 +1,474 @@
+
+============================================================
+===== 2026-09-28T22:56:27+09:00 =====
+============================================================
+
+===== HPA =====
+NAME                                        REFERENCE                              TARGETS                          MINPODS   MAXPODS   REPLICAS   AGE
+keda-hpa-pantry-mate-frontend-scaler        Deployment/pantry-mate-frontend        37470m/150 (avg), cpu: 1%/60%    2         6         2          19h
+keda-hpa-pantry-mate-gateway-scaler         Deployment/pantry-mate-gateway         118585m/350 (avg), cpu: 0%/60%   2         10        2          12h
+keda-hpa-pantry-mate-notification-scaler    Deployment/pantry-mate-notification    270492m/400 (avg), cpu: 2%/60%   1         4         1          12h
+keda-hpa-pantry-mate-order-payment-scaler   Deployment/pantry-mate-order-payment   178662m/450 (avg), cpu: 2%/60%   2         4         2          12h
+keda-hpa-pantry-mate-pantry-recipe-scaler   Deployment/pantry-mate-pantry-recipe   167394m/400 (avg), cpu: 1%/60%   2         8         2          12h
+keda-hpa-pantry-mate-product-scaler         Deployment/pantry-mate-product         142448m/400 (avg), cpu: 0%/60%   2         8         2          12h
+keda-hpa-pantry-mate-user-scaler            Deployment/pantry-mate-user            153179m/420 (avg), cpu: 0%/60%   2         6         2          12h
+
+===== DEPLOYMENTS =====
+NAME                        READY   UP-TO-DATE   AVAILABLE   AGE
+pantry-mate-ai              0/0     0            0           7h49m
+pantry-mate-frontend        2/2     2            2           19h
+pantry-mate-gateway         2/2     2            2           19h
+pantry-mate-notification    1/1     1            1           19h
+pantry-mate-order-payment   2/2     2            2           19h
+pantry-mate-pantry-recipe   2/2     2            2           19h
+pantry-mate-product         2/2     2            2           19h
+pantry-mate-user            2/2     2            2           19h
+redis                       1/1     1            1           12h
+
+===== PODS =====
+NAME                                         READY   STATUS    RESTARTS      AGE     IP            NODE                                             NOMINATED NODE   READINESS GATES
+pantry-mate-frontend-6484bf5f4c-56fhv        1/1     Running   0             13h     10.0.12.90    ip-10-0-12-226.ap-northeast-2.compute.internal   <none>           <none>
+pantry-mate-frontend-6484bf5f4c-thddb        1/1     Running   0             12h     10.0.11.198   ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+pantry-mate-gateway-7d54f6f7cb-9q5m6         1/1     Running   0             4h53m   10.0.11.197   ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+pantry-mate-gateway-7d54f6f7cb-h8qkk         1/1     Running   0             10h     10.0.12.182   ip-10-0-12-226.ap-northeast-2.compute.internal   <none>           <none>
+pantry-mate-notification-6464df757b-r46fd    1/1     Running   5 (96m ago)   5h23m   10.0.11.67    ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+pantry-mate-order-payment-6ff5497b96-5j6zq   1/1     Running   1 (96m ago)   4h53m   10.0.11.6     ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+pantry-mate-order-payment-6ff5497b96-lldsm   1/1     Running   7 (96m ago)   5h29m   10.0.12.113   ip-10-0-12-106.ap-northeast-2.compute.internal   <none>           <none>
+pantry-mate-pantry-recipe-84b9975c8-2q9h7    1/1     Running   0             95m     10.0.12.200   ip-10-0-12-226.ap-northeast-2.compute.internal   <none>           <none>
+pantry-mate-pantry-recipe-84b9975c8-w682m    1/1     Running   1 (96m ago)   4h53m   10.0.11.165   ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+pantry-mate-product-6f9c6bf8b4-lh247         1/1     Running   1 (96m ago)   5h3m    10.0.12.210   ip-10-0-12-106.ap-northeast-2.compute.internal   <none>           <none>
+pantry-mate-product-6f9c6bf8b4-xt9c4         1/1     Running   1 (96m ago)   4h58m   10.0.11.208   ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+pantry-mate-user-697ddd4679-6wncp            1/1     Running   7 (96m ago)   5h28m   10.0.12.75    ip-10-0-12-226.ap-northeast-2.compute.internal   <none>           <none>
+pantry-mate-user-697ddd4679-kq2r8            1/1     Running   8 (96m ago)   5h31m   10.0.12.12    ip-10-0-12-106.ap-northeast-2.compute.internal   <none>           <none>
+redis-65b8c78479-gstkm                       1/1     Running   0             12h     10.0.11.9     ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+
+===== NODES =====
+NAME                                             STATUS   ROLES    AGE   VERSION   ZONE              NODEPOOL   CAPACITY-TYPE   INSTANCE-TYPE
+ip-10-0-1-150.ap-northeast-2.compute.internal    Ready    <none>   8h    v1.35.8   ap-northeast-2a                              t3.small
+ip-10-0-11-70.ap-northeast-2.compute.internal    Ready    <none>   20h   v1.35.8   ap-northeast-2a                              t3.medium
+ip-10-0-12-106.ap-northeast-2.compute.internal   Ready    <none>   8h    v1.35.8   ap-northeast-2c                              t3.medium
+ip-10-0-12-107.ap-northeast-2.compute.internal   Ready    <none>   20h   v1.35.8   ap-northeast-2c                              t3.large
+ip-10-0-12-226.ap-northeast-2.compute.internal   Ready    <none>   20h   v1.35.8   ap-northeast-2c                              t3.medium
+
+===== NODECLAIMS =====
+No resources found
+
+===== POD RESOURCE =====
+NAME                                         CPU(cores)   MEMORY(bytes)   
+pantry-mate-frontend-6484bf5f4c-56fhv        3m           80Mi            
+pantry-mate-frontend-6484bf5f4c-thddb        3m           68Mi            
+pantry-mate-gateway-7d54f6f7cb-9q5m6         1m           234Mi           
+pantry-mate-gateway-7d54f6f7cb-h8qkk         1m           238Mi           
+pantry-mate-notification-6464df757b-r46fd    1m           270Mi           
+pantry-mate-order-payment-6ff5497b96-5j6zq   6m           355Mi           
+pantry-mate-order-payment-6ff5497b96-lldsm   8m           355Mi           
+pantry-mate-pantry-recipe-84b9975c8-2q9h7    2m           332Mi           
+pantry-mate-pantry-recipe-84b9975c8-w682m    1m           335Mi           
+pantry-mate-product-6f9c6bf8b4-lh247         3m           283Mi           
+pantry-mate-product-6f9c6bf8b4-xt9c4         1m           282Mi           
+pantry-mate-user-697ddd4679-6wncp            2m           308Mi           
+pantry-mate-user-697ddd4679-kq2r8            2m           302Mi           
+redis-65b8c78479-gstkm                       7m           4Mi             
+
+===== NODE RESOURCE =====
+NAME                                             CPU(cores)   CPU(%)   MEMORY(bytes)   MEMORY(%)   
+ip-10-0-1-150.ap-northeast-2.compute.internal    38m          1%       573Mi           40%         
+ip-10-0-11-70.ap-northeast-2.compute.internal    157m         8%       2358Mi          71%         
+ip-10-0-12-106.ap-northeast-2.compute.internal   46m          2%       1645Mi          50%         
+ip-10-0-12-107.ap-northeast-2.compute.internal   126m         6%       1802Mi          25%         
+ip-10-0-12-226.ap-northeast-2.compute.internal   93m          4%       1788Mi          54%         
+
+============================================================
+===== 2026-09-28T22:56:43+09:00 =====
+============================================================
+
+===== HPA =====
+NAME                                        REFERENCE                              TARGETS                          MINPODS   MAXPODS   REPLICAS   AGE
+keda-hpa-pantry-mate-frontend-scaler        Deployment/pantry-mate-frontend        37421m/150 (avg), cpu: 1%/60%    2         6         2          19h
+keda-hpa-pantry-mate-gateway-scaler         Deployment/pantry-mate-gateway         118523m/350 (avg), cpu: 0%/60%   2         10        2          12h
+keda-hpa-pantry-mate-notification-scaler    Deployment/pantry-mate-notification    270492m/400 (avg), cpu: 0%/60%   1         4         1          12h
+keda-hpa-pantry-mate-order-payment-scaler   Deployment/pantry-mate-order-payment   178783m/450 (avg), cpu: 2%/60%   2         4         2          12h
+keda-hpa-pantry-mate-pantry-recipe-scaler   Deployment/pantry-mate-pantry-recipe   167401m/400 (avg), cpu: 0%/60%   2         8         2          12h
+keda-hpa-pantry-mate-product-scaler         Deployment/pantry-mate-product         142511m/400 (avg), cpu: 0%/60%   2         8         2          12h
+keda-hpa-pantry-mate-user-scaler            Deployment/pantry-mate-user            153056m/420 (avg), cpu: 0%/60%   2         6         2          12h
+
+===== DEPLOYMENTS =====
+NAME                        READY   UP-TO-DATE   AVAILABLE   AGE
+pantry-mate-ai              0/0     0            0           7h50m
+pantry-mate-frontend        2/2     2            2           19h
+pantry-mate-gateway         2/2     2            2           19h
+pantry-mate-notification    1/1     1            1           19h
+pantry-mate-order-payment   2/2     2            2           19h
+pantry-mate-pantry-recipe   2/2     2            2           19h
+pantry-mate-product         2/2     2            2           19h
+pantry-mate-user            2/2     2            2           19h
+redis                       1/1     1            1           12h
+
+===== PODS =====
+NAME                                         READY   STATUS    RESTARTS      AGE     IP            NODE                                             NOMINATED NODE   READINESS GATES
+pantry-mate-frontend-6484bf5f4c-56fhv        1/1     Running   0             13h     10.0.12.90    ip-10-0-12-226.ap-northeast-2.compute.internal   <none>           <none>
+pantry-mate-frontend-6484bf5f4c-thddb        1/1     Running   0             12h     10.0.11.198   ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+pantry-mate-gateway-7d54f6f7cb-9q5m6         1/1     Running   0             4h53m   10.0.11.197   ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+pantry-mate-gateway-7d54f6f7cb-h8qkk         1/1     Running   0             10h     10.0.12.182   ip-10-0-12-226.ap-northeast-2.compute.internal   <none>           <none>
+pantry-mate-notification-6464df757b-r46fd    1/1     Running   5 (96m ago)   5h23m   10.0.11.67    ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+pantry-mate-order-payment-6ff5497b96-5j6zq   1/1     Running   1 (96m ago)   4h53m   10.0.11.6     ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+pantry-mate-order-payment-6ff5497b96-lldsm   1/1     Running   7 (96m ago)   5h29m   10.0.12.113   ip-10-0-12-106.ap-northeast-2.compute.internal   <none>           <none>
+pantry-mate-pantry-recipe-84b9975c8-2q9h7    1/1     Running   0             96m     10.0.12.200   ip-10-0-12-226.ap-northeast-2.compute.internal   <none>           <none>
+pantry-mate-pantry-recipe-84b9975c8-w682m    1/1     Running   1 (96m ago)   4h53m   10.0.11.165   ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+pantry-mate-product-6f9c6bf8b4-lh247         1/1     Running   1 (96m ago)   5h4m    10.0.12.210   ip-10-0-12-106.ap-northeast-2.compute.internal   <none>           <none>
+pantry-mate-product-6f9c6bf8b4-xt9c4         1/1     Running   1 (96m ago)   4h58m   10.0.11.208   ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+pantry-mate-user-697ddd4679-6wncp            1/1     Running   7 (96m ago)   5h29m   10.0.12.75    ip-10-0-12-226.ap-northeast-2.compute.internal   <none>           <none>
+pantry-mate-user-697ddd4679-kq2r8            1/1     Running   8 (96m ago)   5h32m   10.0.12.12    ip-10-0-12-106.ap-northeast-2.compute.internal   <none>           <none>
+redis-65b8c78479-gstkm                       1/1     Running   0             12h     10.0.11.9     ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+
+===== NODES =====
+NAME                                             STATUS   ROLES    AGE   VERSION   ZONE              NODEPOOL   CAPACITY-TYPE   INSTANCE-TYPE
+ip-10-0-1-150.ap-northeast-2.compute.internal    Ready    <none>   8h    v1.35.8   ap-northeast-2a                              t3.small
+ip-10-0-11-70.ap-northeast-2.compute.internal    Ready    <none>   20h   v1.35.8   ap-northeast-2a                              t3.medium
+ip-10-0-12-106.ap-northeast-2.compute.internal   Ready    <none>   8h    v1.35.8   ap-northeast-2c                              t3.medium
+ip-10-0-12-107.ap-northeast-2.compute.internal   Ready    <none>   20h   v1.35.8   ap-northeast-2c                              t3.large
+ip-10-0-12-226.ap-northeast-2.compute.internal   Ready    <none>   20h   v1.35.8   ap-northeast-2c                              t3.medium
+
+===== NODECLAIMS =====
+No resources found
+
+===== POD RESOURCE =====
+NAME                                         CPU(cores)   MEMORY(bytes)   
+pantry-mate-frontend-6484bf5f4c-56fhv        8m           82Mi            
+pantry-mate-frontend-6484bf5f4c-thddb        3m           68Mi            
+pantry-mate-gateway-7d54f6f7cb-9q5m6         2m           234Mi           
+pantry-mate-gateway-7d54f6f7cb-h8qkk         4m           239Mi           
+pantry-mate-notification-6464df757b-r46fd    1m           270Mi           
+pantry-mate-order-payment-6ff5497b96-5j6zq   6m           355Mi           
+pantry-mate-order-payment-6ff5497b96-lldsm   8m           355Mi           
+pantry-mate-pantry-recipe-84b9975c8-2q9h7    2m           332Mi           
+pantry-mate-pantry-recipe-84b9975c8-w682m    1m           335Mi           
+pantry-mate-product-6f9c6bf8b4-lh247         2m           283Mi           
+pantry-mate-product-6f9c6bf8b4-xt9c4         1m           282Mi           
+pantry-mate-user-697ddd4679-6wncp            2m           308Mi           
+pantry-mate-user-697ddd4679-kq2r8            2m           302Mi           
+redis-65b8c78479-gstkm                       6m           4Mi             
+
+===== NODE RESOURCE =====
+NAME                                             CPU(cores)   CPU(%)   MEMORY(bytes)   MEMORY(%)   
+ip-10-0-1-150.ap-northeast-2.compute.internal    42m          2%       574Mi           40%         
+ip-10-0-11-70.ap-northeast-2.compute.internal    98m          5%       2361Mi          71%         
+ip-10-0-12-106.ap-northeast-2.compute.internal   52m          2%       1646Mi          50%         
+ip-10-0-12-107.ap-northeast-2.compute.internal   139m         7%       1802Mi          25%         
+ip-10-0-12-226.ap-northeast-2.compute.internal   85m          4%       1790Mi          54%         
+
+============================================================
+===== 2026-09-28T22:56:59+09:00 =====
+============================================================
+
+===== HPA =====
+NAME                                        REFERENCE                              TARGETS                          MINPODS   MAXPODS   REPLICAS   AGE
+keda-hpa-pantry-mate-frontend-scaler        Deployment/pantry-mate-frontend        37430m/150 (avg), cpu: 2%/60%    2         6         2          19h
+keda-hpa-pantry-mate-gateway-scaler         Deployment/pantry-mate-gateway         118652m/350 (avg), cpu: 1%/60%   2         10        2          12h
+keda-hpa-pantry-mate-notification-scaler    Deployment/pantry-mate-notification    270984m/400 (avg), cpu: 0%/60%   1         4         1          12h
+keda-hpa-pantry-mate-order-payment-scaler   Deployment/pantry-mate-order-payment   178673m/450 (avg), cpu: 2%/60%   2         4         2          12h
+keda-hpa-pantry-mate-pantry-recipe-scaler   Deployment/pantry-mate-pantry-recipe   167339m/400 (avg), cpu: 0%/60%   2         8         2          12h
+keda-hpa-pantry-mate-product-scaler         Deployment/pantry-mate-product         142587m/400 (avg), cpu: 0%/60%   2         8         2          12h
+keda-hpa-pantry-mate-user-scaler            Deployment/pantry-mate-user            153060m/420 (avg), cpu: 0%/60%   2         6         2          12h
+
+===== DEPLOYMENTS =====
+NAME                        READY   UP-TO-DATE   AVAILABLE   AGE
+pantry-mate-ai              0/0     0            0           7h50m
+pantry-mate-frontend        2/2     2            2           19h
+pantry-mate-gateway         2/2     2            2           19h
+pantry-mate-notification    1/1     1            1           19h
+pantry-mate-order-payment   2/2     2            2           19h
+pantry-mate-pantry-recipe   2/2     2            2           19h
+pantry-mate-product         2/2     2            2           19h
+pantry-mate-user            2/2     2            2           19h
+redis                       1/1     1            1           12h
+
+===== PODS =====
+NAME                                         READY   STATUS    RESTARTS      AGE     IP            NODE                                             NOMINATED NODE   READINESS GATES
+pantry-mate-frontend-6484bf5f4c-56fhv        1/1     Running   0             13h     10.0.12.90    ip-10-0-12-226.ap-northeast-2.compute.internal   <none>           <none>
+pantry-mate-frontend-6484bf5f4c-thddb        1/1     Running   0             12h     10.0.11.198   ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+pantry-mate-gateway-7d54f6f7cb-9q5m6         1/1     Running   0             4h53m   10.0.11.197   ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+pantry-mate-gateway-7d54f6f7cb-h8qkk         1/1     Running   0             10h     10.0.12.182   ip-10-0-12-226.ap-northeast-2.compute.internal   <none>           <none>
+pantry-mate-notification-6464df757b-r46fd    1/1     Running   5 (96m ago)   5h23m   10.0.11.67    ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+pantry-mate-order-payment-6ff5497b96-5j6zq   1/1     Running   1 (96m ago)   4h53m   10.0.11.6     ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+pantry-mate-order-payment-6ff5497b96-lldsm   1/1     Running   7 (97m ago)   5h29m   10.0.12.113   ip-10-0-12-106.ap-northeast-2.compute.internal   <none>           <none>
+pantry-mate-pantry-recipe-84b9975c8-2q9h7    1/1     Running   0             96m     10.0.12.200   ip-10-0-12-226.ap-northeast-2.compute.internal   <none>           <none>
+pantry-mate-pantry-recipe-84b9975c8-w682m    1/1     Running   1 (96m ago)   4h53m   10.0.11.165   ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+pantry-mate-product-6f9c6bf8b4-lh247         1/1     Running   1 (96m ago)   5h4m    10.0.12.210   ip-10-0-12-106.ap-northeast-2.compute.internal   <none>           <none>
+pantry-mate-product-6f9c6bf8b4-xt9c4         1/1     Running   1 (96m ago)   4h59m   10.0.11.208   ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+pantry-mate-user-697ddd4679-6wncp            1/1     Running   7 (96m ago)   5h29m   10.0.12.75    ip-10-0-12-226.ap-northeast-2.compute.internal   <none>           <none>
+pantry-mate-user-697ddd4679-kq2r8            1/1     Running   8 (96m ago)   5h32m   10.0.12.12    ip-10-0-12-106.ap-northeast-2.compute.internal   <none>           <none>
+redis-65b8c78479-gstkm                       1/1     Running   0             12h     10.0.11.9     ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+
+===== NODES =====
+NAME                                             STATUS   ROLES    AGE   VERSION   ZONE              NODEPOOL   CAPACITY-TYPE   INSTANCE-TYPE
+ip-10-0-1-150.ap-northeast-2.compute.internal    Ready    <none>   8h    v1.35.8   ap-northeast-2a                              t3.small
+ip-10-0-11-70.ap-northeast-2.compute.internal    Ready    <none>   20h   v1.35.8   ap-northeast-2a                              t3.medium
+ip-10-0-12-106.ap-northeast-2.compute.internal   Ready    <none>   8h    v1.35.8   ap-northeast-2c                              t3.medium
+ip-10-0-12-107.ap-northeast-2.compute.internal   Ready    <none>   20h   v1.35.8   ap-northeast-2c                              t3.large
+ip-10-0-12-226.ap-northeast-2.compute.internal   Ready    <none>   20h   v1.35.8   ap-northeast-2c                              t3.medium
+
+===== NODECLAIMS =====
+No resources found
+
+===== POD RESOURCE =====
+NAME                                         CPU(cores)   MEMORY(bytes)   
+pantry-mate-frontend-6484bf5f4c-56fhv        13m          80Mi            
+pantry-mate-frontend-6484bf5f4c-thddb        3m           68Mi            
+pantry-mate-gateway-7d54f6f7cb-9q5m6         2m           235Mi           
+pantry-mate-gateway-7d54f6f7cb-h8qkk         3m           238Mi           
+pantry-mate-notification-6464df757b-r46fd    2m           270Mi           
+pantry-mate-order-payment-6ff5497b96-5j6zq   7m           355Mi           
+pantry-mate-order-payment-6ff5497b96-lldsm   8m           355Mi           
+pantry-mate-pantry-recipe-84b9975c8-2q9h7    2m           332Mi           
+pantry-mate-pantry-recipe-84b9975c8-w682m    2m           335Mi           
+pantry-mate-product-6f9c6bf8b4-lh247         2m           283Mi           
+pantry-mate-product-6f9c6bf8b4-xt9c4         1m           282Mi           
+pantry-mate-user-697ddd4679-6wncp            2m           308Mi           
+pantry-mate-user-697ddd4679-kq2r8            2m           303Mi           
+redis-65b8c78479-gstkm                       6m           4Mi             
+
+===== NODE RESOURCE =====
+NAME                                             CPU(cores)   CPU(%)   MEMORY(bytes)   MEMORY(%)   
+ip-10-0-1-150.ap-northeast-2.compute.internal    40m          2%       574Mi           40%         
+ip-10-0-11-70.ap-northeast-2.compute.internal    151m         7%       2356Mi          71%         
+ip-10-0-12-106.ap-northeast-2.compute.internal   48m          2%       1646Mi          50%         
+ip-10-0-12-107.ap-northeast-2.compute.internal   127m         6%       1803Mi          25%         
+ip-10-0-12-226.ap-northeast-2.compute.internal   91m          4%       1790Mi          54%         
+
+============================================================
+===== 2026-09-28T22:57:15+09:00 =====
+============================================================
+
+===== HPA =====
+NAME                                        REFERENCE                              TARGETS                          MINPODS   MAXPODS   REPLICAS   AGE
+keda-hpa-pantry-mate-frontend-scaler        Deployment/pantry-mate-frontend        37509m/150 (avg), cpu: 3%/60%    2         6         2          19h
+keda-hpa-pantry-mate-gateway-scaler         Deployment/pantry-mate-gateway         118591m/350 (avg), cpu: 1%/60%   2         10        2          12h
+keda-hpa-pantry-mate-notification-scaler    Deployment/pantry-mate-notification    270484m/400 (avg), cpu: 0%/60%   1         4         1          12h
+keda-hpa-pantry-mate-order-payment-scaler   Deployment/pantry-mate-order-payment   178837m/450 (avg), cpu: 3%/60%   2         4         2          12h
+keda-hpa-pantry-mate-pantry-recipe-scaler   Deployment/pantry-mate-pantry-recipe   167405m/400 (avg), cpu: 0%/60%   2         8         2          12h
+keda-hpa-pantry-mate-product-scaler         Deployment/pantry-mate-product         142518m/400 (avg), cpu: 0%/60%   2         8         2          12h
+keda-hpa-pantry-mate-user-scaler            Deployment/pantry-mate-user            153059m/420 (avg), cpu: 0%/60%   2         6         2          12h
+
+===== DEPLOYMENTS =====
+NAME                        READY   UP-TO-DATE   AVAILABLE   AGE
+pantry-mate-ai              0/0     0            0           7h50m
+pantry-mate-frontend        2/2     2            2           19h
+pantry-mate-gateway         2/2     2            2           19h
+pantry-mate-notification    1/1     1            1           19h
+pantry-mate-order-payment   2/2     2            2           19h
+pantry-mate-pantry-recipe   2/2     2            2           19h
+pantry-mate-product         2/2     2            2           19h
+pantry-mate-user            2/2     2            2           19h
+redis                       1/1     1            1           12h
+
+===== PODS =====
+NAME                                         READY   STATUS    RESTARTS      AGE     IP            NODE                                             NOMINATED NODE   READINESS GATES
+pantry-mate-frontend-6484bf5f4c-56fhv        1/1     Running   0             13h     10.0.12.90    ip-10-0-12-226.ap-northeast-2.compute.internal   <none>           <none>
+pantry-mate-frontend-6484bf5f4c-thddb        1/1     Running   0             12h     10.0.11.198   ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+pantry-mate-gateway-7d54f6f7cb-9q5m6         1/1     Running   0             4h54m   10.0.11.197   ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+pantry-mate-gateway-7d54f6f7cb-h8qkk         1/1     Running   0             10h     10.0.12.182   ip-10-0-12-226.ap-northeast-2.compute.internal   <none>           <none>
+pantry-mate-notification-6464df757b-r46fd    1/1     Running   5 (96m ago)   5h23m   10.0.11.67    ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+pantry-mate-order-payment-6ff5497b96-5j6zq   1/1     Running   1 (97m ago)   4h54m   10.0.11.6     ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+pantry-mate-order-payment-6ff5497b96-lldsm   1/1     Running   7 (97m ago)   5h30m   10.0.12.113   ip-10-0-12-106.ap-northeast-2.compute.internal   <none>           <none>
+pantry-mate-pantry-recipe-84b9975c8-2q9h7    1/1     Running   0             96m     10.0.12.200   ip-10-0-12-226.ap-northeast-2.compute.internal   <none>           <none>
+pantry-mate-pantry-recipe-84b9975c8-w682m    1/1     Running   1 (96m ago)   4h54m   10.0.11.165   ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+pantry-mate-product-6f9c6bf8b4-lh247         1/1     Running   1 (96m ago)   5h4m    10.0.12.210   ip-10-0-12-106.ap-northeast-2.compute.internal   <none>           <none>
+pantry-mate-product-6f9c6bf8b4-xt9c4         1/1     Running   1 (96m ago)   4h59m   10.0.11.208   ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+pantry-mate-user-697ddd4679-6wncp            1/1     Running   7 (96m ago)   5h29m   10.0.12.75    ip-10-0-12-226.ap-northeast-2.compute.internal   <none>           <none>
+pantry-mate-user-697ddd4679-kq2r8            1/1     Running   8 (96m ago)   5h32m   10.0.12.12    ip-10-0-12-106.ap-northeast-2.compute.internal   <none>           <none>
+redis-65b8c78479-gstkm                       1/1     Running   0             12h     10.0.11.9     ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+
+===== NODES =====
+NAME                                             STATUS   ROLES    AGE   VERSION   ZONE              NODEPOOL   CAPACITY-TYPE   INSTANCE-TYPE
+ip-10-0-1-150.ap-northeast-2.compute.internal    Ready    <none>   8h    v1.35.8   ap-northeast-2a                              t3.small
+ip-10-0-11-70.ap-northeast-2.compute.internal    Ready    <none>   20h   v1.35.8   ap-northeast-2a                              t3.medium
+ip-10-0-12-106.ap-northeast-2.compute.internal   Ready    <none>   8h    v1.35.8   ap-northeast-2c                              t3.medium
+ip-10-0-12-107.ap-northeast-2.compute.internal   Ready    <none>   20h   v1.35.8   ap-northeast-2c                              t3.large
+ip-10-0-12-226.ap-northeast-2.compute.internal   Ready    <none>   20h   v1.35.8   ap-northeast-2c                              t3.medium
+
+===== NODECLAIMS =====
+No resources found
+
+===== POD RESOURCE =====
+NAME                                         CPU(cores)   MEMORY(bytes)   
+pantry-mate-frontend-6484bf5f4c-56fhv        20m          82Mi            
+pantry-mate-frontend-6484bf5f4c-thddb        2m           68Mi            
+pantry-mate-gateway-7d54f6f7cb-9q5m6         4m           235Mi           
+pantry-mate-gateway-7d54f6f7cb-h8qkk         3m           238Mi           
+pantry-mate-notification-6464df757b-r46fd    1m           270Mi           
+pantry-mate-order-payment-6ff5497b96-5j6zq   8m           355Mi           
+pantry-mate-order-payment-6ff5497b96-lldsm   9m           355Mi           
+pantry-mate-pantry-recipe-84b9975c8-2q9h7    2m           332Mi           
+pantry-mate-pantry-recipe-84b9975c8-w682m    1m           335Mi           
+pantry-mate-product-6f9c6bf8b4-lh247         2m           283Mi           
+pantry-mate-product-6f9c6bf8b4-xt9c4         1m           282Mi           
+pantry-mate-user-697ddd4679-6wncp            2m           308Mi           
+pantry-mate-user-697ddd4679-kq2r8            2m           303Mi           
+redis-65b8c78479-gstkm                       6m           4Mi             
+
+===== NODE RESOURCE =====
+NAME                                             CPU(cores)   CPU(%)   MEMORY(bytes)   MEMORY(%)   
+ip-10-0-1-150.ap-northeast-2.compute.internal    45m          2%       573Mi           40%         
+ip-10-0-11-70.ap-northeast-2.compute.internal    99m          5%       2359Mi          71%         
+ip-10-0-12-106.ap-northeast-2.compute.internal   53m          2%       1646Mi          50%         
+ip-10-0-12-107.ap-northeast-2.compute.internal   129m         6%       1803Mi          25%         
+ip-10-0-12-226.ap-northeast-2.compute.internal   93m          4%       1794Mi          54%         
+
+============================================================
+===== 2026-09-28T22:57:31+09:00 =====
+============================================================
+
+===== HPA =====
+NAME                                        REFERENCE                              TARGETS                          MINPODS   MAXPODS   REPLICAS   AGE
+keda-hpa-pantry-mate-frontend-scaler        Deployment/pantry-mate-frontend        37488m/150 (avg), cpu: 4%/60%    2         6         2          19h
+keda-hpa-pantry-mate-gateway-scaler         Deployment/pantry-mate-gateway         118686m/350 (avg), cpu: 1%/60%   2         10        2          12h
+keda-hpa-pantry-mate-notification-scaler    Deployment/pantry-mate-notification    270484m/400 (avg), cpu: 0%/60%   1         4         1          12h
+keda-hpa-pantry-mate-order-payment-scaler   Deployment/pantry-mate-order-payment   178741m/450 (avg), cpu: 3%/60%   2         4         2          12h
+keda-hpa-pantry-mate-pantry-recipe-scaler   Deployment/pantry-mate-pantry-recipe   167342m/400 (avg), cpu: 0%/60%   2         8         2          12h
+keda-hpa-pantry-mate-product-scaler         Deployment/pantry-mate-product         142519m/400 (avg), cpu: 0%/60%   2         8         2          12h
+keda-hpa-pantry-mate-user-scaler            Deployment/pantry-mate-user            153185m/420 (avg), cpu: 0%/60%   2         6         2          12h
+
+===== DEPLOYMENTS =====
+NAME                        READY   UP-TO-DATE   AVAILABLE   AGE
+pantry-mate-ai              0/0     0            0           7h50m
+pantry-mate-frontend        2/2     2            2           19h
+pantry-mate-gateway         2/2     2            2           19h
+pantry-mate-notification    1/1     1            1           19h
+pantry-mate-order-payment   2/2     2            2           19h
+pantry-mate-pantry-recipe   2/2     2            2           19h
+pantry-mate-product         2/2     2            2           19h
+pantry-mate-user            2/2     2            2           19h
+redis                       1/1     1            1           12h
+
+===== PODS =====
+NAME                                         READY   STATUS    RESTARTS      AGE     IP            NODE                                             NOMINATED NODE   READINESS GATES
+pantry-mate-frontend-6484bf5f4c-56fhv        1/1     Running   0             13h     10.0.12.90    ip-10-0-12-226.ap-northeast-2.compute.internal   <none>           <none>
+pantry-mate-frontend-6484bf5f4c-thddb        1/1     Running   0             12h     10.0.11.198   ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+pantry-mate-gateway-7d54f6f7cb-9q5m6         1/1     Running   0             4h54m   10.0.11.197   ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+pantry-mate-gateway-7d54f6f7cb-h8qkk         1/1     Running   0             10h     10.0.12.182   ip-10-0-12-226.ap-northeast-2.compute.internal   <none>           <none>
+pantry-mate-notification-6464df757b-r46fd    1/1     Running   5 (97m ago)   5h24m   10.0.11.67    ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+pantry-mate-order-payment-6ff5497b96-5j6zq   1/1     Running   1 (97m ago)   4h54m   10.0.11.6     ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+pantry-mate-order-payment-6ff5497b96-lldsm   1/1     Running   7 (97m ago)   5h30m   10.0.12.113   ip-10-0-12-106.ap-northeast-2.compute.internal   <none>           <none>
+pantry-mate-pantry-recipe-84b9975c8-2q9h7    1/1     Running   0             96m     10.0.12.200   ip-10-0-12-226.ap-northeast-2.compute.internal   <none>           <none>
+pantry-mate-pantry-recipe-84b9975c8-w682m    1/1     Running   1 (97m ago)   4h54m   10.0.11.165   ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+pantry-mate-product-6f9c6bf8b4-lh247         1/1     Running   1 (97m ago)   5h4m    10.0.12.210   ip-10-0-12-106.ap-northeast-2.compute.internal   <none>           <none>
+pantry-mate-product-6f9c6bf8b4-xt9c4         1/1     Running   1 (97m ago)   4h59m   10.0.11.208   ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+pantry-mate-user-697ddd4679-6wncp            1/1     Running   7 (97m ago)   5h30m   10.0.12.75    ip-10-0-12-226.ap-northeast-2.compute.internal   <none>           <none>
+pantry-mate-user-697ddd4679-kq2r8            1/1     Running   8 (97m ago)   5h33m   10.0.12.12    ip-10-0-12-106.ap-northeast-2.compute.internal   <none>           <none>
+redis-65b8c78479-gstkm                       1/1     Running   0             12h     10.0.11.9     ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+
+===== NODES =====
+NAME                                             STATUS   ROLES    AGE   VERSION   ZONE              NODEPOOL   CAPACITY-TYPE   INSTANCE-TYPE
+ip-10-0-1-150.ap-northeast-2.compute.internal    Ready    <none>   8h    v1.35.8   ap-northeast-2a                              t3.small
+ip-10-0-11-70.ap-northeast-2.compute.internal    Ready    <none>   20h   v1.35.8   ap-northeast-2a                              t3.medium
+ip-10-0-12-106.ap-northeast-2.compute.internal   Ready    <none>   8h    v1.35.8   ap-northeast-2c                              t3.medium
+ip-10-0-12-107.ap-northeast-2.compute.internal   Ready    <none>   20h   v1.35.8   ap-northeast-2c                              t3.large
+ip-10-0-12-226.ap-northeast-2.compute.internal   Ready    <none>   20h   v1.35.8   ap-northeast-2c                              t3.medium
+
+===== NODECLAIMS =====
+No resources found
+
+===== POD RESOURCE =====
+NAME                                         CPU(cores)   MEMORY(bytes)   
+pantry-mate-frontend-6484bf5f4c-56fhv        14m          80Mi            
+pantry-mate-frontend-6484bf5f4c-thddb        4m           68Mi            
+pantry-mate-gateway-7d54f6f7cb-9q5m6         4m           235Mi           
+pantry-mate-gateway-7d54f6f7cb-h8qkk         2m           238Mi           
+pantry-mate-notification-6464df757b-r46fd    1m           270Mi           
+pantry-mate-order-payment-6ff5497b96-5j6zq   6m           355Mi           
+pantry-mate-order-payment-6ff5497b96-lldsm   8m           355Mi           
+pantry-mate-pantry-recipe-84b9975c8-2q9h7    2m           332Mi           
+pantry-mate-pantry-recipe-84b9975c8-w682m    2m           335Mi           
+pantry-mate-product-6f9c6bf8b4-lh247         2m           283Mi           
+pantry-mate-product-6f9c6bf8b4-xt9c4         1m           282Mi           
+pantry-mate-user-697ddd4679-6wncp            2m           308Mi           
+pantry-mate-user-697ddd4679-kq2r8            2m           303Mi           
+redis-65b8c78479-gstkm                       7m           4Mi             
+
+===== NODE RESOURCE =====
+NAME                                             CPU(cores)   CPU(%)   MEMORY(bytes)   MEMORY(%)   
+ip-10-0-1-150.ap-northeast-2.compute.internal    43m          2%       573Mi           40%         
+ip-10-0-11-70.ap-northeast-2.compute.internal    153m         7%       2362Mi          71%         
+ip-10-0-12-106.ap-northeast-2.compute.internal   50m          2%       1645Mi          50%         
+ip-10-0-12-107.ap-northeast-2.compute.internal   127m         6%       1801Mi          25%         
+ip-10-0-12-226.ap-northeast-2.compute.internal   87m          4%       1795Mi          54%         
+
+============================================================
+===== 2026-09-28T22:57:47+09:00 =====
+============================================================
+
+===== HPA =====
+NAME                                        REFERENCE                              TARGETS                          MINPODS   MAXPODS   REPLICAS   AGE
+keda-hpa-pantry-mate-frontend-scaler        Deployment/pantry-mate-frontend        37462m/150 (avg), cpu: 3%/60%    2         6         2          19h
+keda-hpa-pantry-mate-gateway-scaler         Deployment/pantry-mate-gateway         118561m/350 (avg), cpu: 1%/60%   2         10        2          12h
+keda-hpa-pantry-mate-notification-scaler    Deployment/pantry-mate-notification    270484m/400 (avg), cpu: 0%/60%   1         4         1          12h
+keda-hpa-pantry-mate-order-payment-scaler   Deployment/pantry-mate-order-payment   178827m/450 (avg), cpu: 2%/60%   2         4         2          12h
+keda-hpa-pantry-mate-pantry-recipe-scaler   Deployment/pantry-mate-pantry-recipe   167344m/400 (avg), cpu: 0%/60%   2         8         2          12h
+keda-hpa-pantry-mate-product-scaler         Deployment/pantry-mate-product         142519m/400 (avg), cpu: 0%/60%   2         8         2          12h
+keda-hpa-pantry-mate-user-scaler            Deployment/pantry-mate-user            153062m/420 (avg), cpu: 0%/60%   2         6         2          12h
+
+===== DEPLOYMENTS =====
+NAME                        READY   UP-TO-DATE   AVAILABLE   AGE
+pantry-mate-ai              0/0     0            0           7h51m
+pantry-mate-frontend        2/2     2            2           19h
+pantry-mate-gateway         2/2     2            2           19h
+pantry-mate-notification    1/1     1            1           19h
+pantry-mate-order-payment   2/2     2            2           19h
+pantry-mate-pantry-recipe   2/2     2            2           19h
+pantry-mate-product         2/2     2            2           19h
+pantry-mate-user            2/2     2            2           19h
+redis                       1/1     1            1           12h
+
+===== PODS =====
+NAME                                         READY   STATUS    RESTARTS      AGE     IP            NODE                                             NOMINATED NODE   READINESS GATES
+pantry-mate-frontend-6484bf5f4c-56fhv        1/1     Running   0             13h     10.0.12.90    ip-10-0-12-226.ap-northeast-2.compute.internal   <none>           <none>
+pantry-mate-frontend-6484bf5f4c-thddb        1/1     Running   0             12h     10.0.11.198   ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+pantry-mate-gateway-7d54f6f7cb-9q5m6         1/1     Running   0             4h54m   10.0.11.197   ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+pantry-mate-gateway-7d54f6f7cb-h8qkk         1/1     Running   0             10h     10.0.12.182   ip-10-0-12-226.ap-northeast-2.compute.internal   <none>           <none>
+pantry-mate-notification-6464df757b-r46fd    1/1     Running   5 (97m ago)   5h24m   10.0.11.67    ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+pantry-mate-order-payment-6ff5497b96-5j6zq   1/1     Running   1 (97m ago)   4h54m   10.0.11.6     ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+pantry-mate-order-payment-6ff5497b96-lldsm   1/1     Running   7 (97m ago)   5h30m   10.0.12.113   ip-10-0-12-106.ap-northeast-2.compute.internal   <none>           <none>
+pantry-mate-pantry-recipe-84b9975c8-2q9h7    1/1     Running   0             97m     10.0.12.200   ip-10-0-12-226.ap-northeast-2.compute.internal   <none>           <none>
+pantry-mate-pantry-recipe-84b9975c8-w682m    1/1     Running   1 (97m ago)   4h54m   10.0.11.165   ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+pantry-mate-product-6f9c6bf8b4-lh247         1/1     Running   1 (97m ago)   5h5m    10.0.12.210   ip-10-0-12-106.ap-northeast-2.compute.internal   <none>           <none>
+pantry-mate-product-6f9c6bf8b4-xt9c4         1/1     Running   1 (97m ago)   4h59m   10.0.11.208   ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+pantry-mate-user-697ddd4679-6wncp            1/1     Running   7 (97m ago)   5h30m   10.0.12.75    ip-10-0-12-226.ap-northeast-2.compute.internal   <none>           <none>
+pantry-mate-user-697ddd4679-kq2r8            1/1     Running   8 (97m ago)   5h33m   10.0.12.12    ip-10-0-12-106.ap-northeast-2.compute.internal   <none>           <none>
+redis-65b8c78479-gstkm                       1/1     Running   0             12h     10.0.11.9     ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+
+===== NODES =====
+NAME                                             STATUS   ROLES    AGE   VERSION   ZONE              NODEPOOL   CAPACITY-TYPE   INSTANCE-TYPE
+ip-10-0-1-150.ap-northeast-2.compute.internal    Ready    <none>   8h    v1.35.8   ap-northeast-2a                              t3.small
+ip-10-0-11-70.ap-northeast-2.compute.internal    Ready    <none>   20h   v1.35.8   ap-northeast-2a                              t3.medium
+ip-10-0-12-106.ap-northeast-2.compute.internal   Ready    <none>   8h    v1.35.8   ap-northeast-2c                              t3.medium
+ip-10-0-12-107.ap-northeast-2.compute.internal   Ready    <none>   20h   v1.35.8   ap-northeast-2c                              t3.large
+ip-10-0-12-226.ap-northeast-2.compute.internal   Ready    <none>   20h   v1.35.8   ap-northeast-2c                              t3.medium
+
+===== NODECLAIMS =====
+No resources found
+
+===== POD RESOURCE =====
+NAME                                         CPU(cores)   MEMORY(bytes)   
+pantry-mate-frontend-6484bf5f4c-56fhv        11m          82Mi            
+pantry-mate-frontend-6484bf5f4c-thddb        3m           68Mi            
+pantry-mate-gateway-7d54f6f7cb-9q5m6         4m           235Mi           
+pantry-mate-gateway-7d54f6f7cb-h8qkk         1m           238Mi           
+pantry-mate-notification-6464df757b-r46fd    1m           270Mi           
+pantry-mate-order-payment-6ff5497b96-5j6zq   6m           355Mi           
+pantry-mate-order-payment-6ff5497b96-lldsm   7m           355Mi           
+pantry-mate-pantry-recipe-84b9975c8-2q9h7    2m           332Mi           
+pantry-mate-pantry-recipe-84b9975c8-w682m    5m           335Mi           
+pantry-mate-product-6f9c6bf8b4-lh247         2m           283Mi           
+pantry-mate-product-6f9c6bf8b4-xt9c4         1m           282Mi           
+pantry-mate-user-697ddd4679-6wncp            2m           308Mi           
+pantry-mate-user-697ddd4679-kq2r8            2m           303Mi           
+redis-65b8c78479-gstkm                       7m           4Mi             
+
+===== NODE RESOURCE =====
+NAME                                             CPU(cores)   CPU(%)   MEMORY(bytes)   MEMORY(%)   
+ip-10-0-1-150.ap-northeast-2.compute.internal    40m          2%       574Mi           40%         
+ip-10-0-11-70.ap-northeast-2.compute.internal    103m         5%       2363Mi          71%         
+ip-10-0-12-106.ap-northeast-2.compute.internal   52m          2%       1644Mi          49%         
+ip-10-0-12-107.ap-northeast-2.compute.internal   123m         6%       1801Mi          25%         
+ip-10-0-12-226.ap-northeast-2.compute.internal   76m          3%       1799Mi          54%         

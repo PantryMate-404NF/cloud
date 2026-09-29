@@ -1,0 +1,10 @@
+===== 2026-09-28T23:33:05+09:00 =====
+LAST SEEN   TYPE     REASON              OBJECT                                                              MESSAGE
+59m         Normal   SuccessfulRescale   horizontalpodautoscaler/keda-hpa-pantry-mate-pantry-recipe-scaler   New size: 2; reason: All metrics below target
+59m         Normal   SuccessfulRescale   horizontalpodautoscaler/keda-hpa-pantry-mate-frontend-scaler        New size: 6; reason: cpu resource utilization (percentage of request) above target
+59m         Normal   SuccessfulRescale   horizontalpodautoscaler/keda-hpa-pantry-mate-gateway-scaler         New size: 3; reason: cpu resource utilization (percentage of request) above target
+55m         Normal   SuccessfulRescale   horizontalpodautoscaler/keda-hpa-pantry-mate-gateway-scaler         New size: 5; reason: cpu resource utilization (percentage of request) above target
+51m         Normal   SuccessfulRescale   horizontalpodautoscaler/keda-hpa-pantry-mate-gateway-scaler         New size: 3; reason: All metrics below target
+50m         Normal   SuccessfulRescale   horizontalpodautoscaler/keda-hpa-pantry-mate-gateway-scaler         New size: 2; reason: All metrics below target
+50m         Normal   SuccessfulRescale   horizontalpodautoscaler/keda-hpa-pantry-mate-frontend-scaler        New size: 3; reason: All metrics below target
+49m         Normal   SuccessfulRescale   horizontalpodautoscaler/keda-hpa-pantry-mate-frontend-scaler        New size: 2; reason: All metrics below target

@@ -1,0 +1,8 @@
+===== 2026-09-28T19:32:45+09:00 =====
+NAME                                             STATUS   ROLES    AGE     VERSION   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION   CONTAINER-RUNTIME
+ip-10-0-1-150.ap-northeast-2.compute.internal    Ready    <none>   4h55m   v1.35.8   10.0.1.150    52.79.80.10   Ubuntu 24.04.5 LTS   7.0.0-1013-aws   containerd://2.2.1
+ip-10-0-11-212.ap-northeast-2.compute.internal   Ready    <none>   4h24m   v1.35.8   10.0.11.212   <none>        Ubuntu 24.04.5 LTS   7.0.0-1013-aws   containerd://2.2.1
+ip-10-0-11-70.ap-northeast-2.compute.internal    Ready    <none>   16h     v1.35.8   10.0.11.70    <none>        Ubuntu 24.04.5 LTS   7.0.0-1013-aws   containerd://2.2.1
+ip-10-0-12-106.ap-northeast-2.compute.internal   Ready    <none>   4h55m   v1.35.8   10.0.12.106   <none>        Ubuntu 24.04.5 LTS   7.0.0-1013-aws   containerd://2.2.1
+ip-10-0-12-107.ap-northeast-2.compute.internal   Ready    <none>   16h     v1.35.8   10.0.12.107   <none>        Ubuntu 24.04.5 LTS   7.0.0-1013-aws   containerd://2.2.1
+ip-10-0-12-226.ap-northeast-2.compute.internal   Ready    <none>   16h     v1.35.8   10.0.12.226   <none>        Ubuntu 24.04.5 LTS   7.0.0-1013-aws   containerd://2.2.1

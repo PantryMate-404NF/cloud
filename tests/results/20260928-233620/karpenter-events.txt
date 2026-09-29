@@ -1,0 +1,23 @@
+===== 2026-09-28T23:49:26+09:00 =====
+NAMESPACE    LAST SEEN   TYPE      REASON                  OBJECT                                                MESSAGE
+default      60m         Normal    DisruptionTerminating   node/ip-10-0-11-239.ap-northeast-2.compute.internal   Disrupting Node: Empty
+default      60m         Normal    DisruptionBlocked       node/ip-10-0-11-239.ap-northeast-2.compute.internal   Node is deleting or marked for deletion
+monitoring   60m         Normal    Evicted                 pod/otel-collector-lwxhc                              Evicted pod: Empty
+default      60m         Warning   FailedDraining          node/ip-10-0-11-239.ap-northeast-2.compute.internal   Failed to drain node, 1 pods are waiting to be evicted
+default      60m         Normal    DisruptionTerminating   nodeclaim/general-64sg6                               Disrupting NodeClaim: Empty
+default      60m         Normal    DisruptionBlocked       nodeclaim/general-64sg6                               Node is deleting or marked for deletion
+default      60m         Normal    Drained                 nodeclaim/general-64sg6                               Status condition transitioned, Type: Drained, Status: Unknown -> True, Reason: Drained
+default      60m         Warning   InstanceTerminating     nodeclaim/general-64sg6                               Instance is terminating
+default      60m         Warning   InstanceTerminating     node/ip-10-0-11-239.ap-northeast-2.compute.internal   Instance is terminating
+default      60m         Normal    Ready                   node/ip-10-0-11-239.ap-northeast-2.compute.internal   Status condition transitioned, Type: Ready, Status: True -> False, Reason: KubeletNotReady, Message: node is shutting down
+default      59m         Normal    Finalized               node                                                  Finalized karpenter.sh/termination
+default      59m         Normal    Finalized               nodeclaim                                             Finalized karpenter.sh/termination
+app          5m15s       Normal    Nominated               pod/pantry-mate-user-9c5ccd5b4-9xxz8                  Pod should schedule on: nodeclaim/general-lg9d6
+app          5m15s       Normal    Nominated               pod/pantry-mate-order-payment-6c4477f8f8-6p5q4        Pod should schedule on: nodeclaim/general-lg9d6
+default      5m11s       Normal    Launched                nodeclaim/general-lg9d6                               Status condition transitioned, Type: Launched, Status: Unknown -> True, Reason: Launched
+default      5m11s       Normal    DisruptionBlocked       nodeclaim/general-lg9d6                               Nodeclaim does not have an associated node
+default      4m55s       Normal    Registered              nodeclaim/general-lg9d6                               Status condition transitioned, Type: Registered, Status: Unknown -> True, Reason: Registered
+default      4m51s       Normal    DisruptionBlocked       node/ip-10-0-11-195.ap-northeast-2.compute.internal   Node isn't initialized
+default      4m44s       Normal    Ready                   node/ip-10-0-11-195.ap-northeast-2.compute.internal   Status condition transitioned, Type: Ready, Status: False -> True, Reason: KubeletReady, Message: kubelet is posting ready status
+default      4m43s       Normal    Ready                   nodeclaim/general-lg9d6                               Status condition transitioned, Type: Ready, Status: Unknown -> True, Reason: Ready
+default      4m43s       Normal    Initialized             nodeclaim/general-lg9d6                               Status condition transitioned, Type: Initialized, Status: Unknown -> True, Reason: Initialized

@@ -1,0 +1,4 @@
+===== 2026-09-29T00:03:49+09:00 =====
+LAST SEEN   TYPE     REASON              OBJECT                                                        MESSAGE
+17m         Normal   SuccessfulRescale   horizontalpodautoscaler/keda-hpa-pantry-mate-gateway-scaler   New size: 4; reason: cpu resource utilization (percentage of request) above target
+14m         Normal   SuccessfulRescale   horizontalpodautoscaler/keda-hpa-pantry-mate-gateway-scaler   New size: 2; reason: All metrics below target

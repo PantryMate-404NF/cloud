@@ -1,0 +1,9 @@
+deployment=pantry-mate-product replicas=2
+good_image=542119828072.dkr.ecr.ap-northeast-2.amazonaws.com/pantry-mate-dev-product:b2e8df0b
+bad_image=542119828072.dkr.ecr.ap-northeast-2.amazonaws.com/pantry-mate-dev-product:rollback-test-bad-tag
+bad_deploy_seen=2026-09-29T00:57:05+09:00
+rollback_seen=2026-09-29T01:06:50+09:00
+recovered=2026-09-29T01:06:55+09:00
+bad_state_seconds=585      # 잘못된 배포가 클러스터에 있던 시간
+rollback_to_recovered_seconds=5
+min_ready_during_test=2/2     # 2 이면 잘못된 배포 동안에도 정상 파드가 줄지 않았다는 뜻

@@ -1,0 +1,4 @@
+deployment=pantry-mate-gateway killed_pod=pantry-mate-gateway-69955d48b4-24tjz replicas=2
+start=2026-09-29T00:12:44+09:00
+end=2026-09-29T00:13:26+09:00
+recovery_seconds=42

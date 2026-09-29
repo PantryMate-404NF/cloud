@@ -1,0 +1,14 @@
+===== 2026-09-28T22:57:59+09:00 =====
+LAST SEEN   TYPE     REASON              OBJECT                                                              MESSAGE
+27m         Normal   SuccessfulRescale   horizontalpodautoscaler/keda-hpa-pantry-mate-frontend-scaler        New size: 3; reason: cpu resource utilization (percentage of request) above target
+26m         Normal   SuccessfulRescale   horizontalpodautoscaler/keda-hpa-pantry-mate-pantry-recipe-scaler   New size: 3; reason: cpu resource utilization (percentage of request) above target
+26m         Normal   SuccessfulRescale   horizontalpodautoscaler/keda-hpa-pantry-mate-frontend-scaler        New size: 4; reason: cpu resource utilization (percentage of request) above target
+25m         Normal   SuccessfulRescale   horizontalpodautoscaler/keda-hpa-pantry-mate-frontend-scaler        New size: 5; reason: cpu resource utilization (percentage of request) above target
+24m         Normal   SuccessfulRescale   horizontalpodautoscaler/keda-hpa-pantry-mate-pantry-recipe-scaler   New size: 2; reason: All metrics below target
+23m         Normal   SuccessfulRescale   horizontalpodautoscaler/keda-hpa-pantry-mate-frontend-scaler        New size: 6; reason: cpu resource utilization (percentage of request) above target
+23m         Normal   SuccessfulRescale   horizontalpodautoscaler/keda-hpa-pantry-mate-gateway-scaler         New size: 3; reason: cpu resource utilization (percentage of request) above target
+19m         Normal   SuccessfulRescale   horizontalpodautoscaler/keda-hpa-pantry-mate-gateway-scaler         New size: 5; reason: cpu resource utilization (percentage of request) above target
+16m         Normal   SuccessfulRescale   horizontalpodautoscaler/keda-hpa-pantry-mate-gateway-scaler         New size: 3; reason: All metrics below target
+15m         Normal   SuccessfulRescale   horizontalpodautoscaler/keda-hpa-pantry-mate-gateway-scaler         New size: 2; reason: All metrics below target
+15m         Normal   SuccessfulRescale   horizontalpodautoscaler/keda-hpa-pantry-mate-frontend-scaler        New size: 3; reason: All metrics below target
+14m         Normal   SuccessfulRescale   horizontalpodautoscaler/keda-hpa-pantry-mate-frontend-scaler        New size: 2; reason: All metrics below target
