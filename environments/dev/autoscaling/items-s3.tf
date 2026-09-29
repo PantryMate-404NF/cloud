@@ -1,20 +1,9 @@
-### 앱 이미지 버킷 접근 (EKS Pod Identity)
+### 앱 이미지 버킷 접근 (IAM User Access Key)
 # 버킷은 콘솔에서 수동 생성했으므로 data 소스로 참조만 합니다.
-# 버킷은 private(Block Public Access) 유지, 접근은 아래 Role을 받은 파드만 가능합니다.
+# Access Key는 state에 시크릿이 남지 않도록 Terraform 밖(CLI)에서 발급해
+# backend-secrets / ai-secrets 에 AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY 로 넣습니다.
 data "aws_s3_bucket" "items" {
   bucket = var.items_bucket_name
-}
-
-data "aws_iam_policy_document" "items_s3_trust" {
-  statement {
-    effect  = "Allow"
-    actions = ["sts:AssumeRole", "sts:TagSession"]
-
-    principals {
-      type        = "Service"
-      identifiers = ["pods.eks.amazonaws.com"]
-    }
-  }
 }
 
 data "aws_iam_policy_document" "items_s3" {
@@ -37,27 +26,12 @@ data "aws_iam_policy_document" "items_s3" {
   }
 }
 
-resource "aws_iam_role" "items_s3" {
-  name               = "${var.cluster_name}-items-s3"
-  assume_role_policy = data.aws_iam_policy_document.items_s3_trust.json
+resource "aws_iam_user" "items_s3" {
+  name = "${var.cluster_name}-items-s3"
 }
 
-resource "aws_iam_role_policy" "items_s3" {
+resource "aws_iam_user_policy" "items_s3" {
   name   = "items-s3-access"
-  role   = aws_iam_role.items_s3.id
+  user   = aws_iam_user.items_s3.name
   policy = data.aws_iam_policy_document.items_s3.json
-}
-
-# ServiceAccount는 gitops 레포에서 생성합니다. association은 SA보다 먼저 만들어도 됩니다.
-resource "aws_eks_pod_identity_association" "items_s3" {
-  for_each = toset(var.items_s3_service_accounts)
-
-  cluster_name    = var.cluster_name
-  namespace       = var.app_namespace
-  service_account = each.value
-  role_arn        = aws_iam_role.items_s3.arn
-
-  depends_on = [
-    aws_eks_addon.pod_identity_agent
-  ]
 }

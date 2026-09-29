@@ -21,6 +21,6 @@ output "items_bucket_name" {
   value = data.aws_s3_bucket.items.id
 }
 
-output "items_s3_role_arn" {
-  value = aws_iam_role.items_s3.arn
+output "items_s3_user_name" {
+  value = aws_iam_user.items_s3.name
 }
