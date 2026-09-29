@@ -1,0 +1,11 @@
+===== 2026-09-28T19:11:36+09:00 =====
+NAME                        READY   UP-TO-DATE   AVAILABLE   AGE    CONTAINERS      IMAGES                                                                                     SELECTOR
+pantry-mate-ai              1/1     1            1           4h5m   ai              542119828072.dkr.ecr.ap-northeast-2.amazonaws.com/pantry-mate-dev-ai:cd540b27              app=pantry-mate-ai
+pantry-mate-frontend        2/2     2            2           15h    frontend        542119828072.dkr.ecr.ap-northeast-2.amazonaws.com/pantry-mate-dev-frontend:a6a788ac        app=pantry-mate-frontend
+pantry-mate-gateway         2/2     2            2           15h    gateway         542119828072.dkr.ecr.ap-northeast-2.amazonaws.com/pantry-mate-dev-gateway:b2e8df0b         app=pantry-mate-gateway
+pantry-mate-notification    1/1     1            1           15h    notification    542119828072.dkr.ecr.ap-northeast-2.amazonaws.com/pantry-mate-dev-notification:b2e8df0b    app=pantry-mate-notification
+pantry-mate-order-payment   2/2     2            2           15h    order-payment   542119828072.dkr.ecr.ap-northeast-2.amazonaws.com/pantry-mate-dev-order-payment:b2e8df0b   app=pantry-mate-order-payment
+pantry-mate-pantry-recipe   2/2     2            2           15h    pantry-recipe   542119828072.dkr.ecr.ap-northeast-2.amazonaws.com/pantry-mate-dev-pantry-recipe:b2e8df0b   app=pantry-mate-pantry-recipe
+pantry-mate-product         2/2     2            2           15h    product         542119828072.dkr.ecr.ap-northeast-2.amazonaws.com/pantry-mate-dev-product:b2e8df0b         app=pantry-mate-product
+pantry-mate-user            2/2     2            2           15h    user            542119828072.dkr.ecr.ap-northeast-2.amazonaws.com/pantry-mate-dev-user:b2e8df0b            app=pantry-mate-user
+redis                       1/1     1            1           8h     redis           redis:7-alpine                                                                             app=redis

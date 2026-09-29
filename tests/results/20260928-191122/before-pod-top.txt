@@ -1,0 +1,17 @@
+===== 2026-09-28T19:11:42+09:00 =====
+NAME                                         CPU(cores)   MEMORY(bytes)   
+pantry-mate-ai-77bd76b58f-km64v              2m           438Mi           
+pantry-mate-frontend-6484bf5f4c-56fhv        3m           82Mi            
+pantry-mate-frontend-6484bf5f4c-thddb        3m           66Mi            
+pantry-mate-gateway-7d54f6f7cb-9q5m6         2m           175Mi           
+pantry-mate-gateway-7d54f6f7cb-h8qkk         1m           212Mi           
+pantry-mate-notification-6464df757b-r46fd    1m           275Mi           
+pantry-mate-order-payment-6ff5497b96-5j6zq   6m           339Mi           
+pantry-mate-order-payment-6ff5497b96-lldsm   7m           343Mi           
+pantry-mate-pantry-recipe-84b9975c8-8xpkm    17m          323Mi           
+pantry-mate-pantry-recipe-84b9975c8-w682m    2m           314Mi           
+pantry-mate-product-6f9c6bf8b4-lh247         13m          261Mi           
+pantry-mate-product-6f9c6bf8b4-xt9c4         2m           265Mi           
+pantry-mate-user-697ddd4679-6wncp            5m           306Mi           
+pantry-mate-user-697ddd4679-kq2r8            2m           306Mi           
+redis-65b8c78479-gstkm                       6m           4Mi             

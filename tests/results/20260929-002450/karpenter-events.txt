@@ -1,0 +1,46 @@
+===== 2026-09-29T00:37:54+09:00 =====
+NAMESPACE    LAST SEEN   TYPE      REASON                  OBJECT                                                MESSAGE
+app          53m         Normal    Nominated               pod/pantry-mate-user-9c5ccd5b4-9xxz8                  Pod should schedule on: nodeclaim/general-lg9d6
+app          53m         Normal    Nominated               pod/pantry-mate-order-payment-6c4477f8f8-6p5q4        Pod should schedule on: nodeclaim/general-lg9d6
+default      53m         Normal    DisruptionBlocked       nodeclaim/general-lg9d6                               Nodeclaim does not have an associated node
+default      53m         Normal    Launched                nodeclaim/general-lg9d6                               Status condition transitioned, Type: Launched, Status: Unknown -> True, Reason: Launched
+default      53m         Normal    Registered              nodeclaim/general-lg9d6                               Status condition transitioned, Type: Registered, Status: Unknown -> True, Reason: Registered
+default      53m         Normal    DisruptionBlocked       node/ip-10-0-11-195.ap-northeast-2.compute.internal   Node isn't initialized
+default      53m         Normal    Ready                   node/ip-10-0-11-195.ap-northeast-2.compute.internal   Status condition transitioned, Type: Ready, Status: False -> True, Reason: KubeletReady, Message: kubelet is posting ready status
+default      53m         Normal    Ready                   nodeclaim/general-lg9d6                               Status condition transitioned, Type: Ready, Status: Unknown -> True, Reason: Ready
+default      53m         Normal    Initialized             nodeclaim/general-lg9d6                               Status condition transitioned, Type: Initialized, Status: Unknown -> True, Reason: Initialized
+default      43m         Normal    DisruptionTerminating   node/ip-10-0-11-195.ap-northeast-2.compute.internal   Disrupting Node: Underutilized
+default      43m         Normal    DisruptionBlocked       node/ip-10-0-11-195.ap-northeast-2.compute.internal   Node is deleting or marked for deletion
+app          43m         Normal    Nominated               pod/pantry-mate-user-9c5ccd5b4-9xxz8                  Pod should schedule on: node/ip-10-0-12-106.ap-northeast-2.compute.internal
+app          43m         Normal    Evicted                 pod/pantry-mate-user-9c5ccd5b4-9xxz8                  Evicted pod: Underutilized
+default      43m         Warning   FailedDraining          node/ip-10-0-11-195.ap-northeast-2.compute.internal   Failed to drain node, 5 pods are waiting to be evicted
+app          43m         Normal    Evicted                 pod/pantry-mate-product-694b84b85c-sblt4              Evicted pod: Underutilized
+app          43m         Normal    Nominated               pod/pantry-mate-product-694b84b85c-sblt4              Pod should schedule on: node/ip-10-0-11-70.ap-northeast-2.compute.internal
+app          43m         Normal    Evicted                 pod/pantry-mate-pantry-recipe-6d8b8dbd74-lsqsd        Evicted pod: Underutilized
+app          43m         Normal    Nominated               pod/pantry-mate-pantry-recipe-6d8b8dbd74-lsqsd        Pod should schedule on: node/ip-10-0-11-70.ap-northeast-2.compute.internal
+app          43m         Normal    Evicted                 pod/pantry-mate-order-payment-6c4477f8f8-6p5q4        Evicted pod: Underutilized
+app          43m         Normal    Nominated               pod/pantry-mate-order-payment-6c4477f8f8-6p5q4        Pod should schedule on: node/ip-10-0-11-70.ap-northeast-2.compute.internal
+default      43m         Normal    DisruptionTerminating   nodeclaim/general-lg9d6                               Disrupting NodeClaim: Underutilized
+default      43m         Normal    DisruptionBlocked       nodeclaim/general-lg9d6                               Node is deleting or marked for deletion
+monitoring   42m         Normal    Evicted                 pod/otel-collector-ssp9n                              Evicted pod: Underutilized
+default      42m         Normal    Drained                 nodeclaim/general-lg9d6                               Status condition transitioned, Type: Drained, Status: Unknown -> True, Reason: Drained
+default      42m         Warning   InstanceTerminating     nodeclaim/general-lg9d6                               Instance is terminating
+default      42m         Warning   InstanceTerminating     node/ip-10-0-11-195.ap-northeast-2.compute.internal   Instance is terminating
+default      42m         Normal    Ready                   node/ip-10-0-11-195.ap-northeast-2.compute.internal   Status condition transitioned, Type: Ready, Status: True -> False, Reason: KubeletNotReady, Message: node is shutting down
+default      42m         Normal    Finalized               nodeclaim                                             Finalized karpenter.sh/termination
+default      42m         Normal    Finalized               node                                                  Finalized karpenter.sh/termination
+app          11m         Normal    Nominated               pod/pantry-mate-order-payment-6c4477f8f8-4qtxr        Pod should schedule on: nodeclaim/general-nwpbb
+default      11m         Normal    Launched                nodeclaim/general-nwpbb                               Status condition transitioned, Type: Launched, Status: Unknown -> True, Reason: Launched
+default      11m         Normal    DisruptionBlocked       nodeclaim/general-nwpbb                               Nodeclaim does not have an associated node
+default      11m         Normal    Registered              nodeclaim/general-nwpbb                               Status condition transitioned, Type: Registered, Status: Unknown -> True, Reason: Registered
+default      10m         Normal    DisruptionBlocked       node/ip-10-0-11-195.ap-northeast-2.compute.internal   Node isn't initialized
+default      10m         Normal    Ready                   node/ip-10-0-11-195.ap-northeast-2.compute.internal   Status condition transitioned, Type: Ready, Status: False -> True, Reason: KubeletReady, Message: kubelet is posting ready status
+default      10m         Normal    Initialized             nodeclaim/general-nwpbb                               Status condition transitioned, Type: Initialized, Status: Unknown -> True, Reason: Initialized
+default      10m         Normal    Ready                   nodeclaim/general-nwpbb                               Status condition transitioned, Type: Ready, Status: Unknown -> True, Reason: Ready
+default      5m53s       Normal    Unconsolidatable        nodeclaim/general-nwpbb                               SpotToSpotConsolidation is disabled, can't replace a spot node with a spot node
+default      5m53s       Normal    Unconsolidatable        node/ip-10-0-11-195.ap-northeast-2.compute.internal   SpotToSpotConsolidation is disabled, can't replace a spot node with a spot node
+app          6s          Normal    Nominated               pod/pantry-mate-order-payment-6c4477f8f8-4qtxr        Pod should schedule on: node/ip-10-0-12-226.ap-northeast-2.compute.internal
+app          6s          Normal    Evicted                 pod/pantry-mate-order-payment-6c4477f8f8-4qtxr        Evicted pod: Underutilized
+default      6s          Normal    DisruptionTerminating   nodeclaim/general-nwpbb                               Disrupting NodeClaim: Underutilized
+default      6s          Normal    DisruptionTerminating   node/ip-10-0-11-195.ap-northeast-2.compute.internal   Disrupting Node: Underutilized
+default      6s          Warning   FailedDraining          node/ip-10-0-11-195.ap-northeast-2.compute.internal   Failed to drain node, 2 pods are waiting to be evicted

@@ -1,0 +1,994 @@
+===== 2026-09-28T19:32:48+09:00 =====
+{
+    "apiVersion": "v1",
+    "items": [
+        {
+            "apiVersion": "keda.sh/v1alpha1",
+            "kind": "ScaledObject",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"keda.sh/v1alpha1\",\"kind\":\"ScaledObject\",\"metadata\":{\"annotations\":{},\"labels\":{\"argocd.argoproj.io/instance\":\"web\"},\"name\":\"pantry-mate-frontend-scaler\",\"namespace\":\"app\"},\"spec\":{\"advanced\":{\"horizontalPodAutoscalerConfig\":{\"behavior\":{\"scaleDown\":{\"policies\":[{\"periodSeconds\":60,\"type\":\"Percent\",\"value\":50}],\"selectPolicy\":\"Max\",\"stabilizationWindowSeconds\":120},\"scaleUp\":{\"policies\":[{\"periodSeconds\":15,\"type\":\"Percent\",\"value\":100},{\"periodSeconds\":15,\"type\":\"Pods\",\"value\":2}],\"selectPolicy\":\"Max\",\"stabilizationWindowSeconds\":0}}}},\"cooldownPeriod\":60,\"maxReplicaCount\":6,\"minReplicaCount\":2,\"pollingInterval\":15,\"scaleTargetRef\":{\"name\":\"pantry-mate-frontend\"},\"triggers\":[{\"metadata\":{\"value\":\"60\"},\"metricType\":\"Utilization\",\"type\":\"cpu\"},{\"metadata\":{\"metricName\":\"otel_pantry_mate_frontend_memory\",\"query\":\"avg(k8s_pod_memory_working_set_bytes{k8s_namespace_name=\\\"app\\\",k8s_pod_name=~\\\"pantry-mate-frontend-.*\\\"}) / 1024 / 1024\",\"serverAddress\":\"http://onprem-gateway.monitoring.svc:9090\",\"threshold\":\"150\"},\"metricType\":\"AverageValue\",\"type\":\"prometheus\"}]}}\n"
+                },
+                "creationTimestamp": "2026-09-27T18:27:56Z",
+                "finalizers": [
+                    "finalizer.keda.sh"
+                ],
+                "generation": 3,
+                "labels": {
+                    "argocd.argoproj.io/instance": "web",
+                    "scaledobject.keda.sh/name": "pantry-mate-frontend-scaler"
+                },
+                "name": "pantry-mate-frontend-scaler",
+                "namespace": "app",
+                "resourceVersion": "404068",
+                "uid": "dd232a17-7fdc-4345-80a7-372f1b47dd89"
+            },
+            "spec": {
+                "advanced": {
+                    "horizontalPodAutoscalerConfig": {
+                        "behavior": {
+                            "scaleDown": {
+                                "policies": [
+                                    {
+                                        "periodSeconds": 60,
+                                        "type": "Percent",
+                                        "value": 50
+                                    }
+                                ],
+                                "selectPolicy": "Max",
+                                "stabilizationWindowSeconds": 120
+                            },
+                            "scaleUp": {
+                                "policies": [
+                                    {
+                                        "periodSeconds": 15,
+                                        "type": "Percent",
+                                        "value": 100
+                                    },
+                                    {
+                                        "periodSeconds": 15,
+                                        "type": "Pods",
+                                        "value": 2
+                                    }
+                                ],
+                                "selectPolicy": "Max",
+                                "stabilizationWindowSeconds": 0
+                            }
+                        }
+                    }
+                },
+                "cooldownPeriod": 60,
+                "maxReplicaCount": 6,
+                "minReplicaCount": 2,
+                "pollingInterval": 15,
+                "scaleTargetRef": {
+                    "name": "pantry-mate-frontend"
+                },
+                "triggers": [
+                    {
+                        "metadata": {
+                            "value": "60"
+                        },
+                        "metricType": "Utilization",
+                        "type": "cpu"
+                    },
+                    {
+                        "metadata": {
+                            "metricName": "otel_pantry_mate_frontend_memory",
+                            "query": "avg(k8s_pod_memory_working_set_bytes{k8s_namespace_name=\"app\",k8s_pod_name=~\"pantry-mate-frontend-.*\"}) / 1024 / 1024",
+                            "serverAddress": "http://onprem-gateway.monitoring.svc:9090",
+                            "threshold": "150"
+                        },
+                        "metricType": "AverageValue",
+                        "type": "prometheus"
+                    }
+                ]
+            },
+            "status": {
+                "authenticationsTypes": "",
+                "conditions": [
+                    {
+                        "message": "ScaledObject is defined correctly and is ready for scaling",
+                        "reason": "ScaledObjectReady",
+                        "status": "True",
+                        "type": "Ready"
+                    },
+                    {
+                        "message": "Scaling is performed because triggers are active",
+                        "reason": "ScalerActive",
+                        "status": "True",
+                        "type": "Active"
+                    },
+                    {
+                        "message": "No fallbacks are active on this scaled object",
+                        "reason": "NoFallbackFound",
+                        "status": "False",
+                        "type": "Fallback"
+                    },
+                    {
+                        "status": "False",
+                        "type": "Paused"
+                    },
+                    {
+                        "message": "HPA is actively scaling",
+                        "reason": "HPAActive",
+                        "status": "True",
+                        "type": "HPAActive"
+                    }
+                ],
+                "externalMetricNames": [
+                    "s1-prometheus"
+                ],
+                "hpaName": "keda-hpa-pantry-mate-frontend-scaler",
+                "lastActiveTime": "2026-09-28T10:32:40Z",
+                "originalReplicaCount": 1,
+                "resourceMetricNames": [
+                    "cpu"
+                ],
+                "scaleTargetGVKR": {
+                    "group": "apps",
+                    "kind": "Deployment",
+                    "resource": "deployments",
+                    "version": "v1"
+                },
+                "scaleTargetKind": "apps/v1.Deployment",
+                "triggersActivity": {
+                    "s1-prometheus": {
+                        "isActive": true
+                    }
+                },
+                "triggersTypes": "cpu,prometheus"
+            }
+        },
+        {
+            "apiVersion": "keda.sh/v1alpha1",
+            "kind": "ScaledObject",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"keda.sh/v1alpha1\",\"kind\":\"ScaledObject\",\"metadata\":{\"annotations\":{},\"labels\":{\"argocd.argoproj.io/instance\":\"server\"},\"name\":\"pantry-mate-gateway-scaler\",\"namespace\":\"app\"},\"spec\":{\"advanced\":{\"horizontalPodAutoscalerConfig\":{\"behavior\":{\"scaleDown\":{\"policies\":[{\"periodSeconds\":60,\"type\":\"Percent\",\"value\":50}],\"selectPolicy\":\"Max\",\"stabilizationWindowSeconds\":120},\"scaleUp\":{\"policies\":[{\"periodSeconds\":15,\"type\":\"Percent\",\"value\":100},{\"periodSeconds\":15,\"type\":\"Pods\",\"value\":2}],\"selectPolicy\":\"Max\",\"stabilizationWindowSeconds\":0}}}},\"cooldownPeriod\":60,\"maxReplicaCount\":10,\"minReplicaCount\":2,\"pollingInterval\":15,\"scaleTargetRef\":{\"kind\":\"Deployment\",\"name\":\"pantry-mate-gateway\"},\"triggers\":[{\"metadata\":{\"value\":\"60\"},\"metricType\":\"Utilization\",\"type\":\"cpu\"},{\"metadata\":{\"metricName\":\"otel_pantry_mate_gateway_memory\",\"query\":\"avg(k8s_pod_memory_working_set_bytes{k8s_namespace_name=\\\"app\\\",k8s_pod_name=~\\\"pantry-mate-gateway-.*\\\"}) / 1024 / 1024\",\"serverAddress\":\"http://onprem-gateway.monitoring.svc:9090\",\"threshold\":\"350\"},\"metricType\":\"AverageValue\",\"type\":\"prometheus\"}]}}\n"
+                },
+                "creationTimestamp": "2026-09-27T18:27:57Z",
+                "finalizers": [
+                    "finalizer.keda.sh"
+                ],
+                "generation": 3,
+                "labels": {
+                    "argocd.argoproj.io/instance": "server",
+                    "scaledobject.keda.sh/name": "pantry-mate-gateway-scaler"
+                },
+                "name": "pantry-mate-gateway-scaler",
+                "namespace": "app",
+                "resourceVersion": "404073",
+                "uid": "ba9a38fd-1cc5-47e3-aa7c-04d3847bb522"
+            },
+            "spec": {
+                "advanced": {
+                    "horizontalPodAutoscalerConfig": {
+                        "behavior": {
+                            "scaleDown": {
+                                "policies": [
+                                    {
+                                        "periodSeconds": 60,
+                                        "type": "Percent",
+                                        "value": 50
+                                    }
+                                ],
+                                "selectPolicy": "Max",
+                                "stabilizationWindowSeconds": 120
+                            },
+                            "scaleUp": {
+                                "policies": [
+                                    {
+                                        "periodSeconds": 15,
+                                        "type": "Percent",
+                                        "value": 100
+                                    },
+                                    {
+                                        "periodSeconds": 15,
+                                        "type": "Pods",
+                                        "value": 2
+                                    }
+                                ],
+                                "selectPolicy": "Max",
+                                "stabilizationWindowSeconds": 0
+                            }
+                        }
+                    }
+                },
+                "cooldownPeriod": 60,
+                "maxReplicaCount": 10,
+                "minReplicaCount": 2,
+                "pollingInterval": 15,
+                "scaleTargetRef": {
+                    "kind": "Deployment",
+                    "name": "pantry-mate-gateway"
+                },
+                "triggers": [
+                    {
+                        "metadata": {
+                            "value": "60"
+                        },
+                        "metricType": "Utilization",
+                        "type": "cpu"
+                    },
+                    {
+                        "metadata": {
+                            "metricName": "otel_pantry_mate_gateway_memory",
+                            "query": "avg(k8s_pod_memory_working_set_bytes{k8s_namespace_name=\"app\",k8s_pod_name=~\"pantry-mate-gateway-.*\"}) / 1024 / 1024",
+                            "serverAddress": "http://onprem-gateway.monitoring.svc:9090",
+                            "threshold": "350"
+                        },
+                        "metricType": "AverageValue",
+                        "type": "prometheus"
+                    }
+                ]
+            },
+            "status": {
+                "authenticationsTypes": "",
+                "conditions": [
+                    {
+                        "message": "ScaledObject is defined correctly and is ready for scaling",
+                        "reason": "ScaledObjectReady",
+                        "status": "True",
+                        "type": "Ready"
+                    },
+                    {
+                        "message": "Scaling is performed because triggers are active",
+                        "reason": "ScalerActive",
+                        "status": "True",
+                        "type": "Active"
+                    },
+                    {
+                        "message": "No fallbacks are active on this scaled object",
+                        "reason": "NoFallbackFound",
+                        "status": "False",
+                        "type": "Fallback"
+                    },
+                    {
+                        "message": "pause annotation removed for ScaledObject",
+                        "reason": "ScaledObjectUnpaused",
+                        "status": "False",
+                        "type": "Paused"
+                    },
+                    {
+                        "message": "HPA is actively scaling",
+                        "reason": "HPAActive",
+                        "status": "True",
+                        "type": "HPAActive"
+                    }
+                ],
+                "externalMetricNames": [
+                    "s1-prometheus"
+                ],
+                "hpaName": "keda-hpa-pantry-mate-gateway-scaler",
+                "lastActiveTime": "2026-09-28T10:32:41Z",
+                "originalReplicaCount": 1,
+                "resourceMetricNames": [
+                    "cpu"
+                ],
+                "scaleTargetGVKR": {
+                    "group": "apps",
+                    "kind": "Deployment",
+                    "resource": "deployments",
+                    "version": "v1"
+                },
+                "scaleTargetKind": "apps/v1.Deployment",
+                "triggersActivity": {
+                    "s1-prometheus": {
+                        "isActive": true
+                    }
+                },
+                "triggersTypes": "cpu,prometheus"
+            }
+        },
+        {
+            "apiVersion": "keda.sh/v1alpha1",
+            "kind": "ScaledObject",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"keda.sh/v1alpha1\",\"kind\":\"ScaledObject\",\"metadata\":{\"annotations\":{},\"labels\":{\"argocd.argoproj.io/instance\":\"server\"},\"name\":\"pantry-mate-notification-scaler\",\"namespace\":\"app\"},\"spec\":{\"advanced\":{\"horizontalPodAutoscalerConfig\":{\"behavior\":{\"scaleDown\":{\"policies\":[{\"periodSeconds\":60,\"type\":\"Percent\",\"value\":50}],\"selectPolicy\":\"Max\",\"stabilizationWindowSeconds\":120},\"scaleUp\":{\"policies\":[{\"periodSeconds\":15,\"type\":\"Percent\",\"value\":100},{\"periodSeconds\":15,\"type\":\"Pods\",\"value\":2}],\"selectPolicy\":\"Max\",\"stabilizationWindowSeconds\":0}}}},\"cooldownPeriod\":60,\"maxReplicaCount\":4,\"minReplicaCount\":1,\"pollingInterval\":15,\"scaleTargetRef\":{\"kind\":\"Deployment\",\"name\":\"pantry-mate-notification\"},\"triggers\":[{\"metadata\":{\"value\":\"60\"},\"metricType\":\"Utilization\",\"type\":\"cpu\"},{\"metadata\":{\"metricName\":\"otel_pantry_mate_notification_memory\",\"query\":\"avg(k8s_pod_memory_working_set_bytes{k8s_namespace_name=\\\"app\\\",k8s_pod_name=~\\\"pantry-mate-notification-.*\\\"}) / 1024 / 1024\",\"serverAddress\":\"http://onprem-gateway.monitoring.svc:9090\",\"threshold\":\"400\"},\"metricType\":\"AverageValue\",\"type\":\"prometheus\"}]}}\n"
+                },
+                "creationTimestamp": "2026-09-27T18:27:57Z",
+                "finalizers": [
+                    "finalizer.keda.sh"
+                ],
+                "generation": 3,
+                "labels": {
+                    "argocd.argoproj.io/instance": "server",
+                    "scaledobject.keda.sh/name": "pantry-mate-notification-scaler"
+                },
+                "name": "pantry-mate-notification-scaler",
+                "namespace": "app",
+                "resourceVersion": "404074",
+                "uid": "4f9addad-60be-424b-97b0-8824cdbc5281"
+            },
+            "spec": {
+                "advanced": {
+                    "horizontalPodAutoscalerConfig": {
+                        "behavior": {
+                            "scaleDown": {
+                                "policies": [
+                                    {
+                                        "periodSeconds": 60,
+                                        "type": "Percent",
+                                        "value": 50
+                                    }
+                                ],
+                                "selectPolicy": "Max",
+                                "stabilizationWindowSeconds": 120
+                            },
+                            "scaleUp": {
+                                "policies": [
+                                    {
+                                        "periodSeconds": 15,
+                                        "type": "Percent",
+                                        "value": 100
+                                    },
+                                    {
+                                        "periodSeconds": 15,
+                                        "type": "Pods",
+                                        "value": 2
+                                    }
+                                ],
+                                "selectPolicy": "Max",
+                                "stabilizationWindowSeconds": 0
+                            }
+                        }
+                    }
+                },
+                "cooldownPeriod": 60,
+                "maxReplicaCount": 4,
+                "minReplicaCount": 1,
+                "pollingInterval": 15,
+                "scaleTargetRef": {
+                    "kind": "Deployment",
+                    "name": "pantry-mate-notification"
+                },
+                "triggers": [
+                    {
+                        "metadata": {
+                            "value": "60"
+                        },
+                        "metricType": "Utilization",
+                        "type": "cpu"
+                    },
+                    {
+                        "metadata": {
+                            "metricName": "otel_pantry_mate_notification_memory",
+                            "query": "avg(k8s_pod_memory_working_set_bytes{k8s_namespace_name=\"app\",k8s_pod_name=~\"pantry-mate-notification-.*\"}) / 1024 / 1024",
+                            "serverAddress": "http://onprem-gateway.monitoring.svc:9090",
+                            "threshold": "400"
+                        },
+                        "metricType": "AverageValue",
+                        "type": "prometheus"
+                    }
+                ]
+            },
+            "status": {
+                "authenticationsTypes": "",
+                "conditions": [
+                    {
+                        "message": "ScaledObject is defined correctly and is ready for scaling",
+                        "reason": "ScaledObjectReady",
+                        "status": "True",
+                        "type": "Ready"
+                    },
+                    {
+                        "message": "Scaling is performed because triggers are active",
+                        "reason": "ScalerActive",
+                        "status": "True",
+                        "type": "Active"
+                    },
+                    {
+                        "message": "No fallbacks are active on this scaled object",
+                        "reason": "NoFallbackFound",
+                        "status": "False",
+                        "type": "Fallback"
+                    },
+                    {
+                        "message": "pause annotation removed for ScaledObject",
+                        "reason": "ScaledObjectUnpaused",
+                        "status": "False",
+                        "type": "Paused"
+                    },
+                    {
+                        "message": "HPA is actively scaling",
+                        "reason": "HPAActive",
+                        "status": "True",
+                        "type": "HPAActive"
+                    }
+                ],
+                "externalMetricNames": [
+                    "s1-prometheus"
+                ],
+                "hpaName": "keda-hpa-pantry-mate-notification-scaler",
+                "lastActiveTime": "2026-09-28T10:32:41Z",
+                "originalReplicaCount": 1,
+                "resourceMetricNames": [
+                    "cpu"
+                ],
+                "scaleTargetGVKR": {
+                    "group": "apps",
+                    "kind": "Deployment",
+                    "resource": "deployments",
+                    "version": "v1"
+                },
+                "scaleTargetKind": "apps/v1.Deployment",
+                "triggersActivity": {
+                    "s1-prometheus": {
+                        "isActive": true
+                    }
+                },
+                "triggersTypes": "cpu,prometheus"
+            }
+        },
+        {
+            "apiVersion": "keda.sh/v1alpha1",
+            "kind": "ScaledObject",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"keda.sh/v1alpha1\",\"kind\":\"ScaledObject\",\"metadata\":{\"annotations\":{},\"labels\":{\"argocd.argoproj.io/instance\":\"server\"},\"name\":\"pantry-mate-order-payment-scaler\",\"namespace\":\"app\"},\"spec\":{\"advanced\":{\"horizontalPodAutoscalerConfig\":{\"behavior\":{\"scaleDown\":{\"policies\":[{\"periodSeconds\":60,\"type\":\"Percent\",\"value\":50}],\"selectPolicy\":\"Max\",\"stabilizationWindowSeconds\":120},\"scaleUp\":{\"policies\":[{\"periodSeconds\":15,\"type\":\"Percent\",\"value\":100},{\"periodSeconds\":15,\"type\":\"Pods\",\"value\":2}],\"selectPolicy\":\"Max\",\"stabilizationWindowSeconds\":0}}}},\"cooldownPeriod\":60,\"maxReplicaCount\":4,\"minReplicaCount\":2,\"pollingInterval\":15,\"scaleTargetRef\":{\"kind\":\"Deployment\",\"name\":\"pantry-mate-order-payment\"},\"triggers\":[{\"metadata\":{\"value\":\"60\"},\"metricType\":\"Utilization\",\"type\":\"cpu\"},{\"metadata\":{\"metricName\":\"otel_pantry_mate_order_payment_memory\",\"query\":\"avg(k8s_pod_memory_working_set_bytes{k8s_namespace_name=\\\"app\\\",k8s_pod_name=~\\\"pantry-mate-order-payment-.*\\\"}) / 1024 / 1024\",\"serverAddress\":\"http://onprem-gateway.monitoring.svc:9090\",\"threshold\":\"450\"},\"metricType\":\"AverageValue\",\"type\":\"prometheus\"}]}}\n"
+                },
+                "creationTimestamp": "2026-09-27T18:27:57Z",
+                "finalizers": [
+                    "finalizer.keda.sh"
+                ],
+                "generation": 3,
+                "labels": {
+                    "argocd.argoproj.io/instance": "server",
+                    "scaledobject.keda.sh/name": "pantry-mate-order-payment-scaler"
+                },
+                "name": "pantry-mate-order-payment-scaler",
+                "namespace": "app",
+                "resourceVersion": "404070",
+                "uid": "150e68c4-6a6d-4465-a43f-fa537727af26"
+            },
+            "spec": {
+                "advanced": {
+                    "horizontalPodAutoscalerConfig": {
+                        "behavior": {
+                            "scaleDown": {
+                                "policies": [
+                                    {
+                                        "periodSeconds": 60,
+                                        "type": "Percent",
+                                        "value": 50
+                                    }
+                                ],
+                                "selectPolicy": "Max",
+                                "stabilizationWindowSeconds": 120
+                            },
+                            "scaleUp": {
+                                "policies": [
+                                    {
+                                        "periodSeconds": 15,
+                                        "type": "Percent",
+                                        "value": 100
+                                    },
+                                    {
+                                        "periodSeconds": 15,
+                                        "type": "Pods",
+                                        "value": 2
+                                    }
+                                ],
+                                "selectPolicy": "Max",
+                                "stabilizationWindowSeconds": 0
+                            }
+                        }
+                    }
+                },
+                "cooldownPeriod": 60,
+                "maxReplicaCount": 4,
+                "minReplicaCount": 2,
+                "pollingInterval": 15,
+                "scaleTargetRef": {
+                    "kind": "Deployment",
+                    "name": "pantry-mate-order-payment"
+                },
+                "triggers": [
+                    {
+                        "metadata": {
+                            "value": "60"
+                        },
+                        "metricType": "Utilization",
+                        "type": "cpu"
+                    },
+                    {
+                        "metadata": {
+                            "metricName": "otel_pantry_mate_order_payment_memory",
+                            "query": "avg(k8s_pod_memory_working_set_bytes{k8s_namespace_name=\"app\",k8s_pod_name=~\"pantry-mate-order-payment-.*\"}) / 1024 / 1024",
+                            "serverAddress": "http://onprem-gateway.monitoring.svc:9090",
+                            "threshold": "450"
+                        },
+                        "metricType": "AverageValue",
+                        "type": "prometheus"
+                    }
+                ]
+            },
+            "status": {
+                "authenticationsTypes": "",
+                "conditions": [
+                    {
+                        "message": "ScaledObject is defined correctly and is ready for scaling",
+                        "reason": "ScaledObjectReady",
+                        "status": "True",
+                        "type": "Ready"
+                    },
+                    {
+                        "message": "Scaling is performed because triggers are active",
+                        "reason": "ScalerActive",
+                        "status": "True",
+                        "type": "Active"
+                    },
+                    {
+                        "message": "No fallbacks are active on this scaled object",
+                        "reason": "NoFallbackFound",
+                        "status": "False",
+                        "type": "Fallback"
+                    },
+                    {
+                        "message": "pause annotation removed for ScaledObject",
+                        "reason": "ScaledObjectUnpaused",
+                        "status": "False",
+                        "type": "Paused"
+                    },
+                    {
+                        "message": "HPA is actively scaling",
+                        "reason": "HPAActive",
+                        "status": "True",
+                        "type": "HPAActive"
+                    }
+                ],
+                "externalMetricNames": [
+                    "s1-prometheus"
+                ],
+                "hpaName": "keda-hpa-pantry-mate-order-payment-scaler",
+                "lastActiveTime": "2026-09-28T10:32:41Z",
+                "originalReplicaCount": 1,
+                "resourceMetricNames": [
+                    "cpu"
+                ],
+                "scaleTargetGVKR": {
+                    "group": "apps",
+                    "kind": "Deployment",
+                    "resource": "deployments",
+                    "version": "v1"
+                },
+                "scaleTargetKind": "apps/v1.Deployment",
+                "triggersActivity": {
+                    "s1-prometheus": {
+                        "isActive": true
+                    }
+                },
+                "triggersTypes": "cpu,prometheus"
+            }
+        },
+        {
+            "apiVersion": "keda.sh/v1alpha1",
+            "kind": "ScaledObject",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"keda.sh/v1alpha1\",\"kind\":\"ScaledObject\",\"metadata\":{\"annotations\":{},\"labels\":{\"argocd.argoproj.io/instance\":\"server\"},\"name\":\"pantry-mate-pantry-recipe-scaler\",\"namespace\":\"app\"},\"spec\":{\"advanced\":{\"horizontalPodAutoscalerConfig\":{\"behavior\":{\"scaleDown\":{\"policies\":[{\"periodSeconds\":60,\"type\":\"Percent\",\"value\":50}],\"selectPolicy\":\"Max\",\"stabilizationWindowSeconds\":120},\"scaleUp\":{\"policies\":[{\"periodSeconds\":15,\"type\":\"Percent\",\"value\":100},{\"periodSeconds\":15,\"type\":\"Pods\",\"value\":2}],\"selectPolicy\":\"Max\",\"stabilizationWindowSeconds\":0}}}},\"cooldownPeriod\":60,\"maxReplicaCount\":8,\"minReplicaCount\":2,\"pollingInterval\":15,\"scaleTargetRef\":{\"kind\":\"Deployment\",\"name\":\"pantry-mate-pantry-recipe\"},\"triggers\":[{\"metadata\":{\"value\":\"60\"},\"metricType\":\"Utilization\",\"type\":\"cpu\"},{\"metadata\":{\"metricName\":\"otel_pantry_mate_pantry_recipe_memory\",\"query\":\"avg(k8s_pod_memory_working_set_bytes{k8s_namespace_name=\\\"app\\\",k8s_pod_name=~\\\"pantry-mate-pantry-recipe-.*\\\"}) / 1024 / 1024\",\"serverAddress\":\"http://onprem-gateway.monitoring.svc:9090\",\"threshold\":\"400\"},\"metricType\":\"AverageValue\",\"type\":\"prometheus\"}]}}\n"
+                },
+                "creationTimestamp": "2026-09-27T18:27:57Z",
+                "finalizers": [
+                    "finalizer.keda.sh"
+                ],
+                "generation": 3,
+                "labels": {
+                    "argocd.argoproj.io/instance": "server",
+                    "scaledobject.keda.sh/name": "pantry-mate-pantry-recipe-scaler"
+                },
+                "name": "pantry-mate-pantry-recipe-scaler",
+                "namespace": "app",
+                "resourceVersion": "404071",
+                "uid": "f874fc83-4c8f-4f5a-94f9-8aa9ed3671d6"
+            },
+            "spec": {
+                "advanced": {
+                    "horizontalPodAutoscalerConfig": {
+                        "behavior": {
+                            "scaleDown": {
+                                "policies": [
+                                    {
+                                        "periodSeconds": 60,
+                                        "type": "Percent",
+                                        "value": 50
+                                    }
+                                ],
+                                "selectPolicy": "Max",
+                                "stabilizationWindowSeconds": 120
+                            },
+                            "scaleUp": {
+                                "policies": [
+                                    {
+                                        "periodSeconds": 15,
+                                        "type": "Percent",
+                                        "value": 100
+                                    },
+                                    {
+                                        "periodSeconds": 15,
+                                        "type": "Pods",
+                                        "value": 2
+                                    }
+                                ],
+                                "selectPolicy": "Max",
+                                "stabilizationWindowSeconds": 0
+                            }
+                        }
+                    }
+                },
+                "cooldownPeriod": 60,
+                "maxReplicaCount": 8,
+                "minReplicaCount": 2,
+                "pollingInterval": 15,
+                "scaleTargetRef": {
+                    "kind": "Deployment",
+                    "name": "pantry-mate-pantry-recipe"
+                },
+                "triggers": [
+                    {
+                        "metadata": {
+                            "value": "60"
+                        },
+                        "metricType": "Utilization",
+                        "type": "cpu"
+                    },
+                    {
+                        "metadata": {
+                            "metricName": "otel_pantry_mate_pantry_recipe_memory",
+                            "query": "avg(k8s_pod_memory_working_set_bytes{k8s_namespace_name=\"app\",k8s_pod_name=~\"pantry-mate-pantry-recipe-.*\"}) / 1024 / 1024",
+                            "serverAddress": "http://onprem-gateway.monitoring.svc:9090",
+                            "threshold": "400"
+                        },
+                        "metricType": "AverageValue",
+                        "type": "prometheus"
+                    }
+                ]
+            },
+            "status": {
+                "authenticationsTypes": "",
+                "conditions": [
+                    {
+                        "message": "ScaledObject is defined correctly and is ready for scaling",
+                        "reason": "ScaledObjectReady",
+                        "status": "True",
+                        "type": "Ready"
+                    },
+                    {
+                        "message": "Scaling is performed because triggers are active",
+                        "reason": "ScalerActive",
+                        "status": "True",
+                        "type": "Active"
+                    },
+                    {
+                        "message": "No fallbacks are active on this scaled object",
+                        "reason": "NoFallbackFound",
+                        "status": "False",
+                        "type": "Fallback"
+                    },
+                    {
+                        "message": "pause annotation removed for ScaledObject",
+                        "reason": "ScaledObjectUnpaused",
+                        "status": "False",
+                        "type": "Paused"
+                    },
+                    {
+                        "message": "HPA is actively scaling",
+                        "reason": "HPAActive",
+                        "status": "True",
+                        "type": "HPAActive"
+                    }
+                ],
+                "externalMetricNames": [
+                    "s1-prometheus"
+                ],
+                "hpaName": "keda-hpa-pantry-mate-pantry-recipe-scaler",
+                "lastActiveTime": "2026-09-28T10:32:41Z",
+                "originalReplicaCount": 1,
+                "resourceMetricNames": [
+                    "cpu"
+                ],
+                "scaleTargetGVKR": {
+                    "group": "apps",
+                    "kind": "Deployment",
+                    "resource": "deployments",
+                    "version": "v1"
+                },
+                "scaleTargetKind": "apps/v1.Deployment",
+                "triggersActivity": {
+                    "s1-prometheus": {
+                        "isActive": true
+                    }
+                },
+                "triggersTypes": "cpu,prometheus"
+            }
+        },
+        {
+            "apiVersion": "keda.sh/v1alpha1",
+            "kind": "ScaledObject",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"keda.sh/v1alpha1\",\"kind\":\"ScaledObject\",\"metadata\":{\"annotations\":{},\"labels\":{\"argocd.argoproj.io/instance\":\"server\"},\"name\":\"pantry-mate-product-scaler\",\"namespace\":\"app\"},\"spec\":{\"advanced\":{\"horizontalPodAutoscalerConfig\":{\"behavior\":{\"scaleDown\":{\"policies\":[{\"periodSeconds\":60,\"type\":\"Percent\",\"value\":50}],\"selectPolicy\":\"Max\",\"stabilizationWindowSeconds\":120},\"scaleUp\":{\"policies\":[{\"periodSeconds\":15,\"type\":\"Percent\",\"value\":100},{\"periodSeconds\":15,\"type\":\"Pods\",\"value\":2}],\"selectPolicy\":\"Max\",\"stabilizationWindowSeconds\":0}}}},\"cooldownPeriod\":60,\"maxReplicaCount\":8,\"minReplicaCount\":2,\"pollingInterval\":15,\"scaleTargetRef\":{\"kind\":\"Deployment\",\"name\":\"pantry-mate-product\"},\"triggers\":[{\"metadata\":{\"value\":\"60\"},\"metricType\":\"Utilization\",\"type\":\"cpu\"},{\"metadata\":{\"metricName\":\"otel_pantry_mate_product_memory\",\"query\":\"avg(k8s_pod_memory_working_set_bytes{k8s_namespace_name=\\\"app\\\",k8s_pod_name=~\\\"pantry-mate-product-.*\\\"}) / 1024 / 1024\",\"serverAddress\":\"http://onprem-gateway.monitoring.svc:9090\",\"threshold\":\"400\"},\"metricType\":\"AverageValue\",\"type\":\"prometheus\"}]}}\n"
+                },
+                "creationTimestamp": "2026-09-27T18:27:57Z",
+                "finalizers": [
+                    "finalizer.keda.sh"
+                ],
+                "generation": 3,
+                "labels": {
+                    "argocd.argoproj.io/instance": "server",
+                    "scaledobject.keda.sh/name": "pantry-mate-product-scaler"
+                },
+                "name": "pantry-mate-product-scaler",
+                "namespace": "app",
+                "resourceVersion": "404077",
+                "uid": "12237db4-c0b5-4131-94e1-ae904923fd48"
+            },
+            "spec": {
+                "advanced": {
+                    "horizontalPodAutoscalerConfig": {
+                        "behavior": {
+                            "scaleDown": {
+                                "policies": [
+                                    {
+                                        "periodSeconds": 60,
+                                        "type": "Percent",
+                                        "value": 50
+                                    }
+                                ],
+                                "selectPolicy": "Max",
+                                "stabilizationWindowSeconds": 120
+                            },
+                            "scaleUp": {
+                                "policies": [
+                                    {
+                                        "periodSeconds": 15,
+                                        "type": "Percent",
+                                        "value": 100
+                                    },
+                                    {
+                                        "periodSeconds": 15,
+                                        "type": "Pods",
+                                        "value": 2
+                                    }
+                                ],
+                                "selectPolicy": "Max",
+                                "stabilizationWindowSeconds": 0
+                            }
+                        }
+                    }
+                },
+                "cooldownPeriod": 60,
+                "maxReplicaCount": 8,
+                "minReplicaCount": 2,
+                "pollingInterval": 15,
+                "scaleTargetRef": {
+                    "kind": "Deployment",
+                    "name": "pantry-mate-product"
+                },
+                "triggers": [
+                    {
+                        "metadata": {
+                            "value": "60"
+                        },
+                        "metricType": "Utilization",
+                        "type": "cpu"
+                    },
+                    {
+                        "metadata": {
+                            "metricName": "otel_pantry_mate_product_memory",
+                            "query": "avg(k8s_pod_memory_working_set_bytes{k8s_namespace_name=\"app\",k8s_pod_name=~\"pantry-mate-product-.*\"}) / 1024 / 1024",
+                            "serverAddress": "http://onprem-gateway.monitoring.svc:9090",
+                            "threshold": "400"
+                        },
+                        "metricType": "AverageValue",
+                        "type": "prometheus"
+                    }
+                ]
+            },
+            "status": {
+                "authenticationsTypes": "",
+                "conditions": [
+                    {
+                        "message": "ScaledObject is defined correctly and is ready for scaling",
+                        "reason": "ScaledObjectReady",
+                        "status": "True",
+                        "type": "Ready"
+                    },
+                    {
+                        "message": "Scaling is performed because triggers are active",
+                        "reason": "ScalerActive",
+                        "status": "True",
+                        "type": "Active"
+                    },
+                    {
+                        "message": "No fallbacks are active on this scaled object",
+                        "reason": "NoFallbackFound",
+                        "status": "False",
+                        "type": "Fallback"
+                    },
+                    {
+                        "message": "pause annotation removed for ScaledObject",
+                        "reason": "ScaledObjectUnpaused",
+                        "status": "False",
+                        "type": "Paused"
+                    },
+                    {
+                        "message": "HPA is actively scaling",
+                        "reason": "HPAActive",
+                        "status": "True",
+                        "type": "HPAActive"
+                    }
+                ],
+                "externalMetricNames": [
+                    "s1-prometheus"
+                ],
+                "hpaName": "keda-hpa-pantry-mate-product-scaler",
+                "lastActiveTime": "2026-09-28T10:32:41Z",
+                "originalReplicaCount": 1,
+                "resourceMetricNames": [
+                    "cpu"
+                ],
+                "scaleTargetGVKR": {
+                    "group": "apps",
+                    "kind": "Deployment",
+                    "resource": "deployments",
+                    "version": "v1"
+                },
+                "scaleTargetKind": "apps/v1.Deployment",
+                "triggersActivity": {
+                    "s1-prometheus": {
+                        "isActive": true
+                    }
+                },
+                "triggersTypes": "cpu,prometheus"
+            }
+        },
+        {
+            "apiVersion": "keda.sh/v1alpha1",
+            "kind": "ScaledObject",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"keda.sh/v1alpha1\",\"kind\":\"ScaledObject\",\"metadata\":{\"annotations\":{},\"labels\":{\"argocd.argoproj.io/instance\":\"server\"},\"name\":\"pantry-mate-user-scaler\",\"namespace\":\"app\"},\"spec\":{\"advanced\":{\"horizontalPodAutoscalerConfig\":{\"behavior\":{\"scaleDown\":{\"policies\":[{\"periodSeconds\":60,\"type\":\"Percent\",\"value\":50}],\"selectPolicy\":\"Max\",\"stabilizationWindowSeconds\":120},\"scaleUp\":{\"policies\":[{\"periodSeconds\":15,\"type\":\"Percent\",\"value\":100},{\"periodSeconds\":15,\"type\":\"Pods\",\"value\":2}],\"selectPolicy\":\"Max\",\"stabilizationWindowSeconds\":0}}}},\"cooldownPeriod\":60,\"maxReplicaCount\":6,\"minReplicaCount\":2,\"pollingInterval\":15,\"scaleTargetRef\":{\"kind\":\"Deployment\",\"name\":\"pantry-mate-user\"},\"triggers\":[{\"metadata\":{\"value\":\"60\"},\"metricType\":\"Utilization\",\"type\":\"cpu\"},{\"metadata\":{\"metricName\":\"otel_pantry_mate_user_memory\",\"query\":\"avg(k8s_pod_memory_working_set_bytes{k8s_namespace_name=\\\"app\\\",k8s_pod_name=~\\\"pantry-mate-user-.*\\\"}) / 1024 / 1024\",\"serverAddress\":\"http://onprem-gateway.monitoring.svc:9090\",\"threshold\":\"420\"},\"metricType\":\"AverageValue\",\"type\":\"prometheus\"}]}}\n"
+                },
+                "creationTimestamp": "2026-09-27T18:27:57Z",
+                "finalizers": [
+                    "finalizer.keda.sh"
+                ],
+                "generation": 3,
+                "labels": {
+                    "argocd.argoproj.io/instance": "server",
+                    "scaledobject.keda.sh/name": "pantry-mate-user-scaler"
+                },
+                "name": "pantry-mate-user-scaler",
+                "namespace": "app",
+                "resourceVersion": "404075",
+                "uid": "50a504d8-0b0d-4b0c-88e8-fd38bd5e66e0"
+            },
+            "spec": {
+                "advanced": {
+                    "horizontalPodAutoscalerConfig": {
+                        "behavior": {
+                            "scaleDown": {
+                                "policies": [
+                                    {
+                                        "periodSeconds": 60,
+                                        "type": "Percent",
+                                        "value": 50
+                                    }
+                                ],
+                                "selectPolicy": "Max",
+                                "stabilizationWindowSeconds": 120
+                            },
+                            "scaleUp": {
+                                "policies": [
+                                    {
+                                        "periodSeconds": 15,
+                                        "type": "Percent",
+                                        "value": 100
+                                    },
+                                    {
+                                        "periodSeconds": 15,
+                                        "type": "Pods",
+                                        "value": 2
+                                    }
+                                ],
+                                "selectPolicy": "Max",
+                                "stabilizationWindowSeconds": 0
+                            }
+                        }
+                    }
+                },
+                "cooldownPeriod": 60,
+                "maxReplicaCount": 6,
+                "minReplicaCount": 2,
+                "pollingInterval": 15,
+                "scaleTargetRef": {
+                    "kind": "Deployment",
+                    "name": "pantry-mate-user"
+                },
+                "triggers": [
+                    {
+                        "metadata": {
+                            "value": "60"
+                        },
+                        "metricType": "Utilization",
+                        "type": "cpu"
+                    },
+                    {
+                        "metadata": {
+                            "metricName": "otel_pantry_mate_user_memory",
+                            "query": "avg(k8s_pod_memory_working_set_bytes{k8s_namespace_name=\"app\",k8s_pod_name=~\"pantry-mate-user-.*\"}) / 1024 / 1024",
+                            "serverAddress": "http://onprem-gateway.monitoring.svc:9090",
+                            "threshold": "420"
+                        },
+                        "metricType": "AverageValue",
+                        "type": "prometheus"
+                    }
+                ]
+            },
+            "status": {
+                "authenticationsTypes": "",
+                "conditions": [
+                    {
+                        "message": "ScaledObject is defined correctly and is ready for scaling",
+                        "reason": "ScaledObjectReady",
+                        "status": "True",
+                        "type": "Ready"
+                    },
+                    {
+                        "message": "Scaling is performed because triggers are active",
+                        "reason": "ScalerActive",
+                        "status": "True",
+                        "type": "Active"
+                    },
+                    {
+                        "message": "No fallbacks are active on this scaled object",
+                        "reason": "NoFallbackFound",
+                        "status": "False",
+                        "type": "Fallback"
+                    },
+                    {
+                        "message": "pause annotation removed for ScaledObject",
+                        "reason": "ScaledObjectUnpaused",
+                        "status": "False",
+                        "type": "Paused"
+                    },
+                    {
+                        "message": "HPA is actively scaling",
+                        "reason": "HPAActive",
+                        "status": "True",
+                        "type": "HPAActive"
+                    }
+                ],
+                "externalMetricNames": [
+                    "s1-prometheus"
+                ],
+                "hpaName": "keda-hpa-pantry-mate-user-scaler",
+                "lastActiveTime": "2026-09-28T10:32:41Z",
+                "originalReplicaCount": 1,
+                "resourceMetricNames": [
+                    "cpu"
+                ],
+                "scaleTargetGVKR": {
+                    "group": "apps",
+                    "kind": "Deployment",
+                    "resource": "deployments",
+                    "version": "v1"
+                },
+                "scaleTargetKind": "apps/v1.Deployment",
+                "triggersActivity": {
+                    "s1-prometheus": {
+                        "isActive": true
+                    }
+                },
+                "triggersTypes": "cpu,prometheus"
+            }
+        }
+    ],
+    "kind": "List",
+    "metadata": {
+        "resourceVersion": ""
+    }
+}

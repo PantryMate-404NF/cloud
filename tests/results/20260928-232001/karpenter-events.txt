@@ -1,0 +1,51 @@
+===== 2026-09-28T23:33:06+09:00 =====
+NAMESPACE    LAST SEEN   TYPE      REASON                  OBJECT                                                MESSAGE
+default      60m         Normal    Ready                   node/ip-10-0-11-239.ap-northeast-2.compute.internal   Status condition transitioned, Type: Ready, Status: False -> True, Reason: KubeletReady, Message: kubelet is posting ready status
+default      60m         Normal    Initialized             nodeclaim/general-64sg6                               Status condition transitioned, Type: Initialized, Status: Unknown -> True, Reason: Initialized
+default      60m         Normal    Ready                   nodeclaim/general-64sg6                               Status condition transitioned, Type: Ready, Status: Unknown -> True, Reason: Ready
+app          59m         Normal    Nominated               pod/pantry-mate-frontend-6484bf5f4c-q4tkg             Pod should schedule on: nodeclaim/general-kctsv
+default      59m         Normal    Launched                nodeclaim/general-kctsv                               Status condition transitioned, Type: Launched, Status: Unknown -> True, Reason: Launched
+default      58m         Normal    DisruptionBlocked       nodeclaim/general-kctsv                               Nodeclaim does not have an associated node
+default      58m         Normal    Registered              nodeclaim/general-kctsv                               Status condition transitioned, Type: Registered, Status: Unknown -> True, Reason: Registered
+default      58m         Normal    DisruptionBlocked       node/ip-10-0-11-19.ap-northeast-2.compute.internal    Node isn't initialized
+default      58m         Normal    Ready                   node/ip-10-0-11-19.ap-northeast-2.compute.internal    Status condition transitioned, Type: Ready, Status: False -> True, Reason: KubeletReady, Message: kubelet is posting ready status
+default      58m         Normal    Initialized             nodeclaim/general-kctsv                               Status condition transitioned, Type: Initialized, Status: Unknown -> True, Reason: Initialized
+default      58m         Normal    Ready                   nodeclaim/general-kctsv                               Status condition transitioned, Type: Ready, Status: Unknown -> True, Reason: Ready
+default      55m         Normal    Unconsolidatable        node/ip-10-0-11-133.ap-northeast-2.compute.internal   SpotToSpotConsolidation is disabled, can't replace a spot node with a spot node
+default      55m         Normal    Unconsolidatable        nodeclaim/general-xm992                               SpotToSpotConsolidation is disabled, can't replace a spot node with a spot node
+default      54m         Normal    Unconsolidatable        nodeclaim/general-64sg6                               SpotToSpotConsolidation is disabled, can't replace a spot node with a spot node
+default      54m         Normal    Unconsolidatable        node/ip-10-0-11-239.ap-northeast-2.compute.internal   SpotToSpotConsolidation is disabled, can't replace a spot node with a spot node
+default      51m         Normal    Unconsolidatable        node/ip-10-0-11-19.ap-northeast-2.compute.internal    SpotToSpotConsolidation is disabled, can't replace a spot node with a spot node
+default      51m         Normal    Unconsolidatable        nodeclaim/general-kctsv                               SpotToSpotConsolidation is disabled, can't replace a spot node with a spot node
+default      44m         Warning   FailedDraining          node/ip-10-0-11-133.ap-northeast-2.compute.internal   Failed to drain node, 1 pods are waiting to be evicted
+default      44m         Normal    DisruptionBlocked       node/ip-10-0-11-133.ap-northeast-2.compute.internal   Node is deleting or marked for deletion
+default      44m         Normal    DisruptionTerminating   node/ip-10-0-11-133.ap-northeast-2.compute.internal   Disrupting Node: Empty
+monitoring   44m         Normal    Evicted                 pod/otel-collector-f2hdv                              Evicted pod: Empty
+default      44m         Normal    DisruptionTerminating   nodeclaim/general-xm992                               Disrupting NodeClaim: Empty
+default      44m         Normal    DisruptionBlocked       nodeclaim/general-xm992                               Node is deleting or marked for deletion
+default      44m         Warning   InstanceTerminating     nodeclaim/general-xm992                               Instance is terminating
+default      44m         Warning   InstanceTerminating     node/ip-10-0-11-133.ap-northeast-2.compute.internal   Instance is terminating
+default      44m         Normal    Drained                 nodeclaim/general-xm992                               Status condition transitioned, Type: Drained, Status: Unknown -> True, Reason: Drained
+default      44m         Normal    Ready                   node/ip-10-0-11-133.ap-northeast-2.compute.internal   Status condition transitioned, Type: Ready, Status: True -> False, Reason: KubeletNotReady, Message: node is shutting down
+default      44m         Warning   FailedDraining          node/ip-10-0-11-19.ap-northeast-2.compute.internal    Failed to drain node, 1 pods are waiting to be evicted
+default      44m         Normal    DisruptionBlocked       nodeclaim/general-kctsv                               Node is deleting or marked for deletion
+monitoring   44m         Normal    Evicted                 pod/otel-collector-npf2w                              Evicted pod: Empty
+default      44m         Normal    DisruptionTerminating   nodeclaim/general-kctsv                               Disrupting NodeClaim: Empty
+default      44m         Normal    DisruptionTerminating   node/ip-10-0-11-19.ap-northeast-2.compute.internal    Disrupting Node: Empty
+default      44m         Normal    DisruptionBlocked       node/ip-10-0-11-19.ap-northeast-2.compute.internal    Node is deleting or marked for deletion
+default      44m         Warning   InstanceTerminating     node/ip-10-0-11-19.ap-northeast-2.compute.internal    Instance is terminating
+default      44m         Normal    Drained                 nodeclaim/general-kctsv                               Status condition transitioned, Type: Drained, Status: Unknown -> True, Reason: Drained
+default      44m         Normal    Ready                   node/ip-10-0-11-19.ap-northeast-2.compute.internal    Status condition transitioned, Type: Ready, Status: True -> False, Reason: KubeletNotReady, Message: node is shutting down
+default      44m         Warning   InstanceTerminating     nodeclaim/general-kctsv                               Instance is terminating
+default      43m         Normal    DisruptionBlocked       nodeclaim/general-64sg6                               Node is deleting or marked for deletion
+default      43m         Normal    DisruptionTerminating   nodeclaim/general-64sg6                               Disrupting NodeClaim: Empty
+default      43m         Normal    DisruptionTerminating   node/ip-10-0-11-239.ap-northeast-2.compute.internal   Disrupting Node: Empty
+default      43m         Normal    DisruptionBlocked       node/ip-10-0-11-239.ap-northeast-2.compute.internal   Node is deleting or marked for deletion
+default      43m         Warning   FailedDraining          node/ip-10-0-11-239.ap-northeast-2.compute.internal   Failed to drain node, 1 pods are waiting to be evicted
+monitoring   43m         Normal    Evicted                 pod/otel-collector-lwxhc                              Evicted pod: Empty
+default      43m         Normal    Drained                 nodeclaim/general-64sg6                               Status condition transitioned, Type: Drained, Status: Unknown -> True, Reason: Drained
+default      43m         Normal    Ready                   node/ip-10-0-11-239.ap-northeast-2.compute.internal   Status condition transitioned, Type: Ready, Status: True -> False, Reason: KubeletNotReady, Message: node is shutting down
+default      43m         Warning   InstanceTerminating     node/ip-10-0-11-239.ap-northeast-2.compute.internal   Instance is terminating
+default      43m         Warning   InstanceTerminating     nodeclaim/general-64sg6                               Instance is terminating
+default      43m         Normal    Finalized               node                                                  Finalized karpenter.sh/termination
+default      43m         Normal    Finalized               nodeclaim                                             Finalized karpenter.sh/termination

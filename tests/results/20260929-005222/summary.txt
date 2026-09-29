@@ -1,0 +1,33 @@
+TEST_ID=20260929-005222
+context=arn:aws:eks:ap-northeast-2:542119828072:cluster/pantry-mate-dev-eks
+load_start=2026-09-29T00:52:25+09:00 load_end=2026-09-29T01:05:26+09:00
+===== LOAD SUMMARY =====
+profile=ramp max_vus_per_service=20 sleep=0.5s hold=5m
+requests=44773 rps=57.3
+failed=0.08% p95=779ms p99=1080ms max=10002ms
+5xx=0 timeout=34 429=0 403=0 other4xx=0
+
+per service:
+  pantry_recipe  p95=923ms failed=0.14%
+  frontend       p95=775ms failed=0.04%
+  gateway        p95=607ms failed=0.05%
+  product        p95=739ms failed=0.09%
+
+running (13m00.8s), 00/80 VUs, 44773 complete and 0 interrupted iterations
+frontend      ✓ [ 100% ] 00/20 VUs  13m0s
+gateway       ✓ [ 100% ] 00/20 VUs  13m0s
+pantry_recipe ✓ [ 100% ] 00/20 VUs  13m0s
+product       ✓ [ 100% ] 00/20 VUs  13m0s
+===== SCALING (15s 간격, 시각은 로컬) =====
+  nodes           start=5   peak=5   (00:52:25) end=5
+  frontend        start=2   peak=2   (00:52:25) end=2
+  gateway         start=2   peak=2   (00:52:25) end=2
+  notification    start=1   peak=1   (00:52:25) end=1
+  order-payment   start=2   peak=2   (00:52:25) end=2
+  pantry-recipe   start=2   peak=2   (00:52:25) end=2
+  product         start=2   peak=2   (00:52:25) end=2
+  user            start=2   peak=2   (00:52:25) end=2
+
+files: k6.log k6-summary.json scaling.log hpa-events.txt karpenter-events.txt nodeclaims.txt
+       timeline.log (10초 간격 HPA·파드·노드 상세)
+hpa-events.txt / karpenter-events.txt 시각은 UTC (+9시간 = 한국 시간)
