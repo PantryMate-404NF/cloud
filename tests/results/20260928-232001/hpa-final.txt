@@ -1,0 +1,9 @@
+===== 2026-09-28T23:33:08+09:00 =====
+NAME                                        REFERENCE                              TARGETS                           MINPODS   MAXPODS   REPLICAS   AGE
+keda-hpa-pantry-mate-frontend-scaler        Deployment/pantry-mate-frontend        39157m/150 (avg), cpu: 25%/60%    2         6         2          20h
+keda-hpa-pantry-mate-gateway-scaler         Deployment/pantry-mate-gateway         119144m/350 (avg), cpu: 14%/60%   2         10        2          12h
+keda-hpa-pantry-mate-notification-scaler    Deployment/pantry-mate-notification    272422m/400 (avg), cpu: 0%/60%    1         4         1          12h
+keda-hpa-pantry-mate-order-payment-scaler   Deployment/pantry-mate-order-payment   180760m/450 (avg), cpu: 2%/60%    2         4         2          12h
+keda-hpa-pantry-mate-pantry-recipe-scaler   Deployment/pantry-mate-pantry-recipe   168244m/400 (avg), cpu: 4%/60%    2         8         2          12h
+keda-hpa-pantry-mate-product-scaler         Deployment/pantry-mate-product         140137m/400 (avg), cpu: 3%/60%    2         8         2          12h
+keda-hpa-pantry-mate-user-scaler            Deployment/pantry-mate-user            154423m/420 (avg), cpu: 1%/60%    2         6         2          12h

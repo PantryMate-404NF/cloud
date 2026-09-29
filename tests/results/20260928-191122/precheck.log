@@ -1,0 +1,65 @@
+[2026-09-28T19:11:22+09:00] Pre-flight health check
+[2026-09-28T19:11:23+09:00] context=arn:aws:eks:ap-northeast-2:542119828072:cluster/pantry-mate-dev-eks
+
+===== DEPLOYMENTS =====
+NAME                        READY   UP-TO-DATE   AVAILABLE   AGE
+pantry-mate-ai              1/1     1            1           4h4m
+pantry-mate-frontend        2/2     2            2           15h
+pantry-mate-gateway         2/2     2            2           15h
+pantry-mate-notification    1/1     1            1           15h
+pantry-mate-order-payment   2/2     2            2           15h
+pantry-mate-pantry-recipe   2/2     2            2           15h
+pantry-mate-product         2/2     2            2           15h
+pantry-mate-user            2/2     2            2           15h
+redis                       1/1     1            1           8h
+
+===== KEDA =====
+NAME                               SCALETARGETKIND      SCALETARGETNAME             MIN   MAX   READY   ACTIVE   FALLBACK   PAUSED   TRIGGERS         AUTHENTICATIONS   AGE
+pantry-mate-frontend-scaler        apps/v1.Deployment   pantry-mate-frontend        2     6     True    True     False      False    cpu,prometheus                     15h
+pantry-mate-gateway-scaler         apps/v1.Deployment   pantry-mate-gateway         2     10    True    True     False      False    cpu,prometheus                     15h
+pantry-mate-notification-scaler    apps/v1.Deployment   pantry-mate-notification    1     4     True    True     False      False    cpu,prometheus                     15h
+pantry-mate-order-payment-scaler   apps/v1.Deployment   pantry-mate-order-payment   2     4     True    True     False      False    cpu,prometheus                     15h
+pantry-mate-pantry-recipe-scaler   apps/v1.Deployment   pantry-mate-pantry-recipe   2     8     True    True     False      False    cpu,prometheus                     15h
+pantry-mate-product-scaler         apps/v1.Deployment   pantry-mate-product         2     8     True    True     False      False    cpu,prometheus                     15h
+pantry-mate-user-scaler            apps/v1.Deployment   pantry-mate-user            2     6     True    True     False      False    cpu,prometheus                     15h
+
+===== HPA =====
+NAME                                        REFERENCE                              TARGETS                           MINPODS   MAXPODS   REPLICAS   AGE
+keda-hpa-pantry-mate-frontend-scaler        Deployment/pantry-mate-frontend        37325m/150 (avg), cpu: 1%/60%     2         6         2          15h
+keda-hpa-pantry-mate-gateway-scaler         Deployment/pantry-mate-gateway         97203m/350 (avg), cpu: 2%/60%     2         10        2          8h
+keda-hpa-pantry-mate-notification-scaler    Deployment/pantry-mate-notification    275418m/400 (avg), cpu: 0%/60%    1         4         1          8h
+keda-hpa-pantry-mate-order-payment-scaler   Deployment/pantry-mate-order-payment   170606m/450 (avg), cpu: 1%/60%    2         4         2          8h
+keda-hpa-pantry-mate-pantry-recipe-scaler   Deployment/pantry-mate-pantry-recipe   159773m/400 (avg), cpu: 4%/60%    2         8         2          8h
+keda-hpa-pantry-mate-product-scaler         Deployment/pantry-mate-product         131568m/400 (avg), cpu: 12%/60%   2         8         2          8h
+keda-hpa-pantry-mate-user-scaler            Deployment/pantry-mate-user            153390m/420 (avg), cpu: 0%/60%    2         6         2          8h
+
+===== NODEPOOL / NODECLAIM =====
+NAME                            NODECLASS   NODES   READY   AGE
+nodepool.karpenter.sh/general   default     0       True    16h
+
+===== KEDA PAUSED CHECK =====
+OK
+
+===== DEPLOYMENT READY CHECK =====
+OK
+
+===== CRASHLOOP CHECK =====
+OK
+
+===== METRICS API =====
+OK
+
+===== HPA UNKNOWN METRIC CHECK =====
+NAME                                        REFERENCE                              TARGETS                          MINPODS   MAXPODS   REPLICAS   AGE
+keda-hpa-pantry-mate-frontend-scaler        Deployment/pantry-mate-frontend        37353m/150 (avg), cpu: 1%/60%    2         6         2          15h
+keda-hpa-pantry-mate-gateway-scaler         Deployment/pantry-mate-gateway         97203m/350 (avg), cpu: 2%/60%    2         10        2          8h
+keda-hpa-pantry-mate-notification-scaler    Deployment/pantry-mate-notification    275418m/400 (avg), cpu: 0%/60%   1         4         1          8h
+keda-hpa-pantry-mate-order-payment-scaler   Deployment/pantry-mate-order-payment   170606m/450 (avg), cpu: 2%/60%   2         4         2          8h
+keda-hpa-pantry-mate-pantry-recipe-scaler   Deployment/pantry-mate-pantry-recipe   160507m/400 (avg), cpu: 3%/60%   2         8         2          8h
+keda-hpa-pantry-mate-product-scaler         Deployment/pantry-mate-product         131569m/400 (avg), cpu: 3%/60%   2         8         2          8h
+keda-hpa-pantry-mate-user-scaler            Deployment/pantry-mate-user            153273m/420 (avg), cpu: 0%/60%   2         6         2          8h
+
+OK
+
+===== RESULT =====
+PRE-CHECK PASSED

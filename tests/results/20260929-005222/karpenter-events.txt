@@ -1,0 +1,26 @@
+===== 2026-09-29T01:05:28+09:00 =====
+NAMESPACE    LAST SEEN   TYPE      REASON                  OBJECT                                                MESSAGE
+app          38m         Normal    Nominated               pod/pantry-mate-order-payment-6c4477f8f8-4qtxr        Pod should schedule on: nodeclaim/general-nwpbb
+default      38m         Normal    Launched                nodeclaim/general-nwpbb                               Status condition transitioned, Type: Launched, Status: Unknown -> True, Reason: Launched
+default      38m         Normal    DisruptionBlocked       nodeclaim/general-nwpbb                               Nodeclaim does not have an associated node
+default      38m         Normal    Registered              nodeclaim/general-nwpbb                               Status condition transitioned, Type: Registered, Status: Unknown -> True, Reason: Registered
+default      38m         Normal    DisruptionBlocked       node/ip-10-0-11-195.ap-northeast-2.compute.internal   Node isn't initialized
+default      38m         Normal    Ready                   node/ip-10-0-11-195.ap-northeast-2.compute.internal   Status condition transitioned, Type: Ready, Status: False -> True, Reason: KubeletReady, Message: kubelet is posting ready status
+default      38m         Normal    Initialized             nodeclaim/general-nwpbb                               Status condition transitioned, Type: Initialized, Status: Unknown -> True, Reason: Initialized
+default      38m         Normal    Ready                   nodeclaim/general-nwpbb                               Status condition transitioned, Type: Ready, Status: Unknown -> True, Reason: Ready
+default      33m         Normal    Unconsolidatable        nodeclaim/general-nwpbb                               SpotToSpotConsolidation is disabled, can't replace a spot node with a spot node
+default      33m         Normal    Unconsolidatable        node/ip-10-0-11-195.ap-northeast-2.compute.internal   SpotToSpotConsolidation is disabled, can't replace a spot node with a spot node
+default      27m         Normal    DisruptionTerminating   node/ip-10-0-11-195.ap-northeast-2.compute.internal   Disrupting Node: Underutilized
+app          27m         Normal    Evicted                 pod/pantry-mate-order-payment-6c4477f8f8-4qtxr        Evicted pod: Underutilized
+default      27m         Normal    DisruptionTerminating   nodeclaim/general-nwpbb                               Disrupting NodeClaim: Underutilized
+default      27m         Warning   FailedDraining          node/ip-10-0-11-195.ap-northeast-2.compute.internal   Failed to drain node, 2 pods are waiting to be evicted
+app          27m         Normal    Nominated               pod/pantry-mate-order-payment-6c4477f8f8-4qtxr        Pod should schedule on: node/ip-10-0-12-226.ap-northeast-2.compute.internal
+monitoring   27m         Normal    Evicted                 pod/otel-collector-t7qsc                              Evicted pod: Underutilized
+default      27m         Normal    Ready                   node/ip-10-0-11-195.ap-northeast-2.compute.internal   Status condition transitioned, Type: Ready, Status: True -> False, Reason: KubeletNotReady, Message: node is shutting down
+default      27m         Warning   InstanceTerminating     nodeclaim/general-nwpbb                               Instance is terminating
+default      27m         Warning   InstanceTerminating     node/ip-10-0-11-195.ap-northeast-2.compute.internal   Instance is terminating
+default      27m         Normal    Drained                 nodeclaim/general-nwpbb                               Status condition transitioned, Type: Drained, Status: Unknown -> True, Reason: Drained
+default      27m         Normal    DisruptionBlocked       nodeclaim/general-nwpbb                               Node is deleting or marked for deletion
+default      27m         Normal    DisruptionBlocked       node/ip-10-0-11-195.ap-northeast-2.compute.internal   Node is deleting or marked for deletion
+default      27m         Normal    Finalized               nodeclaim                                             Finalized karpenter.sh/termination
+default      27m         Normal    Finalized               node                                                  Finalized karpenter.sh/termination

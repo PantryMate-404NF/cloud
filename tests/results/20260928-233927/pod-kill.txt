@@ -1,0 +1,4 @@
+deployment=pantry-mate-product killed_pod=pantry-mate-product-6f9c6bf8b4-6q2p8 replicas=2
+start=2026-09-28T23:39:32+09:00
+end=2026-09-28T23:41:14+09:00
+recovery_seconds=102

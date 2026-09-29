@@ -1,0 +1,66 @@
+===== 2026-09-28T19:11:35+09:00 =====
+NAMESPACE     NAME                                                READY   STATUS    RESTARTS       AGE     IP            NODE                                             NOMINATED NODE   READINESS GATES
+app           pantry-mate-ai-77bd76b58f-km64v                     1/1     Running   0              3h45m   10.0.11.125   ip-10-0-11-212.ap-northeast-2.compute.internal   <none>           <none>
+app           pantry-mate-frontend-6484bf5f4c-56fhv               1/1     Running   0              9h      10.0.12.90    ip-10-0-12-226.ap-northeast-2.compute.internal   <none>           <none>
+app           pantry-mate-frontend-6484bf5f4c-thddb               1/1     Running   0              8h      10.0.11.198   ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+app           pantry-mate-gateway-7d54f6f7cb-9q5m6                1/1     Running   0              68m     10.0.11.197   ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+app           pantry-mate-gateway-7d54f6f7cb-h8qkk                1/1     Running   0              6h18m   10.0.12.182   ip-10-0-12-226.ap-northeast-2.compute.internal   <none>           <none>
+app           pantry-mate-notification-6464df757b-r46fd           1/1     Running   4 (88m ago)    98m     10.0.11.67    ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+app           pantry-mate-order-payment-6ff5497b96-5j6zq          1/1     Running   0              68m     10.0.11.6     ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+app           pantry-mate-order-payment-6ff5497b96-lldsm          1/1     Running   6 (87m ago)    104m    10.0.12.113   ip-10-0-12-106.ap-northeast-2.compute.internal   <none>           <none>
+app           pantry-mate-pantry-recipe-84b9975c8-8xpkm           1/1     Running   0              78m     10.0.12.4     ip-10-0-12-106.ap-northeast-2.compute.internal   <none>           <none>
+app           pantry-mate-pantry-recipe-84b9975c8-w682m           1/1     Running   0              68m     10.0.11.165   ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+app           pantry-mate-product-6f9c6bf8b4-lh247                1/1     Running   0              78m     10.0.12.210   ip-10-0-12-106.ap-northeast-2.compute.internal   <none>           <none>
+app           pantry-mate-product-6f9c6bf8b4-xt9c4                1/1     Running   0              73m     10.0.11.208   ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+app           pantry-mate-user-697ddd4679-6wncp                   1/1     Running   6 (88m ago)    104m    10.0.12.75    ip-10-0-12-226.ap-northeast-2.compute.internal   <none>           <none>
+app           pantry-mate-user-697ddd4679-kq2r8                   1/1     Running   7 (88m ago)    107m    10.0.12.12    ip-10-0-12-106.ap-northeast-2.compute.internal   <none>           <none>
+app           redis-65b8c78479-gstkm                              1/1     Running   0              8h      10.0.11.9     ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+argocd        argocd-application-controller-0                     1/1     Running   0              16h     10.0.11.200   ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+argocd        argocd-applicationset-controller-78cf69c779-tr6tr   1/1     Running   0              16h     10.0.12.67    ip-10-0-12-107.ap-northeast-2.compute.internal   <none>           <none>
+argocd        argocd-notifications-controller-7fd887d459-fgmx2    1/1     Running   0              16h     10.0.12.59    ip-10-0-12-107.ap-northeast-2.compute.internal   <none>           <none>
+argocd        argocd-redis-77879768bc-z9sbs                       1/1     Running   0              16h     10.0.12.201   ip-10-0-12-107.ap-northeast-2.compute.internal   <none>           <none>
+argocd        argocd-repo-server-6d4bbc7c6-kv8gm                  1/1     Running   0              16h     10.0.12.145   ip-10-0-12-107.ap-northeast-2.compute.internal   <none>           <none>
+argocd        argocd-server-d9bd864fd-g7wcw                       1/1     Running   0              16h     10.0.12.91    ip-10-0-12-107.ap-northeast-2.compute.internal   <none>           <none>
+cloudflare    cloudflared-7f7568f84d-86s8l                        1/1     Running   0              16h     10.0.12.49    ip-10-0-12-107.ap-northeast-2.compute.internal   <none>           <none>
+jenkins       jenkins-0                                           2/2     Running   0              4h4m    10.0.12.215   ip-10-0-12-107.ap-northeast-2.compute.internal   <none>           <none>
+karpenter     karpenter-7697677d54-96wm2                          1/1     Running   0              16h     10.0.12.230   ip-10-0-12-107.ap-northeast-2.compute.internal   <none>           <none>
+keda          keda-admission-webhooks-7bcfbd884d-wfpgr            1/1     Running   0              16h     10.0.12.181   ip-10-0-12-226.ap-northeast-2.compute.internal   <none>           <none>
+keda          keda-operator-d676f55d7-c76rq                       1/1     Running   1 (16h ago)    16h     10.0.12.243   ip-10-0-12-107.ap-northeast-2.compute.internal   <none>           <none>
+keda          keda-operator-metrics-apiserver-7df995ccb4-fkzqg    1/1     Running   0              16h     10.0.12.54    ip-10-0-12-107.ap-northeast-2.compute.internal   <none>           <none>
+kube-system   aws-node-45vgr                                      2/2     Running   0              16h     10.0.11.70    ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+kube-system   aws-node-9kk7c                                      2/2     Running   0              4h34m   10.0.1.150    ip-10-0-1-150.ap-northeast-2.compute.internal    <none>           <none>
+kube-system   aws-node-lzv65                                      2/2     Running   0              4h34m   10.0.12.106   ip-10-0-12-106.ap-northeast-2.compute.internal   <none>           <none>
+kube-system   aws-node-nfpd2                                      2/2     Running   0              16h     10.0.12.107   ip-10-0-12-107.ap-northeast-2.compute.internal   <none>           <none>
+kube-system   aws-node-ssrjl                                      2/2     Running   0              16h     10.0.12.226   ip-10-0-12-226.ap-northeast-2.compute.internal   <none>           <none>
+kube-system   aws-node-ws277                                      2/2     Running   2 (4h1m ago)   4h3m    10.0.11.212   ip-10-0-11-212.ap-northeast-2.compute.internal   <none>           <none>
+kube-system   coredns-78cd7ff444-gq4jt                            1/1     Running   0              68m     10.0.11.161   ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+kube-system   coredns-78cd7ff444-l74sf                            1/1     Running   0              4h39m   10.0.12.196   ip-10-0-12-107.ap-northeast-2.compute.internal   <none>           <none>
+kube-system   ebs-csi-controller-7474b98fd5-gml5j                 6/6     Running   0              16h     10.0.11.64    ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+kube-system   ebs-csi-controller-7474b98fd5-rrr67                 6/6     Running   0              16h     10.0.12.84    ip-10-0-12-226.ap-northeast-2.compute.internal   <none>           <none>
+kube-system   ebs-csi-node-5cgvn                                  3/3     Running   0              16h     10.0.12.129   ip-10-0-12-226.ap-northeast-2.compute.internal   <none>           <none>
+kube-system   ebs-csi-node-hpwh4                                  3/3     Running   0              16h     10.0.12.248   ip-10-0-12-107.ap-northeast-2.compute.internal   <none>           <none>
+kube-system   ebs-csi-node-jg8wr                                  3/3     Running   0              4h34m   10.0.12.81    ip-10-0-12-106.ap-northeast-2.compute.internal   <none>           <none>
+kube-system   ebs-csi-node-mp98b                                  3/3     Running   0              16h     10.0.11.98    ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+kube-system   ebs-csi-node-nqmpl                                  3/3     Running   0              4h34m   10.0.1.240    ip-10-0-1-150.ap-northeast-2.compute.internal    <none>           <none>
+kube-system   ebs-csi-node-tdctx                                  3/3     Running   3 (4h1m ago)   4h3m    10.0.11.19    ip-10-0-11-212.ap-northeast-2.compute.internal   <none>           <none>
+kube-system   eks-pod-identity-agent-4fdcm                        1/1     Running   0              16h     10.0.12.107   ip-10-0-12-107.ap-northeast-2.compute.internal   <none>           <none>
+kube-system   eks-pod-identity-agent-d4kkp                        1/1     Running   0              16h     10.0.11.70    ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+kube-system   eks-pod-identity-agent-gcz7c                        1/1     Running   0              4h34m   10.0.12.106   ip-10-0-12-106.ap-northeast-2.compute.internal   <none>           <none>
+kube-system   eks-pod-identity-agent-gvf8n                        1/1     Running   0              4h34m   10.0.1.150    ip-10-0-1-150.ap-northeast-2.compute.internal    <none>           <none>
+kube-system   eks-pod-identity-agent-wv8cq                        1/1     Running   1 (4h1m ago)   4h3m    10.0.11.212   ip-10-0-11-212.ap-northeast-2.compute.internal   <none>           <none>
+kube-system   eks-pod-identity-agent-xp5dm                        1/1     Running   0              16h     10.0.12.226   ip-10-0-12-226.ap-northeast-2.compute.internal   <none>           <none>
+kube-system   kube-proxy-cwnf5                                    1/1     Running   0              4h34m   10.0.1.150    ip-10-0-1-150.ap-northeast-2.compute.internal    <none>           <none>
+kube-system   kube-proxy-fkvkf                                    1/1     Running   0              4h34m   10.0.12.106   ip-10-0-12-106.ap-northeast-2.compute.internal   <none>           <none>
+kube-system   kube-proxy-gb9c8                                    1/1     Running   0              16h     10.0.11.70    ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+kube-system   kube-proxy-lmdhj                                    1/1     Running   0              16h     10.0.12.226   ip-10-0-12-226.ap-northeast-2.compute.internal   <none>           <none>
+kube-system   kube-proxy-x22p4                                    1/1     Running   1 (4h1m ago)   4h3m    10.0.11.212   ip-10-0-11-212.ap-northeast-2.compute.internal   <none>           <none>
+kube-system   kube-proxy-zdz7n                                    1/1     Running   0              16h     10.0.12.107   ip-10-0-12-107.ap-northeast-2.compute.internal   <none>           <none>
+kube-system   kube-state-metrics-fd97b4f4-pkvzb                   1/1     Running   0              81m     10.0.11.24    ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+kube-system   metrics-server-7c499d97b7-5lln6                     1/1     Running   0              16h     10.0.12.146   ip-10-0-12-107.ap-northeast-2.compute.internal   <none>           <none>
+monitoring    otel-collector-c6btp                                1/1     Running   0              162m    10.0.11.18    ip-10-0-11-212.ap-northeast-2.compute.internal   <none>           <none>
+monitoring    otel-collector-central-57484ff666-f6l5z             1/1     Running   0              68m     10.0.12.71    ip-10-0-12-226.ap-northeast-2.compute.internal   <none>           <none>
+monitoring    otel-collector-g88fm                                1/1     Running   0              162m    10.0.11.46    ip-10-0-11-70.ap-northeast-2.compute.internal    <none>           <none>
+monitoring    otel-collector-k8jbk                                1/1     Running   0              162m    10.0.12.177   ip-10-0-12-106.ap-northeast-2.compute.internal   <none>           <none>
+monitoring    otel-collector-s855b                                1/1     Running   0              162m    10.0.12.57    ip-10-0-12-226.ap-northeast-2.compute.internal   <none>           <none>
+monitoring    otel-collector-xkzb2                                1/1     Running   0              162m    10.0.12.42    ip-10-0-12-107.ap-northeast-2.compute.internal   <none>           <none>
+monitoring    tailscale-proxy-959c778fc-87ncf                     2/2     Running   0              4h39m   10.0.1.138    ip-10-0-1-150.ap-northeast-2.compute.internal    <none>           <none>

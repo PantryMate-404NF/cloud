@@ -1,0 +1,3 @@
+===== 2026-09-28T23:49:27+09:00 =====
+NAME            TYPE        CAPACITY   ZONE              NODE                                             READY   AGE     IMAGEID                 ID                                           NODEPOOL   NODECLASS   DRIFTED
+general-lg9d6   t3.medium   spot       ap-northeast-2a   ip-10-0-11-195.ap-northeast-2.compute.internal   True    5m16s   ami-0aadb3cf154aff503   aws:///ap-northeast-2a/i-0730d0fa4fab192c8   general    default     
