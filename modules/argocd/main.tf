@@ -72,7 +72,7 @@ resource "kubectl_manifest" "frontend_app" {
     apiVersion = "argoproj.io/v1alpha1"
     kind       = "Application"
     metadata = {
-      name      = var.frontend_repo_name
+      name      = lower(var.frontend_repo_name)
       namespace = "argocd"
       labels = {
         "app.kubernetes.io/managed-by" = "terraform"
@@ -84,7 +84,7 @@ resource "kubectl_manifest" "frontend_app" {
       source = {
         repoURL        = var.gitops_repo_url
         targetRevision = "HEAD"
-        path           = "environments/${var.environment}/${var.frontend_repo_name}"
+        path           = "environments/${var.environment}/${coalesce(var.frontend_gitops_path, var.frontend_repo_name)}"
       }
       destination = {
         server    = "https://kubernetes.default.svc"
@@ -122,7 +122,7 @@ resource "kubectl_manifest" "backend_app" {
     apiVersion = "argoproj.io/v1alpha1"
     kind       = "Application"
     metadata = {
-      name      = var.backend_repo_name
+      name      = lower(var.backend_repo_name)
       namespace = "argocd"
       labels = {
         "app.kubernetes.io/managed-by" = "terraform"
@@ -134,7 +134,7 @@ resource "kubectl_manifest" "backend_app" {
       source = {
         repoURL        = var.gitops_repo_url
         targetRevision = "HEAD"
-        path           = "environments/${var.environment}/${var.backend_repo_name}"
+        path           = "environments/${var.environment}/${coalesce(var.backend_gitops_path, var.backend_repo_name)}"
       }
       destination = {
         server    = "https://kubernetes.default.svc"

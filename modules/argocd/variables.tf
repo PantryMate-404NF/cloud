@@ -30,6 +30,18 @@ variable "backend_repo_name" {
   type        = string
 }
 
+variable "frontend_gitops_path" {
+  description = "GitOps 레포 environments/<env>/ 아래 프론트엔드 매니페스트 디렉토리. null이면 frontend_repo_name 사용."
+  type        = string
+  default     = null
+}
+
+variable "backend_gitops_path" {
+  description = "GitOps 레포 environments/<env>/ 아래 백엔드 매니페스트 디렉토리. null이면 backend_repo_name 사용."
+  type        = string
+  default     = null
+}
+
 variable "environment" {
   description = "배포 환경 (dev/prod). GitOps 레포 내 경로 구분에 사용됩니다."
   type        = string

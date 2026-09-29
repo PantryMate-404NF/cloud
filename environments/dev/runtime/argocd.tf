@@ -15,7 +15,10 @@ module "argocd" {
   frontend_repo_name = var.frontend_repo_name
   backend_repo_name  = var.backend_repo_name
   environment        = var.environment
-  app_namespace      = var.app_namespace
+
+  frontend_gitops_path = var.frontend_gitops_path
+  backend_gitops_path  = var.backend_gitops_path
+  app_namespace        = var.app_namespace
 
   depends_on = [module.eks]
 }

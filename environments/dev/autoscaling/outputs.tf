@@ -17,3 +17,10 @@ output "karpenter_node_role_arn" {
 output "karpenter_interruption_queue" {
   value = module.karpenter.interruption_queue_name
 }
+output "items_bucket_name" {
+  value = data.aws_s3_bucket.items.id
+}
+
+output "items_s3_role_arn" {
+  value = aws_iam_role.items_s3.arn
+}
