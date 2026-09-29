@@ -458,6 +458,55 @@ stages: [
 
 따라서 최초 테스트는 낮은 부하에서 시작한 후 단계적으로 증가시키는 것을 권장합니다.
 
+## 9.1 부하 조절 옵션
+
+| 변수 | 기본값 | 범위 | 뜻 |
+| --- | --- | --- | --- |
+| `MAX_VUS` | 20 | 1..500 | 서비스당 최대 VU |
+| `SLEEP` | 1 | 0..10 (초) | 요청 사이 대기. `0`이면 쉬지 않고 연속 요청 |
+| `HOLD` | 2m | `30s`, `5m`, `1h` 형식 | 최대 VU 유지 시간 |
+| `PROFILE` | ramp | ramp / spike / soak | 부하 곡선 |
+
+`PROFILE`:
+
+```text
+ramp  : 1m→25% · 2m→50% · 2m→75% · 2m→100% · HOLD 유지 · 1m→0
+spike : 30초 만에 100% · HOLD 유지 · 30s→0
+soak  : 2m→50% · HOLD 유지 · 1m→0
+```
+
+기본값(`SLEEP=1`)은 VU 80개가 약 36 req/s 밖에 만들지 못해 스케일아웃이 일어나지 않습니다.
+오토스케일링을 보려면 `SLEEP` 을 줄이고 `HOLD` 를 늘립니다 (KEDA 폴링 + 파드 기동 + Karpenter 노드 추가에 수 분이 걸림).
+
+```bash
+# 중간 강도: 스케일아웃 관찰
+SLEEP=0.2 MAX_VUS=50 HOLD=5m bash load/run.sh
+
+# 극단: 쉬지 않고 요청, 서비스당 200 VU
+SLEEP=0 MAX_VUS=200 HOLD=5m bash load/run.sh
+
+# 스파이크: 30초 만에 서비스당 300 VU
+PROFILE=spike SLEEP=0 MAX_VUS=300 HOLD=3m bash load/run.sh
+```
+
+종료 시 화면에 `LOAD SUMMARY` 가 출력됩니다 (서비스별 p95·실패율, 응답 코드 분류).
+
+`load/run.sh` 는 단독 실행해도 결과를 모두 `results/<TEST_ID>/` 에 남깁니다.
+부하가 끝난 뒤 `POST_OBSERVE`(기본 8m, `0`이면 생략) 동안 스케일인·노드 회수를 더 기록하고, Ctrl+C 로 중단해도 저장합니다.
+
+| 파일 | 내용 |
+| --- | --- |
+| `summary.txt` | **먼저 볼 파일.** k6 요약 + 항목별 레플리카·노드 수 시작/최대(도달 시각)/끝 |
+| `scaling.log` | 15초마다 노드 수와 HPA별 레플리카 한 줄 |
+| `timeline.log` | 10초마다 HPA·Deployment·Pod·Node·NodeClaim 상세 (`observe/watch.sh`) |
+| `hpa-events.txt` | HPA 레플리카 변경 이벤트와 사유 (UTC) |
+| `karpenter-events.txt` | Karpenter 노드 추가·회수 이벤트 (UTC) |
+| `k6.log` · `k6-summary.json` | k6 전체 출력과 지표 원본 |
+
+- `5xx` · `timeout` 증가 → 서버/DB 한계
+- `429` · `403` 증가 → Cloudflare 차단 가능성 (서버 한계 아님)
+- 로컬 PC CPU 가 100% 에 닿으면 k6 자체가 병목이므로 결과를 신뢰하기 어렵습니다
+
 ---
 
 # 10. AutoScaling 관찰

@@ -82,7 +82,7 @@ echo "===== STEP 5/8 : LOAD TEST ====="
 LOAD_START="$(now)"
 echo "$LOAD_START" > "$OUT/load-start.txt"
 
-"$ROOT/load/run.sh"
+LOAD_ORCHESTRATED=1 "$ROOT/load/run.sh"
 LOAD_RC=$?
 
 LOAD_END="$(now)"
