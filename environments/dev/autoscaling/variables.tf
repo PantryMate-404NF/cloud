@@ -24,25 +24,9 @@ variable "common_tags" {
     ManagedBy   = "Terraform"
   }
 }
-variable "app_namespace" {
-  type        = string
-  description = "Namespace where the application workloads run"
-  default     = "app"
-}
 
 variable "items_bucket_name" {
   type        = string
   description = "S3 bucket for app item images (created manually)"
   default     = "pantry-mate-items-542119828072"
-}
-
-variable "items_s3_service_accounts" {
-  type        = list(string)
-  description = "ServiceAccounts in app_namespace allowed to read/write the items bucket"
-  default = [
-    "pantry-mate-product",
-    "pantry-mate-pantry-recipe",
-    "pantry-mate-user",
-    "pantry-mate-ai"
-  ]
 }
