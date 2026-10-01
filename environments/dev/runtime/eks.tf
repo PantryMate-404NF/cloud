@@ -150,6 +150,11 @@ module "eks" {
     }
 
     gpu = {
+      # AI Pod의 PVC(pantry-mate-ai-var, EBS)가 2a에 있어 GPU 노드도 2a에 고정
+      subnet_ids = [
+        data.terraform_remote_state.foundation.outputs.private_subnet_ids[0]
+      ]
+
       instance_types = [var.gpu_node_instance_type]
       min_size       = var.gpu_node_min_size
       max_size       = var.gpu_node_max_size
