@@ -2,6 +2,8 @@ name: Proof HTML
 on:
   push:
   workflow_dispatch:
+permissions:
+  contents: read
 jobs:
   build:
     runs-on: ubuntu-latest

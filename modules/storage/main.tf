@@ -32,12 +32,29 @@ resource "aws_s3_bucket_versioning" "this" {
   }
 }
 
+# 고객 관리형 키(CMK). 버킷에 접근하는 주체는 kms:Decrypt, kms:GenerateDataKey 권한이 필요하다.
+resource "aws_kms_key" "this" {
+  description             = "${var.bucket_name} S3 encryption"
+  enable_key_rotation     = true
+  deletion_window_in_days = 30
+
+  tags = merge(var.common_tags, {
+    Name = "${var.bucket_name}-s3"
+  })
+}
+
+resource "aws_kms_alias" "this" {
+  name          = "alias/${var.bucket_name}-s3"
+  target_key_id = aws_kms_key.this.key_id
+}
+
 resource "aws_s3_bucket_server_side_encryption_configuration" "this" {
   bucket = aws_s3_bucket.this.id
 
   rule {
     apply_server_side_encryption_by_default {
-      sse_algorithm = "AES256"
+      sse_algorithm     = "aws:kms"
+      kms_master_key_id = aws_kms_key.this.arn
     }
 
     bucket_key_enabled = true

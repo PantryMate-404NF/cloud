@@ -8,3 +8,8 @@ output "bucket_arn" {
   value       = aws_s3_bucket.this.arn
 }
 
+
+output "kms_key_arn" {
+  description = "ARN of the KMS key used for bucket encryption."
+  value       = aws_kms_key.this.arn
+}

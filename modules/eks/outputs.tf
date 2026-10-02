@@ -47,3 +47,8 @@ output "node_launch_template_ids" {
   description = "EC2 launch template IDs keyed by managed node group role."
   value       = { for role, template in aws_launch_template.node : role => template.id }
 }
+
+output "secrets_kms_key_arn" {
+  description = "KMS key ARN used to encrypt Kubernetes secrets."
+  value       = aws_kms_key.secrets.arn
+}

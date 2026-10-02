@@ -238,6 +238,7 @@ module "jenkins" {
   backend_repo_name  = var.backend_repo_name
 
   artifact_bucket_name = module.storage.bucket_name
+  artifact_kms_key_arn = module.storage.kms_key_arn
   common_tags          = local.common_tags
 
   depends_on = [aws_iam_openid_connect_provider.eks, module.eks]

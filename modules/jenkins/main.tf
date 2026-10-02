@@ -125,6 +125,17 @@ data "aws_iam_policy_document" "jenkins" {
       "arn:aws:s3:::${var.artifact_bucket_name}/*",
     ]
   }
+
+  # 아티팩트 버킷이 SSE-KMS(CMK)로 암호화되어 있어 객체 읽기·쓰기에 필요
+  statement {
+    sid    = "S3ArtifactsKms"
+    effect = "Allow"
+    actions = [
+      "kms:Decrypt",
+      "kms:GenerateDataKey",
+    ]
+    resources = [var.artifact_kms_key_arn]
+  }
 }
 
 resource "aws_iam_role_policy" "jenkins" {
@@ -225,8 +236,8 @@ resource "kubernetes_annotations" "jenkins_sa_irsa" {
 
 resource "null_resource" "jenkins_irsa_restart" {
   triggers = {
-    role_arn    = aws_iam_role.jenkins.arn
-    helm_rev    = helm_release.jenkins.metadata[0].revision
+    role_arn = aws_iam_role.jenkins.arn
+    helm_rev = helm_release.jenkins.metadata[0].revision
   }
 
   provisioner "local-exec" {

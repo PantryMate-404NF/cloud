@@ -74,6 +74,11 @@ variable "artifact_bucket_name" {
   type        = string
 }
 
+variable "artifact_kms_key_arn" {
+  description = "KMS key ARN that encrypts the artifact bucket."
+  type        = string
+}
+
 variable "common_tags" {
   description = "Tags applied to all taggable AWS resources."
   type        = map(string)

@@ -55,11 +55,16 @@ resource "aws_vpc_security_group_ingress_rule" "ssh" {
   to_port           = 22
 }
 
-resource "aws_vpc_security_group_egress_rule" "all_ipv4" {
+# 프라이빗 서브넷이 실제로 쓰는 프로토콜·포트만 인터넷으로 내보낸다 (var.egress_rules)
+resource "aws_vpc_security_group_egress_rule" "internet" {
+  for_each = var.egress_rules
+
   security_group_id = aws_security_group.this.id
-  description       = "Allow forwarded traffic to the internet"
+  description       = each.value.description
   cidr_ipv4         = "0.0.0.0/0"
-  ip_protocol       = "-1"
+  ip_protocol       = each.value.protocol
+  from_port         = each.value.port
+  to_port           = each.value.port
 }
 
 resource "aws_instance" "this" {

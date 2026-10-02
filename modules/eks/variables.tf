@@ -130,12 +130,12 @@ variable "common_tags" {
 
 variable "tailscale_direct_enabled" {
   description = "Whether to allow inbound UDP for tailscale direct connetion"
-  type = bool
-  default = false
+  type        = bool
+  default     = false
 }
 
 variable "tailscale_direct_source_cidrs" {
   description = "cidrs allowed to reach the tailscale udp port"
-  type = list(string)
-  default = []
+  type        = list(string)
+  default     = []
 }

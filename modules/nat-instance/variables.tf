@@ -61,3 +61,49 @@ variable "common_tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "egress_rules" {
+  description = "Protocols and ports the NAT instance may forward to the internet, keyed by rule name."
+  type = map(object({
+    protocol    = string
+    port        = number
+    description = string
+  }))
+  default = {
+    http = {
+      protocol    = "tcp"
+      port        = 80
+      description = "HTTP (OS package repositories)"
+    }
+    https = {
+      protocol    = "tcp"
+      port        = 443
+      description = "HTTPS (AWS APIs, ECR, GitHub, Toss, Firebase, LLM, tailscale DERP)"
+    }
+    cloudflared_tcp = {
+      protocol    = "tcp"
+      port        = 7844
+      description = "Cloudflare Tunnel (http2)"
+    }
+    cloudflared_udp = {
+      protocol    = "udp"
+      port        = 7844
+      description = "Cloudflare Tunnel (QUIC)"
+    }
+    tailscale = {
+      protocol    = "udp"
+      port        = 41641
+      description = "tailscale direct WireGuard"
+    }
+    tailscale_stun = {
+      protocol    = "udp"
+      port        = 3478
+      description = "tailscale STUN"
+    }
+    ntp = {
+      protocol    = "udp"
+      port        = 123
+      description = "NTP"
+    }
+  }
+}

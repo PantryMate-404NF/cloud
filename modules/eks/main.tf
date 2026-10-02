@@ -7,6 +7,42 @@ resource "aws_cloudwatch_log_group" "cluster" {
   })
 }
 
+# Kubernetes Secret을 etcd에 저장할 때 봉투 암호화(envelope encryption)에 쓰는 키
+resource "aws_kms_key" "secrets" {
+  description             = "${var.cluster_name} Kubernetes secrets encryption"
+  enable_key_rotation     = true
+  deletion_window_in_days = 30
+
+  tags = merge(var.common_tags, {
+    Name = "${var.cluster_name}-secrets"
+  })
+}
+
+resource "aws_kms_alias" "secrets" {
+  name          = "alias/${var.cluster_name}-secrets"
+  target_key_id = aws_kms_key.secrets.key_id
+}
+
+# EKS 컨트롤 플레인 역할이 위 키로 Secret을 암호화·복호화할 수 있도록 허용
+data "aws_iam_policy_document" "cluster_secrets_kms" {
+  statement {
+    sid = "SecretsEncryption"
+    actions = [
+      "kms:Encrypt",
+      "kms:Decrypt",
+      "kms:ListGrants",
+      "kms:DescribeKey",
+    ]
+    resources = [aws_kms_key.secrets.arn]
+  }
+}
+
+resource "aws_iam_role_policy" "cluster_secrets_kms" {
+  name   = "${var.cluster_name}-secrets-kms"
+  role   = element(split("/", var.cluster_role_arn), length(split("/", var.cluster_role_arn)) - 1)
+  policy = data.aws_iam_policy_document.cluster_secrets_kms.json
+}
+
 resource "aws_eks_cluster" "this" {
   name                      = var.cluster_name
   role_arn                  = var.cluster_role_arn
@@ -25,11 +61,23 @@ resource "aws_eks_cluster" "this" {
     public_access_cidrs     = var.endpoint_public_access ? var.public_access_cidrs : null
   }
 
+  # 한 번 켜면 끌 수 없다. 기존 Secret은 적용 후 재저장해야 새 키로 암호화된다.
+  encryption_config {
+    resources = ["secrets"]
+
+    provider {
+      key_arn = aws_kms_key.secrets.arn
+    }
+  }
+
   tags = merge(var.common_tags, {
     Name = var.cluster_name
   })
 
-  depends_on = [aws_cloudwatch_log_group.cluster]
+  depends_on = [
+    aws_cloudwatch_log_group.cluster,
+    aws_iam_role_policy.cluster_secrets_kms,
+  ]
 }
 
 resource "aws_vpc_security_group_ingress_rule" "node_ssh" {
@@ -148,10 +196,10 @@ resource "aws_vpc_security_group_ingress_rule" "tailscale_direct" {
   for_each = var.tailscale_direct_enabled ? toset(var.tailscale_direct_source_cidrs) : toset([])
 
   security_group_id = aws_eks_cluster.this.vpc_config[0].cluster_security_group_id
-  description = "allow tailscale direct udp traffic"
+  description       = "allow tailscale direct udp traffic"
 
-  cidr_ipv4 = each.value
-  from_port = 41641
-  to_port = 41641
+  cidr_ipv4   = each.value
+  from_port   = 41641
+  to_port     = 41641
   ip_protocol = "udp"
 }
